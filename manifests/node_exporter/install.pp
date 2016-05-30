@@ -5,11 +5,16 @@
 # The package method needs specific yum or apt repo settings which are not made yet by the module
 class prometheus::node_exporter::install
 {
+
   case $::prometheus::node_exporter::install_method {
     'url': {
       include staging
       $staging_file = "node_exporter-${prometheus::node_exporter::version}.${prometheus::node_exporter::download_extension}"
-      $binary = "${::staging::path}/node_exporter"
+      if( versioncmp($::prometheus::node_exporter::version, '0.12.0') == -1 ){
+        $binary = "${::staging::path}/node_exporter"
+      } else {
+          $binary = "${::staging::path}/node_exporter-${::prometheus::node_exporter::version}.${::prometheus::node_exporter::os}-${::prometheus::node_exporter::arch}/node_exporter"
+      }
       staging::file { $staging_file:
         source => $prometheus::node_exporter::real_download_url,
       } ->
