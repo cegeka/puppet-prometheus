@@ -6,7 +6,7 @@
 class prometheus::alert_manager::install
 {
   if $::prometheus::alert_manager::storage_path
-  { 
+  {
     file { $::prometheus::alert_manager::storage_path:
       ensure => 'directory',
       owner  => $::prometheus::user,
