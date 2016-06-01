@@ -103,6 +103,7 @@ class prometheus (
   $manage_group         = true,
   $purge_config_dir     = true,
   $group                = $::prometheus::params::group,
+  $extra_groups         = $::prometheus::params::extra_groups,
   $bin_dir              = $::prometheus::params::bin_dir,
   $arch                 = $::prometheus::params::arch,
   $version              = $::prometheus::params::version,

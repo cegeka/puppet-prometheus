@@ -5,6 +5,7 @@ describe "prometheus::node_exporter" do
   context 'uses the correct binary path for version < 0.12.0' do
     let(:facts) { {
         'operatingsystem' => 'CentOS',
+        'osfamily' => 'Redhat',
         'operatingsystemrelease' => '7.0',
         'architecture' => 'amd64',
         'kernel' => 'Linux',
@@ -22,6 +23,7 @@ describe "prometheus::node_exporter" do
   context 'uses the correct binary path for versions >= 0.12' do
     let(:facts) { {
         'operatingsystem' => 'CentOS',
+        'osfamily' => 'Redhat',
         'operatingsystemrelease' => '7.0',
         'architecture' => 'amd64',
         'kernel' => 'Linux',

@@ -12,9 +12,9 @@ script: bundle exec rake test
 env:
   - PUPPET_VERSION="~> 3.1.0"
   - PUPPET_VERSION="~> 3.3.0"
-  - PUPPET_VERSION="~> 3.7.4" FUTURE_PARSER=yes STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 3.7.4" FUTURE_PARSER=yes 
   - PUPPET_VERSION="~> 3.8.4"
-  - PUPPET_VERSION="~> 3.8.4" FUTURE_PARSER=yes STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 3.8.4" FUTURE_PARSER=yes
   - PUPPET_VERSION="~> 4.0.0"
   - PUPPET_VERSION="~> 4.1.0"
 matrix:

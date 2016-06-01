@@ -88,6 +88,7 @@ class prometheus::node_exporter (
   $install_method       = $::prometheus::params::install_method,
   $os                   = $::prometheus::params::os,
   $download_url         = undef,
+  $extra_groups         = $::prometheus::params::node_exporter_extra_groups,
   $download_url_base    = $::prometheus::params::node_exporter_download_url_base,
   $download_extension   = $::prometheus::params::node_exporter_download_extension,
   $package_name         = $::prometheus::params::node_exporter_package_name,
