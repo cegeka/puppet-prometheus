@@ -102,13 +102,14 @@ class prometheus::node_exporter (
   $restart_on_change    = true,
   $init_style           = $::prometheus::params::init_style,
 ) inherits prometheus::params {
-  $real_download_url    = pick($download_url, "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+  $real_download_url    = pick($download_url, 
+    "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   validate_bool($purge_config_dir)
   validate_bool($manage_user)
   validate_bool($manage_service)
   validate_bool($restart_on_change)
   validate_array($collectors)
-  
+ 
   $notify_service = $restart_on_change ? {
     true    => Class['::prometheus::node_exporter::run_service'],
     default => undef,

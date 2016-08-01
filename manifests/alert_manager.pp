@@ -108,9 +108,11 @@ class prometheus::alert_manager (
   $init_style           = $::prometheus::params::init_style,
 ) inherits prometheus::params {
   if( versioncmp($::prometheus::alert_manager::version, '0.3.0') == -1 ){
-    $real_download_url    = pick($download_url, "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+    $real_download_url    = pick($download_url,
+      "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   } else {
-    $real_download_url    = pick($download_url, "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+    $real_download_url    = pick($download_url,
+      "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   }
   validate_bool($purge_config_dir)
   validate_bool($manage_user)
@@ -121,7 +123,7 @@ class prometheus::alert_manager (
   validate_array($inhibit_rules)
   validate_hash($global)
   validate_hash($route)
-  
+ 
   $notify_service = $restart_on_change ? {
     true    => Class['::prometheus::alert_manager::run_service'],
     default => undef,
