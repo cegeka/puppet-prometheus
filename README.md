@@ -9,6 +9,11 @@
 | ----------------    | ----------------------------------- |
 | >= 0.16.2           | latest                              |
 
+
+## Background
+
+This module automates the install and configuration of Prometheus monitoring tool: https://prometheus.io/docs/introduction/overview/
+
 ### What This Module Affects
 
 * Installs the prometheus daemon, alertmanager or exporters(via url or package)
@@ -20,7 +25,7 @@
 ## Usage
 
 To set up a prometheus daemon:
-On the server:
+On the server (for prometheus version < 1.0.0):
 
 ```puppet
 class { '::prometheus':
@@ -29,6 +34,15 @@ class { '::prometheus':
   scrape_configs => [ { 'job_name'=> 'prometheus', 'scrape_interval'=> '10s', 'scrape_timeout'=> '10s', 'target_groups'=> [ { 'targets'=> [ 'localhost:9090' ], 'labels'=> { 'alias'=> 'Prometheus'} } ] } ]
 }
 ```
+
+On the server (for prometheus version >= 1.0.0):
+class { 'prometheus':
+    version => '1.0.0',
+    scrape_configs => [ {'job_name'=>'prometheus','scrape_interval'=> '30s','scrape_timeout'=>'30s','static_configs'=> [{'targets'=>['localhost:9090'], 'labels'=> { 'alias'=>'Prometheus'}}]}],
+    extra_options => '-alertmanager.url http://localhost:9093 -web.console.templates=/opt/staging/prometheus-1.0.0.linux-amd64/consoles -web.console.libraries=/opt/staging/prometheus-1.0.0.linux-amd64/console_libraries',
+    localstorage => '/prometheus/prometheus',
+}
+
 
 or simply:
 ```puppet
@@ -40,6 +54,16 @@ On the monitored nodes:
 ```puppet
 class { '::prometheus::node_exporter':
   collectors => ['diskstats','filesystem','loadavg','meminfo','netdev','stat,time']
+}
+```
+
+or:
+
+```puppet
+class { 'prometheus::node_exporter':
+    version => '0.12.0',
+    collectors => ['diskstats','filesystem','loadavg','meminfo','logind','netdev','netstat','stat','time','interrupts','ntp','tcpstat'],
+    extra_options => '-collector.ntp.server ntp1.orange.intra',
 }
 ```
 
