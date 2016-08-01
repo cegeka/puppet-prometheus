@@ -123,7 +123,6 @@ class prometheus::alert_manager (
   validate_array($inhibit_rules)
   validate_hash($global)
   validate_hash($route)
- 
   $notify_service = $restart_on_change ? {
     true    => Class['::prometheus::alert_manager::run_service'],
     default => undef,

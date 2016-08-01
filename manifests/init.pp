@@ -148,7 +148,6 @@ class prometheus (
 
   $config_hash_real = deep_merge($config_defaults, $config_hash)
   validate_hash($config_hash_real)
- 
   $notify_service = $restart_on_change ? {
     true    => Class['::prometheus::run_service'],
     default => undef,
