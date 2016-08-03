@@ -12,7 +12,7 @@
 
 ## Background
 
-This module automates the install and configuration of Prometheus monitoring tool: https://prometheus.io/docs/introduction/overview/
+This module automates the install and configuration of Prometheus monitoring tool: [Prometheus web site](https://prometheus.io/docs/introduction/overview/)
 
 ### What This Module Affects
 
@@ -36,13 +36,15 @@ class { '::prometheus':
 ```
 
 On the server (for prometheus version >= 1.0.0):
+
+```puppet
 class { 'prometheus':
     version => '1.0.0',
     scrape_configs => [ {'job_name'=>'prometheus','scrape_interval'=> '30s','scrape_timeout'=>'30s','static_configs'=> [{'targets'=>['localhost:9090'], 'labels'=> { 'alias'=>'Prometheus'}}]}],
     extra_options => '-alertmanager.url http://localhost:9093 -web.console.templates=/opt/staging/prometheus-1.0.0.linux-amd64/consoles -web.console.libraries=/opt/staging/prometheus-1.0.0.linux-amd64/console_libraries',
     localstorage => '/prometheus/prometheus',
 }
-
+```
 
 or simply:
 ```puppet
@@ -75,6 +77,8 @@ include ::prometheus::node_exporter
 For more information regarding class parameters please take a look at class docstring.
 
 ## Limitations/Known issues
+
+Do not use version 1.0.0 of Prometheus: https://groups.google.com/forum/#!topic/prometheus-developers/vuSIxxUDff8 ; it does break the compatibility with thus module!
 
 Even if the module has templates for several linux distributions, only RH family distributions were tested.
 
