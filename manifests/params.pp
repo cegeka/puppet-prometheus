@@ -7,6 +7,7 @@ class prometheus::params {
   $bin_dir = '/usr/local/bin'
   $config_dir = '/etc/prometheus'
   $localstorage = '/var/lib/prometheus'
+  $shared_dir = '/usr/local/share/prometheus'
   $install_method = 'url'
   $package_ensure = 'latest'
   $package_name = 'prometheus'
