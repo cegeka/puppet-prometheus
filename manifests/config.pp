@@ -5,6 +5,7 @@ class prometheus::config(
   $rule_files,
   $scrape_configs,
   $purge = true,
+  $config_template = $::prometheus::params::config_template,
 ) {
 
   if $prometheus::init_style {
@@ -89,7 +90,7 @@ class prometheus::config(
     owner   => $prometheus::user,
     group   => $prometheus::group,
     mode    => $prometheus::config_mode,
-    content => template('prometheus/prometheus.yaml.erb'),
+    content => template($config_template),
   }
 
 }

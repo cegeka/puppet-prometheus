@@ -33,6 +33,7 @@ class prometheus::params {
   $alert_manager_download_extension = 'tar.gz'
   $alert_manager_package_ensure = 'latest'
   $alert_manager_package_name = 'alertmanager'
+  $config_template = 'prometheus/prometheus.yaml.erb'
   $config_mode = '0660'
   $global_config = { 'scrape_interval'=> '15s', 'evaluation_interval'=> '15s', 'external_labels'=> { 'monitor'=>'master'}}
   $rule_files = [ "${config_dir}/alert.rules" ]

@@ -64,6 +64,9 @@
 #  [*config_defaults*]
 #  Startup config defaults
 #
+#  [*config_template*]
+#  Configuration template to use (template/prometheus.yaml.erb)
+#
 #  [*config_mode*]
 #  Configuration file mode (default 0660)
 #
@@ -119,6 +122,7 @@ class prometheus (
   $extra_options        = '',
   $config_hash          = {},
   $config_defaults      = {},
+  $config_template      = $::prometheus::params::config_template,
   $config_mode          = $::prometheus::params::config_mode,
   $service_enable       = true,
   $service_ensure       = 'running',
@@ -157,11 +161,12 @@ class prometheus (
   ->
   class { '::prometheus::install': } ->
   class { '::prometheus::config':
-    global_config  => $global_config,
-    rule_files     => $rule_files,
-    scrape_configs => $scrape_configs,
-    purge          => $purge_config_dir,
-    notify         => $notify_service,
+    global_config   => $global_config,
+    rule_files      => $rule_files,
+    scrape_configs  => $scrape_configs,
+    purge           => $purge_config_dir,
+    notify          => $notify_service,
+    config_template => $config_template,
   } ->
   class { '::prometheus::run_service': } ->
   anchor {'prometheus_last': }
