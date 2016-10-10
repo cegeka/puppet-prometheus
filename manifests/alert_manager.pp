@@ -93,6 +93,7 @@ class prometheus::alert_manager (
   $package_name         = $::prometheus::params::alert_manager_package_name,
   $package_ensure       = $::prometheus::params::alert_manager_package_ensure,
   $storage_path         = $::prometheus::params::alert_manager_storage_path,
+  $config_dir           = $::prometheus::params::alert_manager_config_dir,
   $config_file          = $::prometheus::params::alert_manager_config_file,
   $global               = $::prometheus::params::alert_manager_global,
   $route                = $::prometheus::params::alert_manager_route,
