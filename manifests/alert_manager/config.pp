@@ -73,7 +73,7 @@ class prometheus::alert_manager::config(
     }
   }
   
-  file { $prometheus::alert_manager::config_dir:
+  file { $prometheus::alert_manager::alert_manager_config_dir:
     ensure  => 'directory',
     owner   => $prometheus::alert_manager::user,
     group   => $prometheus::alert_manager::group,
@@ -87,7 +87,7 @@ class prometheus::alert_manager::config(
     group   => $prometheus::alert_manager::group,
     mode    => $prometheus::alert_manager::config_mode,
     content => template('prometheus/alert_manager.yaml.erb'),
-    require => File[$prometheus::alert_manager::config_dir],
+    require => File[$prometheus::alert_manager::alert_manager_config_dir],
   }
 
 }
