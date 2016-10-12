@@ -22,6 +22,9 @@
 #  [*bin_dir*]
 #  Directory where binaries are located
 #
+#  [*shared_dir*]
+#  Directory where shared files are located
+#
 #  [*arch*]
 #  Architecture (amd64 or i386)
 #
@@ -105,6 +108,7 @@ class prometheus (
   $group                = $::prometheus::params::group,
   $extra_groups         = $::prometheus::params::extra_groups,
   $bin_dir              = $::prometheus::params::bin_dir,
+  $shared_dir           = $::prometheus::params::shared_dir,
   $arch                 = $::prometheus::params::arch,
   $version              = $::prometheus::params::version,
   $install_method       = $::prometheus::params::install_method,
