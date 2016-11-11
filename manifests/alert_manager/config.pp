@@ -72,14 +72,22 @@ class prometheus::alert_manager::config(
       }
     }
   }
-
+  
+  file { $prometheus::alert_manager::config_dir:
+    ensure  => 'directory',
+    owner   => $prometheus::alert_manager::user,
+    group   => $prometheus::alert_manager::group,
+    purge   => $purge,
+    recurse => $purge,
+  }
+  
   file { $prometheus::alert_manager::config_file:
     ensure  => present,
-    owner   => $prometheus::user,
-    group   => $prometheus::group,
-    mode    => $prometheus::config_mode,
+    owner   => $prometheus::alert_manager::user,
+    group   => $prometheus::alert_manager::group,
+    mode    => $prometheus::alert_manager::config_mode,
     content => template('prometheus/alert_manager.yaml.erb'),
-    require => File[$prometheus::config_dir],
+    require => File[$prometheus::alert_manager::config_dir],
   }
 
 }

@@ -9,8 +9,8 @@ class prometheus::alert_manager::install
   {
     file { $::prometheus::alert_manager::storage_path:
       ensure => 'directory',
-      owner  => $::prometheus::user,
-      group  =>  $::prometheus::group,
+      owner  => $::prometheus::alert_manager::user,
+      group  =>  $::prometheus::alert_manager::group,
       mode   => '0755',
     }
   }
@@ -19,9 +19,9 @@ class prometheus::alert_manager::install
       include staging
       $staging_file = "alert_manager-${prometheus::alert_manager::version}.${prometheus::alert_manager::download_extension}"
       if( versioncmp($::prometheus::alert_manager::version, '0.1.0') == -1 ){
-        $binary = "${::staging::path}/alertmanager-${::prometheus::alert_manager::version}.${::prometheus::os}-${::prometheus::arch}"
+        $binary = "${::staging::path}/alertmanager-${::prometheus::alert_manager::version}.${::prometheus::alert_manager::os}-${::prometheus::alert_manager::arch}"
       } else {
-        $binary = "${::staging::path}/alertmanager-${::prometheus::alert_manager::version}.${::prometheus::os}-${::prometheus::arch}/alertmanager"
+        $binary = "${::staging::path}/alertmanager-${::prometheus::alert_manager::version}.${::prometheus::alert_manager::os}-${::prometheus::alert_manager::arch}/alertmanager"
       }
       staging::file { $staging_file:
         source => $prometheus::alert_manager::real_download_url,

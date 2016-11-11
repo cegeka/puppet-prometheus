@@ -22,9 +22,10 @@ class prometheus::params {
   $node_exporter_package_name = 'node_exporter'
   $node_exporter_extra_groups = []
   $alert_manager_download_url_base = 'https://github.com/prometheus/alertmanager/releases'
-  $alert_manager_config_file = "${config_dir}/alertmanager.yaml"
+  $alert_manager_config_dir = '/etc/alert_manager'
+  $alert_manager_config_file = "${alert_manager_config_dir}/alertmanager.yaml"
   $alert_manager_global = { 'smtp_smarthost' =>'localhost:25', 'smtp_from'=>'alertmanager@localhost' }
-  $alert_manager_templates = [ "${config_dir}/*.tmpl" ]
+  $alert_manager_templates = [ "${alert_manager_config_dir}/*.tmpl" ]
   $alert_manager_route = { 'group_by'               =>  [ 'alertname', 'cluster', 'service' ], 'group_wait'=> '30s', 'group_interval'=> '5m', 'repeat_interval'=> '3h', 'receiver'=> 'Admin' }
   $alert_manager_receivers = [ { 'name'             => 'Admin', 'email_configs'=> [ { 'to'=> 'root@localhost' }] }]
   $alert_manager_inhibit_rules = [ { 'source_match' => { 'severity'=> 'critical' },'target_match'=> { 'severity'=>'warning'},'equal'=>['alertname','cluster','service']}]
