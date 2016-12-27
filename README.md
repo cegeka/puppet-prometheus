@@ -3,12 +3,6 @@
 [![Puppet Forge](https://img.shields.io/puppetforge/v/brutus777/prometheus.svg)](https://forge.puppetlabs.com/brutus777/prometheus)
 [![Puppet Forge](https://img.shields.io/puppetforge/f/brutus777/prometheus.svg)](https://forge.puppetlabs.com/brutus777/prometheus)
 
-## Deprecation notice
-
-I'm moving this module to voxpopuli repository: https://github.com/voxpupuli/puppet-prometheus
-
-Please do not issue any additional PR here.
-
 ## Compatibility
 
 | Prometheus Version  | Recommended Puppet Module Version   |
