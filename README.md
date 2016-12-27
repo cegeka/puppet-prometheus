@@ -3,6 +3,12 @@
 [![Puppet Forge](https://img.shields.io/puppetforge/v/brutus777/prometheus.svg)](https://forge.puppetlabs.com/brutus777/prometheus)
 [![Puppet Forge](https://img.shields.io/puppetforge/f/brutus777/prometheus.svg)](https://forge.puppetlabs.com/brutus777/prometheus)
 
+## Deprecation notice
+
+I'm moving this module to voxpopuli repository: https://github.com/voxpupuli/puppet-prometheus
+
+Please do not issue any additional PR here.
+
 ## Compatibility
 
 | Prometheus Version  | Recommended Puppet Module Version   |
@@ -111,7 +117,3 @@ Do not use version 1.0.0 of Prometheus: https://groups.google.com/forum/#!topic/
 
 Even if the module has templates for several linux distributions, only RH family distributions were tested.
 
-## Development
-Open an [issue](https://github.com/brutus333/puppet-prometheus/issues) or
-[fork](https://github.com/brutus333/puppet-prometheus/fork) and open a
-[Pull Request](https://github.com/brutus333/puppet-prometheus/pulls)
