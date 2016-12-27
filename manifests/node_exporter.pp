@@ -6,6 +6,7 @@
 #  [*arch*]
 #  Architecture (amd64 or i386)
 #
+
 #  [*bin_dir*]
 #  Directory where binaries are located
 #
@@ -96,8 +97,14 @@ class prometheus::node_exporter (
   $user                 = $::prometheus::params::node_exporter_user,
   $version              = $::prometheus::params::node_exporter_version,
 ) inherits prometheus::params {
-  #Please provide the download_url for versions < 0.13.0
-  $real_download_url    = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+  # Prometheus added a 'v' on the realease name at 0.13.0
+  if versioncmp ($version, '0.13.0') >= 0 {
+    $release = "v${version}"
+  }
+  else {
+    $release = $version
+  }
+  $real_download_url = pick($download_url,"${download_url_base}/download/${release}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   validate_bool($purge_config_dir)
   validate_bool($manage_user)
   validate_bool($manage_service)
