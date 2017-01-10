@@ -1,37 +1,26 @@
 require 'spec_helper'
 
-describe "prometheus::node_exporter" do
-  let :default_facts do
-    {
-        'operatingsystem' => 'CentOS',
-        'osfamily' => 'Redhat',
-        'operatingsystemrelease' => '7.0',
-        'architecture' => 'amd64',
-        'kernel' => 'Linux',
-    }
-  end
+describe 'prometheus::node_exporter' do
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:facts) do
+        facts.merge(
+          staging_http_get: 'curl'
+        )
+      end
 
-  context 'uses the correct binary path for version' do
-    let(:facts) { default_facts }
-
-    let(:params) { {:version => '0.10.0', :arch => 'amd64', :os => 'linux'} }
-
-    it do
-      should contain_file('/usr/local/bin/node_exporter').with({
-        'target' => '/opt/staging/node_exporter-0.10.0.linux-amd64/node_exporter'
-      })
-    end
-  end
-
-  context 'uses the correct binary path for version' do
-    let(:facts) { default_facts }
-
-    let(:params) { {:version => '0.10.0', :arch => 'amd64', :os => 'linux'} }
-
-    it do
-      should contain_file('/usr/local/bin/node_exporter').with({
-        'target' => '/opt/staging/node_exporter-0.10.0.linux-amd64/node_exporter'
-      })
+      context 'with version specified' do
+        let(:params) do
+          {
+            version: '0.13.0',
+            arch: 'amd64',
+            os: 'linux'
+          }
+        end
+        describe 'install correct binary' do
+          it { is_expected.to contain_file('/usr/local/bin/node_exporter').with('target' => '/opt/staging/node_exporter-0.13.0.linux-amd64/node_exporter') }
+        end
+      end
     end
   end
 end
