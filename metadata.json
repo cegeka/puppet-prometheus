@@ -1,31 +1,59 @@
 {
-  "author": "Virgil Chereches",
+  "name": "puppet-prometheus",
+  "version": "0.2.0",
+  "author": "Vox Pupuli",
+  "summary": "This module installs, configures and manages the Prometheus service.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/voxpupuli/puppet-prometheus.git",
+  "project_page": "https://github.com/voxpupuli/puppet-prometheus",
+  "issue_url": "https://github.com/voxpupuli/puppet-prometheus/issues",
   "dependencies": [
-    {
-      "name":"puppetlabs/stdlib",
-      "version_requirement":">= 4.6.0 <5.0.0"
-    },
     {
       "name":"puppet/staging",
       "version_requirement":">=1.0.7 <3.0.0"
+    },
+    {
+      "name":"puppetlabs/stdlib",
+      "version_requirement":">= 4.6.0 <5.0.0"
     }
   ],
-  "license": "Apache-2.0",
-  "name": "brutus777-prometheus",
   "operatingsystem_support": [
-  	{
+    {
+      "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "5",
+        "7",
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "16.04"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
         "6",
         "7"
-      ],
-      "operatingsystem": "RedHat"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
     }
-    ],
-  "project_page": "https://github.com/brutus333/puppet-prometheus",
-  "requirements": [],
-  "source": "https://github.com/brutus333/puppet-prometheus",
-  "summary": "Prometheus Puppet module",
-  "tags": [],
-  "version": "0.2.0"
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirements": "=> 4.6.1 < 5.0.0"
+    }
+  ],
+  "tags": [
+    "prometheus"
+  ]
 }
