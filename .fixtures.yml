@@ -1,6 +1,6 @@
 fixtures:
   repositories:
+    archive: "https://github.com/voxpupuli/puppet-archive"
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib"
-    staging: "https://github.com/voxpupuli/puppet-staging"
   symlinks:
     "prometheus": "#{source_dir}"

@@ -43,7 +43,7 @@ On the server (for prometheus version >= 1.0.0):
 class { 'prometheus':
     version => '1.0.0',
     scrape_configs => [ {'job_name'=>'prometheus','scrape_interval'=> '30s','scrape_timeout'=>'30s','static_configs'=> [{'targets'=>['localhost:9090'], 'labels'=> { 'alias'=>'Prometheus'}}]}],
-    extra_options => '-alertmanager.url http://localhost:9093 -web.console.templates=/opt/staging/prometheus-1.0.0.linux-amd64/consoles -web.console.libraries=/opt/staging/prometheus-1.0.0.linux-amd64/console_libraries',
+    extra_options => '-alertmanager.url http://localhost:9093 -web.console.templates=/opt/prometheus-1.0.0.linux-amd64/consoles -web.console.libraries=/opt/prometheus-1.0.0.linux-amd64/console_libraries',
     localstorage => '/prometheus/prometheus',
 }
 ```
