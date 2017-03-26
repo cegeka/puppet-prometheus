@@ -16,7 +16,7 @@ class prometheus::params {
   $alertmanager_storage_path='/var/lib/alertmanager'
   $alertmanager_templates = [ "${alertmanager_config_dir}/*.tmpl" ]
   $alertmanager_user = 'alertmanager'
-  $alertmanager_version = '0.3.0'
+  $alertmanager_version = '0.5.1'
   $alerts = []
   $bin_dir = '/usr/local/bin'
   $config_dir = '/etc/prometheus'
@@ -68,7 +68,7 @@ class prometheus::params {
   $node_exporter_package_ensure = 'latest'
   $node_exporter_package_name = 'node_exporter'
   $node_exporter_user = 'node-exporter'
-  $node_exporter_version = '0.13.0'
+  $node_exporter_version = '0.14.0'
   $package_ensure = 'latest'
   $package_name = 'prometheus'
   $rule_files = [ "${config_dir}/alert.rules" ]
@@ -85,7 +85,7 @@ class prometheus::params {
   $statsd_exporter_user = 'statsd-exporter'
   $statsd_exporter_version = '0.3.0'
   $user = 'prometheus'
-  $version = '1.0.1'
+  $version = '1.5.2'
   case $::architecture {
     'x86_64', 'amd64': { $arch = 'amd64' }
     'i386':            { $arch = '386'   }
