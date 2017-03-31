@@ -33,13 +33,13 @@ define prometheus::daemon (
         checksum_verify => false,
         creates         => "/opt/${name}-${version}.${os}-${arch}/${name}",
         cleanup         => true,
-      } ->
-      file { "/opt/${name}-${version}.${os}-${arch}/${name}":
+      }
+      -> file { "/opt/${name}-${version}.${os}-${arch}/${name}":
           owner => 'root',
           group => 0, # 0 instead of root because OS X uses "wheel".
           mode  => '0555',
-      } ->
-      file { "${bin_dir}/${name}":
+      }
+      -> file { "${bin_dir}/${name}":
           ensure => link,
           notify => $notify_service,
           target => "/opt/${name}-${version}.${os}-${arch}/${name}",
@@ -102,8 +102,8 @@ define prometheus::daemon (
           owner   => 'root',
           group   => 'root',
           content => template('prometheus/daemon.systemd.erb'),
-        }~>
-        exec { "${name}-systemd-reload":
+        }
+        ~> exec { "${name}-systemd-reload":
           command     => 'systemctl daemon-reload',
           path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
           refreshonly => true,

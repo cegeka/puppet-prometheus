@@ -23,8 +23,8 @@ class prometheus::install
         checksum_verify => false,
         creates         => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/prometheus",
         cleanup         => true,
-      } ->
-      file {
+      }
+      -> file {
         "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/prometheus":
           owner => 'root',
           group => 0, # 0 instead of root because OS X uses "wheel".

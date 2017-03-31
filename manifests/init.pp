@@ -164,21 +164,20 @@ class prometheus (
   }
 
   anchor {'prometheus_first': }
-  ->
-  class { '::prometheus::install': } ->
-  class { '::prometheus::config':
+  -> class { '::prometheus::install': }
+  -> class { '::prometheus::config':
     global_config   => $global_config,
     rule_files      => $rule_files,
     scrape_configs  => $scrape_configs,
     purge           => $purge_config_dir,
     notify          => $notify_service,
     config_template => $config_template,
-  } ->
-  class { '::prometheus::alerts':
+  }
+  -> class { '::prometheus::alerts':
     location => $config_dir,
     alerts   => $alerts,
     notify   => $notify_service,
-  } ->
-  class { '::prometheus::run_service': } ->
-  anchor {'prometheus_last': }
+  }
+  -> class { '::prometheus::run_service': }
+  -> anchor {'prometheus_last': }
 }

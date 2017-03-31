@@ -32,8 +32,8 @@ class prometheus::config(
           owner   => 'root',
           group   => 'root',
           content => template('prometheus/prometheus.systemd.erb'),
-        }~>
-        exec { 'prometheus-systemd-reload':
+        }
+        ~> exec { 'prometheus-systemd-reload':
           command     => 'systemctl daemon-reload',
           path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
           refreshonly => true,
@@ -83,8 +83,8 @@ class prometheus::config(
     group   => $prometheus::group,
     purge   => $purge,
     recurse => $purge,
-  } ->
-  file { 'prometheus.yaml':
+  }
+  -> file { 'prometheus.yaml':
     ensure  => present,
     path    => "${prometheus::config_dir}/prometheus.yaml",
     owner   => $prometheus::user,
