@@ -97,6 +97,12 @@
 #  [*scrape_configs*]
 #  Prometheus scrape configs
 #
+#  [*alert_relabel_config*]
+#  Prometheus alert relabel config under alerting
+#
+#  [*alertmanagers_config*]
+#  Prometheus managers config under alerting
+#
 # Actions:
 #
 # Requires: see Modulefile
@@ -136,8 +142,9 @@ class prometheus (
   $global_config        = $::prometheus::params::global_config,
   $rule_files           = $::prometheus::params::rule_files,
   $scrape_configs       = $::prometheus::params::scrape_configs,
-  $alerts               = $::prometheus::params::alerts
-
+  $alerts               = $::prometheus::params::alerts,
+  $alert_relabel_config = $::prometheus::params::alert_relabel_config,
+  $alertmanagers_config = $::prometheus::params::alertmanagers_config,
 ) inherits prometheus::params {
   if( versioncmp($::prometheus::version, '1.0.0') == -1 ){
     $real_download_url    = pick($download_url,
@@ -155,6 +162,8 @@ class prometheus (
   validate_hash($global_config)
   validate_array($rule_files)
   validate_array($scrape_configs)
+  validate_array($alert_relabel_config)
+  validate_array($alertmanagers_config)
 
   $config_hash_real = deep_merge($config_defaults, $config_hash)
   validate_hash($config_hash_real)
