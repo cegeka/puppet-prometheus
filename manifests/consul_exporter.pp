@@ -126,13 +126,13 @@ class prometheus::consul_exporter (
   validate_bool($manage_service)
   validate_bool($restart_on_change)
   validate_bool($consul_health_summary)
-  
+
   if $consul_health_summary {
     $real_consul_health_summary = '-consul.health-summary'
   } else {
     $real_consul_health_summary = ''
   }
-  
+
   $notify_service = $restart_on_change ? {
     true    => Service['consul_exporter'],
     default => undef,
@@ -142,26 +142,26 @@ class prometheus::consul_exporter (
 
   prometheus::daemon { 'consul_exporter':
     custom_binary_location => $custom_binary_location,
-    install_method     => $install_method,
-    version            => $version,
-    download_extension => $download_extension,
-    os                 => $os,
-    arch               => $arch,
-    real_download_url  => $real_download_url,
-    bin_dir            => $bin_dir,
-    notify_service     => $notify_service,
-    package_name       => $package_name,
-    package_ensure     => $package_ensure,
-    manage_user        => $manage_user,
-    user               => $user,
-    extra_groups       => $extra_groups,
-    group              => $group,
-    manage_group       => $manage_group,
-    purge              => $purge_config_dir,
-    options            => $options,
-    init_style         => $init_style,
-    service_ensure     => $service_ensure,
-    service_enable     => $service_enable,
-    manage_service     => $manage_service,
+    install_method         => $install_method,
+    version                => $version,
+    download_extension     => $download_extension,
+    os                     => $os,
+    arch                   => $arch,
+    real_download_url      => $real_download_url,
+    bin_dir                => $bin_dir,
+    notify_service         => $notify_service,
+    package_name           => $package_name,
+    package_ensure         => $package_ensure,
+    manage_user            => $manage_user,
+    user                   => $user,
+    extra_groups           => $extra_groups,
+    group                  => $group,
+    manage_group           => $manage_group,
+    purge                  => $purge_config_dir,
+    options                => $options,
+    init_style             => $init_style,
+    service_ensure         => $service_ensure,
+    service_enable         => $service_enable,
+    manage_service         => $manage_service,
   }
 }
