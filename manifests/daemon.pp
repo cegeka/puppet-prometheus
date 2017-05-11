@@ -20,12 +20,17 @@ define prometheus::daemon (
   $service_ensure,
   $service_enable,
   $manage_service,
+  $custom_binary_location = '',
   ) {
     case $install_method {
       'url': {
         include staging
         $staging_file = "${name}-${version}.${download_extension}"
-        $binary = "${::staging::path}/${name}-${version}.${os}-${arch}/${name}"
+        if $custom_binary_location == '' {
+          $binary = "${::staging::path}/${name}-${version}.${os}-${arch}/${name}"
+        } else {
+          $binary = "${::staging::path}/${custom_binary_location}"
+        }
         staging::file { $staging_file:
           source => $real_download_url,
         } ->

@@ -117,6 +117,7 @@ class prometheus::consul_exporter (
     $release = "v${version}"
   }
   else {
+    $custom_binary_location = 'consul_exporter'
     $release = $version
   }
   $real_download_url = pick($download_url,"${download_url_base}/download/${release}/${package_name}-${version}.${os}-${arch}.${download_extension}")
@@ -140,6 +141,7 @@ class prometheus::consul_exporter (
   $options = "-consul.server=${consul_server} ${real_consul_health_summary} -web.listen-address=${web_listen_address} -web.telemetry-path=${web_telemetry_path} -log.level=${log_level} ${extra_options}"
 
   prometheus::daemon { 'consul_exporter':
+    custom_binary_location => $custom_binary_location,
     install_method     => $install_method,
     version            => $version,
     download_extension => $download_extension,
