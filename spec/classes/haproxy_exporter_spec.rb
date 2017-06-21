@@ -15,6 +15,7 @@ describe 'prometheus::haproxy_exporter' do
             os: 'linux'
           }
         end
+
         describe 'install correct binary' do
           it { is_expected.to contain_file('/usr/local/bin/haproxy_exporter').with('target' => '/opt/haproxy_exporter-0.7.1.linux-amd64/haproxy_exporter') }
         end
