@@ -9,19 +9,19 @@
 #  Array of alerts (see README)
 #
 class prometheus::alerts (
-  $alerts,
-  $location,
-  $alertfile_name  = 'alert.rules',
+  String $location,
+  Array  $alerts,
+  String $alertfile_name  = 'alert.rules'
 ) inherits prometheus::params {
 
-  if $alerts != [] {
-    file{ "${location}/${alertfile_name}":
-      ensure  => 'file',
-      owner   => $prometheus::user,
-      group   => $prometheus::group,
-      notify  => Class['::prometheus::service_reload'],
-      content => template("${module_name}/alerts.erb"),
+    if $alerts != [] {
+        file{ "${location}/${alertfile_name}":
+                ensure  => 'file',
+                owner   => $prometheus::user,
+                group   => $prometheus::group,
+                notify  => Class['::prometheus::service_reload'],
+                content => epp("${module_name}/alerts.epp"),
+        }
     }
-  }
 
 }

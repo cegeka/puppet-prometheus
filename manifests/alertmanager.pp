@@ -114,6 +114,9 @@
 #  [*service_ensure*]
 #  State ensured for the service (default 'running')
 #
+#  [*service_name*]
+#  Name of the alertmanager service (default 'alertmanager')
+#
 #  [*storage_path*]
 #  The storage path to pass to the alertmanager. Defaults to '/var/lib/alertmanager'
 #
@@ -153,6 +156,7 @@ class prometheus::alertmanager (
   $route                = $::prometheus::params::alertmanager_route,
   $service_enable       = true,
   $service_ensure       = 'running',
+  $service_name         = 'alertmanager',
   $storage_path         = $::prometheus::params::alertmanager_storage_path,
   $templates            = $::prometheus::params::alertmanager_templates,
   $user                 = $::prometheus::params::alertmanager_user,
@@ -175,7 +179,7 @@ class prometheus::alertmanager (
   validate_hash($global)
   validate_hash($route)
   $notify_service = $restart_on_change ? {
-    true    => Service['alertmanager'],
+    true    => Service[$service_name],
     default => undef,
   }
 
@@ -193,6 +197,7 @@ class prometheus::alertmanager (
     group   => $group,
     mode    => $config_mode,
     content => template('prometheus/alertmanager.yaml.erb'),
+    notify  => Service['alertmanager'],
     require => File[$config_dir],
   }
 
@@ -214,7 +219,7 @@ class prometheus::alertmanager (
     $options = "-config.file=${prometheus::alertmanager::config_file} ${prometheus::alertmanager::extra_options}"
   }
 
-  prometheus::daemon { 'alertmanager':
+  prometheus::daemon { $service_name:
     install_method     => $install_method,
     version            => $version,
     download_extension => $download_extension,

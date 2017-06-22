@@ -1,45 +1,52 @@
 ---
-language: ruby
-bundler_args: --without development
-before_install: rm Gemfile.lock || true
 sudo: false
+dist: trusty
+language: ruby
 cache: bundler
-rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
-script: bundle exec rake test
-env:
-  - PUPPET_VERSION="~> 3.1.0"
-  - PUPPET_VERSION="~> 3.3.0"
-  - PUPPET_VERSION="~> 3.7.4" FUTURE_PARSER=yes 
-  - PUPPET_VERSION="~> 3.8.4"
-  - PUPPET_VERSION="~> 3.8.4" FUTURE_PARSER=yes
-  - PUPPET_VERSION="~> 4.0.0"
-  - PUPPET_VERSION="~> 4.1.0"
+before_install:
+  - bundle -v
+  - rm Gemfile.lock || true
+  - gem update --system
+  - gem update bundler
+  - gem --version
+  - bundle -v
+script:
+  - 'bundle exec rake $CHECK'
 matrix:
-  exclude:
-  - rvm: 1.9.3
-    env: PUPPET_VERSION="~> 2.7.0"
-  - rvm: 2.0.0
-    env: PUPPET_VERSION="~> 2.7.0"
-  - rvm: 2.0.0
-    env: PUPPET_VERSION="~> 3.1.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 2.7.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 3.1.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 3.2.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 3.3.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 3.4.0"
-  - rvm: 1.9.3
-    env: PUPPET_VERSION="~> 4.0.0"
-  - rvm: 2.0.0
-    env: PUPPET_VERSION="~> 4.0.0"
-  - rvm: 1.9.3
-    env: PUPPET_VERSION="~> 4.1.0"
-  - rvm: 2.0.0
-    env: PUPPET_VERSION="~> 4.1.0"
+  fast_finish: true
+  include:
+  - rvm: 2.1.9
+    bundler_args: --without system_tests development
+    env: PUPPET_VERSION="~> 4.0" CHECK=test
+  - rvm: 2.2.7
+    bundler_args: --without system_tests development
+    env: PUPPET_VERSION="~> 4.0" CHECK=test
+  - rvm: 2.3.4
+    bundler_args: --without system_tests development
+    env: PUPPET_VERSION="~> 4.0" CHECK=test
+  - rvm: 2.4.1
+    bundler_args: --without system_tests development
+    env: PUPPET_VERSION="~> 4.0" CHECK=test
+  - rvm: 2.4.1
+    bundler_args: --without system_tests development
+    env: PUPPET_VERSION="~> 4.0" CHECK=rubocop
+  - rvm: 2.4.1
+    bundler_args: --without system_tests development
+    env: PUPPET_VERSION="~> 4.0" CHECK=build DEPLOY_TO_FORGE=yes
+branches:
+  only:
+  - master
+  - /^v\d/
+notifications:
+  email: false
+deploy:
+  provider: puppetforge
+  user: puppet
+  password:
+    secure: "JquGPtLafZM/F6sNke12hW2VlKIn5yKfTXh/iAVIOLG/GLi2Om7enhvxl81nuyu1qjeXqMla+6WUKqWHu1s5odzI6JRjaWjdikxwcwuU464h3Fg8r3/enDlZtL6VWbLGQf0pqiaNNKlRl/2P9dYTCx8cbgAUPTqNIGY1Hf/V0oSIXRV1L3DbtDa0Qt5e3WOC0oAHYjoMLDFx/LhAUoFH6h5VGmM2hiuw641OE1PdZcdzkD64xFUpOSuFP7hknNyeGMftr+ZtwH3oymKHhpeH4IYJIiuI74+HEUtSzNsh+8Ok35gRZz3hgab4YmGjbJIVR2BiMIIghbD41Izcp2FmH4mMqkfJx5slLv/uoAtVeyyOgFOz9rcGuGlQE6mFXDeAWTNeXMQdnTEZGiwj7/sKYzbfdRKiPquGqr//so7RiN+0QwO+9MJoQuwZDhIsHsr1EEJhkA9kLy/gZpOD54Ef4w3EcRzu76grxRMzEgwLTOYFKVKIuXUY4y0u6SV/uJeoi80Ke5fCwfGRG/U1heWto2sns5LhEkV+nfH31iM5BLzMLYukuTgX9CJRje22+s/gL8bvXvD6LCQ0bckzZI8Pq+g1w41iILXRYJ7kJsjFszdDG8pQPk1rM5ZNHl+CNq1u7wXEci2ND0b9WQu2QDcOH8eGtasPaVFX+2LBhpaw0k0="
+  on:
+    tags: true
+    # all_branches is required to use tags
+    all_branches: true
+    # Only publish the build marked with "DEPLOY_TO_FORGE"
+    condition: "$DEPLOY_TO_FORGE = yes"

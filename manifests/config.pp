@@ -14,7 +14,7 @@ class prometheus::config(
     # so any change there should trigger a full service restart
     if $::prometheus::restart_on_change {
       File {
-        notify => [Class['::prometheus::run_service']]
+        notify => [Class['::prometheus::run_service']],
       }
       $systemd_notify = [Exec['prometheus-systemd-reload'], Class['::prometheus::run_service']]
     } else {
@@ -38,14 +38,13 @@ class prometheus::config(
         }
       }
       'systemd' : {
-        file { '/lib/systemd/system/prometheus.service':
+        file { '/etc/systemd/system/prometheus.service':
           mode    => '0644',
           owner   => 'root',
           group   => 'root',
           notify  => $systemd_notify,
           content => template('prometheus/prometheus.systemd.erb'),
         }
-
         exec { 'prometheus-systemd-reload':
           command     => 'systemctl daemon-reload',
           path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
@@ -57,7 +56,7 @@ class prometheus::config(
           mode    => '0555',
           owner   => 'root',
           group   => 'root',
-          content => template('prometheus/prometheus.sysv.erb')
+          content => template('prometheus/prometheus.sysv.erb'),
         }
       }
       'debian' : {
@@ -65,7 +64,7 @@ class prometheus::config(
           mode    => '0555',
           owner   => 'root',
           group   => 'root',
-          content => template('prometheus/prometheus.debian.erb')
+          content => template('prometheus/prometheus.debian.erb'),
         }
       }
       'sles' : {
@@ -73,7 +72,7 @@ class prometheus::config(
           mode    => '0555',
           owner   => 'root',
           group   => 'root',
-          content => template('prometheus/prometheus.sles.erb')
+          content => template('prometheus/prometheus.sles.erb'),
         }
       }
       'launchd' : {
@@ -81,7 +80,7 @@ class prometheus::config(
           mode    => '0644',
           owner   => 'root',
           group   => 'wheel',
-          content => template('prometheus/prometheus.launchd.erb')
+          content => template('prometheus/prometheus.launchd.erb'),
         }
       }
       default : {
@@ -96,8 +95,8 @@ class prometheus::config(
     group   => $prometheus::group,
     purge   => $purge,
     recurse => $purge,
-  } ->
-  file { 'prometheus.yaml':
+  }
+  -> file { 'prometheus.yaml':
     ensure  => present,
     path    => "${prometheus::config_dir}/prometheus.yaml",
     owner   => $prometheus::user,
