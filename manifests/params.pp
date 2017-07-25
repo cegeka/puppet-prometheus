@@ -121,6 +121,16 @@ class prometheus::params {
   $statsd_exporter_package_name = 'statsd_exporter'
   $statsd_exporter_user = 'statsd-exporter'
   $statsd_exporter_version = '0.3.0'
+  $blackbox_exporter_user = 'blackbox-exporter'
+  $blackbox_exporter_group = 'blackbox-exporter'
+  $blackbox_exporter_download_extension = 'tar.gz'
+  $blackbox_exporter_download_url_base = 'https://github.com/prometheus/blackbox_exporter/releases'
+  $blackbox_exporter_extra_groups = []
+  $blackbox_exporter_package_ensure = 'latest'
+  $blackbox_exporter_package_name = 'blackbox_exporter'
+  $blackbox_exporter_modules = {}
+  $blackbox_exporter_config_file = '/etc/blackbox-exporter.yaml'
+  $blackbox_exporter_version = '0.7.0'
   $user = 'prometheus'
   $version = '1.5.2'
   case $::architecture {
