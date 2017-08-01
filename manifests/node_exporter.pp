@@ -11,7 +11,7 @@
 #  Directory where binaries are located
 #
 #  [*collectors*]
-#  The set of node node_exporter collectors
+#  The set of node node_exporter collectors. Use default collectors if empty.
 #
 #  [*download_extension*]
 #  Extension for the release binary archive
@@ -119,8 +119,12 @@ class prometheus::node_exporter (
     default => undef,
   }
 
-  $str_collectors = join($collectors, ',')
-  $options = "-collectors.enabled=${str_collectors} ${extra_options}"
+  if empty($collectors) {
+    $options = $extra_options
+  } else {
+    $str_collectors = join($collectors, ',')
+    $options = "-collectors.enabled=${str_collectors} ${extra_options}"
+  }
 
   prometheus::daemon { $service_name :
     install_method     => $install_method,
