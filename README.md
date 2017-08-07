@@ -1,13 +1,7 @@
 # puppet-prometheus
-[![Puppet Forge](https://img.shields.io/puppetforge/e/brutus777/prometheus.svg)](https://forge.puppetlabs.com/brutus777/prometheus)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/brutus777/prometheus.svg)](https://forge.puppetlabs.com/brutus777/prometheus)
-[![Puppet Forge](https://img.shields.io/puppetforge/f/brutus777/prometheus.svg)](https://forge.puppetlabs.com/brutus777/prometheus)
-
-## Deprecation notice
-
-I'm moving this module to voxpopuli repository: https://github.com/voxpupuli/puppet-prometheus
-
-Please do not issue any additional PR here.
+[![Puppet Forge](https://img.shields.io/puppetforge/e/puppet/prometheus.svg)](https://forge.puppetlabs.com/puppet/prometheus)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/prometheus.svg)](https://forge.puppetlabs.com/puppet/prometheus)
+[![Puppet Forge](https://img.shields.io/puppetforge/f/puppet/prometheus.svg)](https://forge.puppetlabs.com/puppet/prometheus)
 
 ## Compatibility
 
@@ -28,6 +22,7 @@ This module automates the install and configuration of Prometheus monitoring too
 * Installs a configuration file for prometheus daemon (/etc/prometheus/prometheus.yaml) or for alertmanager (/etc/prometheus/alert.rules)
 * Manages the services via upstart, sysv, or systemd
 * Optionally creates alert rules
+* The following exporters are currently implemented: node_exporter, statsd_exporter, process_exporter, haproxy_exporter, mysqld_exporter
 
 ## Usage
 
@@ -48,7 +43,7 @@ On the server (for prometheus version >= 1.0.0):
 class { 'prometheus':
     version => '1.0.0',
     scrape_configs => [ {'job_name'=>'prometheus','scrape_interval'=> '30s','scrape_timeout'=>'30s','static_configs'=> [{'targets'=>['localhost:9090'], 'labels'=> { 'alias'=>'Prometheus'}}]}],
-    extra_options => '-alertmanager.url http://localhost:9093 -web.console.templates=/opt/staging/prometheus-1.0.0.linux-amd64/consoles -web.console.libraries=/opt/staging/prometheus-1.0.0.linux-amd64/console_libraries',
+    extra_options => '-alertmanager.url http://localhost:9093 -web.console.templates=/opt/prometheus-1.0.0.linux-amd64/consoles -web.console.libraries=/opt/prometheus-1.0.0.linux-amd64/console_libraries',
     localstorage => '/prometheus/prometheus',
 }
 ```

@@ -12,9 +12,11 @@ class prometheus::run_service {
 
   if $prometheus::manage_service == true {
     service { 'prometheus':
-      ensure => $prometheus::service_ensure,
-      name   => $init_selector,
-      enable => $prometheus::service_enable,
+      ensure     => $prometheus::service_ensure,
+      name       => $init_selector,
+      enable     => $prometheus::service_enable,
+      hasrestart => true,
+      restart    => '/usr/bin/pkill -HUP prometheus',
     }
   }
 }

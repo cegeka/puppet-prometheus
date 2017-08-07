@@ -1,17 +1,16 @@
-# Class: prometheus::node_exporter
+# Class: prometheus::haproxy_exporter
 #
-# This module manages prometheus node node_exporter
+# This module manages prometheus haproxy_exporter
 #
 # Parameters:
 #  [*arch*]
 #  Architecture (amd64 or i386)
 #
-
 #  [*bin_dir*]
 #  Directory where binaries are located
 #
-#  [*collectors*]
-#  The set of node node_exporter collectors
+#  [*cnf_scrape_uri*]
+#  The URI to obtain HAProxy stats from
 #
 #  [*download_extension*]
 #  Extension for the release binary archive
@@ -67,62 +66,50 @@
 #  [*service_ensure*]
 #  State ensured for the service (default 'running')
 #
-#  [*service_name*]
-#  Name of the node exporter service (default 'node_exporter')
-#
 #  [*user*]
 #  User which runs the service
 #
 #  [*version*]
 #  The binary release version
-class prometheus::node_exporter (
+class prometheus::haproxy_exporter(
   $arch                 = $::prometheus::params::arch,
   $bin_dir              = $::prometheus::params::bin_dir,
-  $collectors           = $::prometheus::params::node_exporter_collectors,
-  $download_extension   = $::prometheus::params::node_exporter_download_extension,
+  $cnf_scrape_uri       = $::prometheus::params::haproxy_exporter_cnf_scrape_uri,
+  $download_extension   = $::prometheus::params::haproxy_exporter_download_extension,
   $download_url         = undef,
-  $download_url_base    = $::prometheus::params::node_exporter_download_url_base,
-  $extra_groups         = $::prometheus::params::node_exporter_extra_groups,
+  $download_url_base    = $::prometheus::params::haproxy_exporter_download_url_base,
+  $extra_groups         = $::prometheus::params::haproxy_exporter_extra_groups,
   $extra_options        = '',
-  $group                = $::prometheus::params::node_exporter_group,
+  $group                = $::prometheus::params::haproxy_exporter_group,
   $init_style           = $::prometheus::params::init_style,
   $install_method       = $::prometheus::params::install_method,
   $manage_group         = true,
   $manage_service       = true,
   $manage_user          = true,
   $os                   = $::prometheus::params::os,
-  $package_ensure       = $::prometheus::params::node_exporter_package_ensure,
-  $package_name         = $::prometheus::params::node_exporter_package_name,
+  $package_ensure       = $::prometheus::params::haproxy_exporter_package_ensure,
+  $package_name         = $::prometheus::params::haproxy_exporter_package_name,
   $purge_config_dir     = true,
   $restart_on_change    = true,
   $service_enable       = true,
   $service_ensure       = 'running',
-  $service_name         = 'node_exporter',
-  $user                 = $::prometheus::params::node_exporter_user,
-  $version              = $::prometheus::params::node_exporter_version,
+  $user                 = $::prometheus::params::haproxy_exporter_user,
+  $version              = $::prometheus::params::haproxy_exporter_version,
 ) inherits prometheus::params {
-  # Prometheus added a 'v' on the realease name at 0.13.0
-  if versioncmp ($version, '0.13.0') >= 0 {
-    $release = "v${version}"
-  }
-  else {
-    $release = $version
-  }
-  $real_download_url = pick($download_url,"${download_url_base}/download/${release}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+
+  $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   validate_bool($purge_config_dir)
   validate_bool($manage_user)
   validate_bool($manage_service)
   validate_bool($restart_on_change)
-  validate_array($collectors)
   $notify_service = $restart_on_change ? {
-    true    => Service[$service_name],
+    true    => Service['haproxy_exporter'],
     default => undef,
   }
 
-  $str_collectors = join($collectors, ',')
-  $options = "-collectors.enabled=${str_collectors} ${extra_options}"
+  $options = "-haproxy.scrape-uri=\"${cnf_scrape_uri}\" ${extra_options}"
 
-  prometheus::daemon { $service_name :
+  prometheus::daemon { 'haproxy_exporter':
     install_method     => $install_method,
     version            => $version,
     download_extension => $download_extension,
@@ -145,4 +132,5 @@ class prometheus::node_exporter (
     service_enable     => $service_enable,
     manage_service     => $manage_service,
   }
+
 }

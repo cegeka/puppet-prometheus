@@ -1,17 +1,13 @@
-# Class: prometheus::node_exporter
+# Class: prometheus::process_exporter
 #
-# This module manages prometheus node node_exporter
+# This module manages prometheus process_exporter
 #
 # Parameters:
 #  [*arch*]
 #  Architecture (amd64 or i386)
 #
-
 #  [*bin_dir*]
 #  Directory where binaries are located
-#
-#  [*collectors*]
-#  The set of node node_exporter collectors
 #
 #  [*download_extension*]
 #  Extension for the release binary archive
@@ -67,62 +63,61 @@
 #  [*service_ensure*]
 #  State ensured for the service (default 'running')
 #
-#  [*service_name*]
-#  Name of the node exporter service (default 'node_exporter')
-#
 #  [*user*]
 #  User which runs the service
 #
 #  [*version*]
 #  The binary release version
-class prometheus::node_exporter (
+class prometheus::process_exporter(
   $arch                 = $::prometheus::params::arch,
   $bin_dir              = $::prometheus::params::bin_dir,
-  $collectors           = $::prometheus::params::node_exporter_collectors,
-  $download_extension   = $::prometheus::params::node_exporter_download_extension,
+  $download_extension   = $::prometheus::params::process_exporter_download_extension,
   $download_url         = undef,
-  $download_url_base    = $::prometheus::params::node_exporter_download_url_base,
-  $extra_groups         = $::prometheus::params::node_exporter_extra_groups,
+  $download_url_base    = $::prometheus::params::process_exporter_download_url_base,
+  $extra_groups         = $::prometheus::params::process_exporter_extra_groups,
   $extra_options        = '',
-  $group                = $::prometheus::params::node_exporter_group,
+  $config_mode          = $::prometheus::params::config_mode,
+  $group                = $::prometheus::params::process_exporter_group,
   $init_style           = $::prometheus::params::init_style,
   $install_method       = $::prometheus::params::install_method,
   $manage_group         = true,
   $manage_service       = true,
   $manage_user          = true,
   $os                   = $::prometheus::params::os,
-  $package_ensure       = $::prometheus::params::node_exporter_package_ensure,
-  $package_name         = $::prometheus::params::node_exporter_package_name,
+  $package_ensure       = $::prometheus::params::process_exporter_package_ensure,
+  $package_name         = $::prometheus::params::process_exporter_package_name,
   $purge_config_dir     = true,
   $restart_on_change    = true,
   $service_enable       = true,
   $service_ensure       = 'running',
-  $service_name         = 'node_exporter',
-  $user                 = $::prometheus::params::node_exporter_user,
-  $version              = $::prometheus::params::node_exporter_version,
+  $user                 = $::prometheus::params::process_exporter_user,
+  $version              = $::prometheus::params::process_exporter_version,
+  $config_path          = $::prometheus::params::process_exporter_config_path,
+  $watched_processes    = []
 ) inherits prometheus::params {
-  # Prometheus added a 'v' on the realease name at 0.13.0
-  if versioncmp ($version, '0.13.0') >= 0 {
-    $release = "v${version}"
-  }
-  else {
-    $release = $version
-  }
-  $real_download_url = pick($download_url,"${download_url_base}/download/${release}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+
+  $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   validate_bool($purge_config_dir)
   validate_bool($manage_user)
   validate_bool($manage_service)
   validate_bool($restart_on_change)
-  validate_array($collectors)
   $notify_service = $restart_on_change ? {
-    true    => Service[$service_name],
+    true    => Service['process-exporter'],
     default => undef,
   }
 
-  $str_collectors = join($collectors, ',')
-  $options = "-collectors.enabled=${str_collectors} ${extra_options}"
+  file { $config_path:
+    ensure  => 'file',
+    mode    => $config_mode,
+    owner   => $user,
+    group   => $group,
+    content => template('prometheus/process-exporter.yaml.erb'),
+    notify  => $notify_service,
+  }
 
-  prometheus::daemon { $service_name :
+  $options = "-config.path=${config_path} ${extra_options}"
+
+  prometheus::daemon { 'process-exporter':
     install_method     => $install_method,
     version            => $version,
     download_extension => $download_extension,
@@ -145,4 +140,5 @@ class prometheus::node_exporter (
     service_enable     => $service_enable,
     manage_service     => $manage_service,
   }
+
 }

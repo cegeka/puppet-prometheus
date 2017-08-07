@@ -1,6 +1,8 @@
 # Class prometheus::params
 # Include default parameters for prometheus class
 class prometheus::params {
+  $alert_relabel_config = []
+  $alertmanagers_config = []
   $alertmanager_config_dir = '/etc/alertmanager'
   $alertmanager_config_file = "${alertmanager_config_dir}/alertmanager.yaml"
   $alertmanager_download_extension = 'tar.gz'
@@ -16,7 +18,7 @@ class prometheus::params {
   $alertmanager_storage_path='/var/lib/alertmanager'
   $alertmanager_templates = [ "${alertmanager_config_dir}/*.tmpl" ]
   $alertmanager_user = 'alertmanager'
-  $alertmanager_version = '0.3.0'
+  $alertmanager_version = '0.5.1'
   $alerts = []
   $bin_dir = '/usr/local/bin'
   $config_dir = '/etc/prometheus'
@@ -42,6 +44,24 @@ class prometheus::params {
   $group = 'prometheus'
   $install_method = 'url'
   $localstorage = '/var/lib/prometheus'
+  $haproxy_exporter_cnf_scrape_uri = 'http://localhost:1234/haproxy?stats;csv'
+  $haproxy_exporter_download_extension = 'tar.gz'
+  $haproxy_exporter_download_url_base = 'https://github.com/prometheus/haproxy_exporter/releases'
+  $haproxy_exporter_extra_groups = []
+  $haproxy_exporter_group = 'haproxy-exporter'
+  $haproxy_exporter_package_ensure = 'latest'
+  $haproxy_exporter_package_name = 'haproxy_exporter'
+  $haproxy_exporter_user = 'haproxy-user'
+  $haproxy_exporter_version = '0.7.1'
+  $process_exporter_download_extension = 'tar.gz'
+  $process_exporter_download_url_base = 'https://github.com/ncabatoff/process-exporter/releases'
+  $process_exporter_extra_groups = []
+  $process_exporter_group = 'process-exporter'
+  $process_exporter_package_ensure = 'latest'
+  $process_exporter_package_name = 'process-exporter'
+  $process_exporter_user = 'process-exporter'
+  $process_exporter_version = '0.1.0'
+  $process_exporter_config_path = '/etc/process-exporter.yaml'
   $mysqld_exporter_cnf_config_path = '/etc/.my.cnf'
   $mysqld_exporter_cnf_host = 'localhost'
   $mysqld_exporter_cnf_password = 'password'
@@ -63,7 +83,7 @@ class prometheus::params {
   $node_exporter_package_ensure = 'latest'
   $node_exporter_package_name = 'node_exporter'
   $node_exporter_user = 'node-exporter'
-  $node_exporter_version = '0.13.0'
+  $node_exporter_version = '0.14.0'
   $package_ensure = 'latest'
   $package_name = 'prometheus'
   $rule_files = [ "${config_dir}/alert.rules" ]
@@ -80,7 +100,7 @@ class prometheus::params {
   $statsd_exporter_user = 'statsd-exporter'
   $statsd_exporter_version = '0.3.0'
   $user = 'prometheus'
-  $version = '1.0.1'
+  $version = '1.5.2'
   case $::architecture {
     'x86_64', 'amd64': { $arch = 'amd64' }
     'i386':            { $arch = '386'   }

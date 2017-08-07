@@ -15,26 +15,24 @@ class prometheus::install
   }
   case $::prometheus::install_method {
     'url': {
-      include staging
-      staging::file { "prometheus-${prometheus::version}.${prometheus::download_extension}":
-        source => $prometheus::real_download_url,
-      } ->
-      file { "${::staging::path}/prometheus-${prometheus::version}":
-        ensure => directory,
-      } ->
-      staging::extract { "prometheus-${prometheus::version}.${prometheus::download_extension}":
-        target  => $::staging::path,
-        creates => "${::staging::path}/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/prometheus",
-      } ->
-      file {
-        "${::staging::path}/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/prometheus":
+      archive { "/tmp/prometheus-${prometheus::version}.${prometheus::download_extension}":
+        ensure          => present,
+        extract         => true,
+        extract_path    => '/opt',
+        source          => $prometheus::real_download_url,
+        checksum_verify => false,
+        creates         => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/prometheus",
+        cleanup         => true,
+      }
+      -> file {
+        "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/prometheus":
           owner => 'root',
           group => 0, # 0 instead of root because OS X uses "wheel".
           mode  => '0555';
         "${::prometheus::bin_dir}/prometheus":
           ensure => link,
           notify => $::prometheus::notify_service,
-          target => "${::staging::path}/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/prometheus";
+          target => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/prometheus";
         $::prometheus::shared_dir:
           ensure => directory,
           owner  => $::prometheus::user,
@@ -43,11 +41,11 @@ class prometheus::install
         "${::prometheus::shared_dir}/consoles":
           ensure => link,
           notify => $::prometheus::notify_service,
-          target => "${::staging::path}/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/consoles";
+          target => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/consoles";
         "${::prometheus::shared_dir}/console_libraries":
           ensure => link,
           notify => $::prometheus::notify_service,
-          target => "${::staging::path}/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/console_libraries";
+          target => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/console_libraries";
       }
     }
     'package': {
