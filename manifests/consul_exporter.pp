@@ -113,14 +113,11 @@ class prometheus::consul_exporter (
   $web_telemetry_path    = $::prometheus::params::consul_exporter_web_telemetry_path,
 ) inherits prometheus::params {
   # Prometheus added a 'v' on the realease name at 0.3.0
-  if versioncmp ($version, '0.3.0') >= 0 {
-    $release = "v${version}"
+  if versioncmp ($version, '0.3.0') == -1 {
+    fail("I only support consul_exporter version '0.3.0' or higher")
   }
-  else {
-    $custom_binary_location = 'consul_exporter'
-    $release = $version
-  }
-  $real_download_url = pick($download_url,"${download_url_base}/download/${release}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+
+  $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   validate_bool($purge_config_dir)
   validate_bool($manage_user)
   validate_bool($manage_service)
