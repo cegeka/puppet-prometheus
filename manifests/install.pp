@@ -25,6 +25,7 @@ class prometheus::install {
         checksum_verify => false,
         creates         => "/opt/prometheus-${prometheus::server::version}.${prometheus::server::os}-${prometheus::server::real_arch}/prometheus",
         cleanup         => true,
+        extract_command => $prometheus::extract_command,
       }
       -> file {
         "/opt/prometheus-${prometheus::server::version}.${prometheus::server::os}-${prometheus::server::real_arch}/prometheus":

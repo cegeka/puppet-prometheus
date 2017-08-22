@@ -130,6 +130,9 @@
 #  via a reverse proxy). Used for generating relative and absolute links back to Alertmanager itself.
 #  If omitted, relevant URL components will be derived automatically.
 #
+#  [*extract_command*]
+#  Custom command passed to the archive resource to extract the downloaded archive.
+#
 # Actions:
 #
 # Requires: see Modulefile
@@ -175,6 +178,7 @@ class prometheus (
   Boolean $manage_group,
   Boolean $purge_config_dir,
   Boolean $manage_user,
+  Optional[String[1]] $extract_command,
   Hash $extra_alerts    = {},
   Hash $config_hash     = {},
   Hash $config_defaults = {},
