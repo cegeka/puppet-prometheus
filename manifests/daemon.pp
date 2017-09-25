@@ -1,3 +1,58 @@
+# Define: prometheus::daemon
+#
+# This define managed prometheus daemons that don't have their own class
+#
+#  [*version*]
+#  The binary release version
+#
+#  [*real_download_url*]
+#  Complete URL corresponding to the where the release binary archive can be downloaded
+#
+#  [*notify_service*]
+#  The service to notify when something changes in this define
+#
+#  [*user*]
+#  User which runs the service
+#
+#  [*install_method*]
+#  Installation method: url or package
+#
+#  [*download_extension*]
+#  Extension for the release binary archive
+#
+#  [*os*]
+#  Operating system (linux is the only one supported)
+#
+#  [*arch*]
+#  Architecture (amd64 or i386)
+#
+#  [*bin_dir*]
+#  Directory where binaries are located
+#
+#  [*package_name*]
+#  The binary package name
+#
+#  [*package_ensure*]
+#  If package, then use this for package ensure default 'installed'
+#
+#  [*manage_user*]
+#  Whether to create user or rely on external code for that
+#
+#  [*extra_groups*]
+#  Extra groups of which the user should be a part
+#
+#  [*manage_group*]
+#  Whether to create a group for or rely on external code for that
+#
+#  [*service_ensure*]
+#  State ensured for the service (default 'running')
+#
+#  [*service_enable*]
+#  Whether to enable the service from puppet (default true)
+#
+#  [*manage_service*]
+#  Should puppet manage the service? (default true)
+#
 define prometheus::daemon (
   $version,
   $real_download_url,
@@ -5,19 +60,19 @@ define prometheus::daemon (
   $user,
   $group,
 
-  $install_method     = $prometheus::params::install_method,
-  $download_extension = $prometheus::params::download_extension,
-  $os                 = $prometheus::params::os,
-  $arch               = $prometheus::params::arch,
-  $bin_dir            = $prometheus::params::bin_dir,
+  $install_method     = $::prometheus::params::install_method,
+  $download_extension = $::prometheus::params::download_extension,
+  $os                 = $::prometheus::params::os,
+  $arch               = $::prometheus::params::arch,
+  $bin_dir            = $::prometheus::params::bin_dir,
   $package_name       = undef,
-  $package_ensure     = undef,
+  $package_ensure     = 'installed',
   $manage_user        = true,
   $extra_groups       = [],
   $manage_group       = true,
   $purge              = true,
   $options            = '',
-  $init_style         = $prometheus::params::init_style,
+  $init_style         = $::prometheus::params::init_style,
   $service_ensure     = 'running',
   $service_enable     = true,
   $manage_service     = true,
