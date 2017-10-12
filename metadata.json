@@ -10,7 +10,7 @@
   "dependencies": [
     {
       "name":"puppet/archive",
-      "version_requirement":">=1.3.0 <2.0.0"
+      "version_requirement":">=1.3.0 < 3.0.0"
     },
     {
       "name":"puppetlabs/stdlib",
@@ -50,7 +50,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirements": "=> 4.6.1 < 5.0.0"
+      "version_requirements": "=> 4.6.1 < 6.0.0"
     }
   ],
   "tags": [
