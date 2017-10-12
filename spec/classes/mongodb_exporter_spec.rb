@@ -16,6 +16,10 @@ describe 'prometheus::mongodb_exporter' do
           }
         end
 
+        describe 'compile manifest' do
+          it { is_expected.to compile.with_all_deps }
+        end
+
         describe 'install correct binary' do
           it { is_expected.to contain_file('/usr/local/bin/mongodb_exporter').with('target' => '/opt/mongodb_exporter-0.3.0.linux-amd64/mongodb_exporter') }
         end
