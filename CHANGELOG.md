@@ -5,7 +5,7 @@ Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
 ## [v2.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v2.0.0) (2017-10-12)
-[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v0.2.0...v2.0.0)
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v1.0.0...v2.0.0)
 
 **Implemented enhancements:**
 
@@ -13,6 +13,7 @@ These should not affect the functionality of the module.
 - Add tests for elasticsearch\_exporter and update a bit [\#64](https://github.com/voxpupuli/puppet-prometheus/pull/64) ([salekseev](https://github.com/salekseev))
 - Allow uncompressed daemons [\#53](https://github.com/voxpupuli/puppet-prometheus/pull/53) ([sathieu](https://github.com/sathieu))
 - Add elasticsearch exporter [\#51](https://github.com/voxpupuli/puppet-prometheus/pull/51) ([rbestbmj](https://github.com/rbestbmj))
+- Add mongodb\_exporter [\#46](https://github.com/voxpupuli/puppet-prometheus/pull/46) ([salekseev](https://github.com/salekseev))
 
 **Fixed bugs:**
 
@@ -21,10 +22,10 @@ These should not affect the functionality of the module.
 **Closed issues:**
 
 - Upgrade to Puppet4? [\#34](https://github.com/voxpupuli/puppet-prometheus/issues/34)
-- alertmanager systemd service doesnt start [\#28](https://github.com/voxpupuli/puppet-prometheus/issues/28)
 
 **Merged pull requests:**
 
+- release 2.0.0 [\#66](https://github.com/voxpupuli/puppet-prometheus/pull/66) ([bastelfreak](https://github.com/bastelfreak))
 - Remove systemd module dependency and fix missing path for a exec [\#58](https://github.com/voxpupuli/puppet-prometheus/pull/58) ([juliantaylor](https://github.com/juliantaylor))
 - Update README.md [\#56](https://github.com/voxpupuli/puppet-prometheus/pull/56) ([steinbrueckri](https://github.com/steinbrueckri))
 - Use default collectors if "collectors" param is empty [\#49](https://github.com/voxpupuli/puppet-prometheus/pull/49) ([sathieu](https://github.com/sathieu))
@@ -32,6 +33,16 @@ These should not affect the functionality of the module.
 - Reload config [\#43](https://github.com/voxpupuli/puppet-prometheus/pull/43) ([vide](https://github.com/vide))
 - Add param service\_name to node\_exporter class [\#40](https://github.com/voxpupuli/puppet-prometheus/pull/40) ([bastelfreak](https://github.com/bastelfreak))
 - backport changes to upstream [\#39](https://github.com/voxpupuli/puppet-prometheus/pull/39) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v1.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v1.0.0) (2017-03-26)
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v0.2.0...v1.0.0)
+
+**Closed issues:**
+
+- alertmanager systemd service doesnt start [\#28](https://github.com/voxpupuli/puppet-prometheus/issues/28)
+
+**Merged pull requests:**
+
 - node-exporter have a 'v' in the release name since 0.13.0 [\#29](https://github.com/voxpupuli/puppet-prometheus/pull/29) ([NairolfL](https://github.com/NairolfL))
 
 ## [v0.2.0](https://github.com/voxpupuli/puppet-prometheus/tree/v0.2.0) (2016-12-27)
