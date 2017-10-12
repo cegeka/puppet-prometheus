@@ -1,6 +1,6 @@
 # Class: prometheus::elasticsearch_exporter
 #
-# This module manages prometheus node elasticsearch_exporter
+# This module manages prometheus elasticsearch_exporter
 #
 # Parameters:
 #  [*arch*]
@@ -8,6 +8,15 @@
 #
 #  [*bin_dir*]
 #  Directory where binaries are located
+#
+#  [*cnf_uri*]
+#  The URI to obtain elasticsearch stats from
+#
+#  [*cnf_all*]
+#  If true, query stats for all nodes in the cluster, rather than just the node we connect to.
+#
+#  [*cnf_timeout*]
+#  Timeout for trying to get stats from elasticsearch URI
 #
 #  [*download_extension*]
 #  Extension for the release binary archive
@@ -26,9 +35,6 @@
 #
 #  [*group*]
 #  Group under which the binary is running
-#
-#  [*listen_address*]
-#  Address to listen on for web interface and telemetry. (default ":9108")
 #
 #  [*init_style*]
 #  Service startup scripts style (e.g. rc, upstart or systemd)
@@ -66,49 +72,46 @@
 #  [*service_ensure*]
 #  State ensured for the service (default 'running')
 #
-#  [*uri*]
-#  HTTP API address of an Elasticsearch node. (default "http://localhost:9200")
-#
 #  [*user*]
 #  User which runs the service
 #
 #  [*version*]
 #  The binary release version
 class prometheus::elasticsearch_exporter (
-  $arch                         = $::prometheus::params::arch,
-  $bin_dir                      = $::prometheus::params::bin_dir,
-  $download_extension           = $::prometheus::params::elasticsearch_exporter_download_extension,
-  $download_url                 = undef,
-  $download_url_base            = $::prometheus::params::elasticsearch_exporter_download_url_base,
-  $extra_groups                 = $::prometheus::params::elasticsearch_exporter_extra_groups,
-  $extra_options                = '',
-  $group                        = $::prometheus::params::elasticsearch_exporter_group,
-  $init_style                   = $::prometheus::params::init_style,
-  $install_method               = $::prometheus::params::install_method,
-  $listen_address               = $::prometheus::params::elasticsearch_exporter_listen_address,
-  Boolean $manage_group         = true,
-  Boolean $manage_service       = true,
-  Boolean $manage_user          = true,
-  $os                           = $::prometheus::params::os,
-  $package_ensure               = $::prometheus::params::elasticsearch_exporter_package_ensure,
-  $package_name                 = $::prometheus::params::elasticsearch_exporter_package_name,
-  Boolean $purge_config_dir     = true,
-  Boolean $restart_on_change    = true,
-  Boolean $service_enable       = true,
-  $service_ensure               = 'running',
-  $service_name                 = 'elasticsearch_exporter',
-  $uri                          = $::prometheus::params::elasticsearch_exporter_uri,
-  $user                         = $::prometheus::params::elasticsearch_exporter_user,
-  $version                      = $::prometheus::params::elasticsearch_exporter_version,
+  String $arch                        = $::prometheus::params::arch,
+  String $bin_dir                     = $::prometheus::params::bin_dir,
+  String $cnf_uri                     = $::prometheus::params::elasticsearch_exporter_cnf_uri,
+  String $cnf_timeout                 = $::prometheus::params::elasticsearch_exporter_cnf_timeout,
+  String $download_extension          = $::prometheus::params::elasticsearch_exporter_download_extension,
+  Variant[Undef,String] $download_url = undef,
+  String $download_url_base           = $::prometheus::params::elasticsearch_exporter_download_url_base,
+  Array $extra_groups                 = $::prometheus::params::elasticsearch_exporter_extra_groups,
+  String $extra_options               = '',
+  String $group                       = $::prometheus::params::elasticsearch_exporter_group,
+  String $init_style                  = $::prometheus::params::init_style,
+  String $install_method              = $::prometheus::params::install_method,
+  Boolean $manage_group               = true,
+  Boolean $manage_service             = true,
+  Boolean $manage_user                = true,
+  String $os                          = $::prometheus::params::os,
+  String $package_ensure              = $::prometheus::params::elasticsearch_exporter_package_ensure,
+  String $package_name                = $::prometheus::params::elasticsearch_exporter_package_name,
+  Boolean $purge_config_dir           = true,
+  Boolean $restart_on_change          = true,
+  Boolean $service_enable             = true,
+  String $service_ensure              = 'running',
+  String $user                        = $::prometheus::params::elasticsearch_exporter_user,
+  String $version                     = $::prometheus::params::elasticsearch_exporter_version,
 ) inherits prometheus::params {
-  $real_download_url    = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+  #Please provide the download_url for versions < 0.9.0
+  $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {
-    true    => Service[$service_name],
+    true    => Service['elasticsearch_exporter'],
     default => undef,
   }
 
-  $options = "-es.uri ${uri} -web.listen-address ${listen_address} ${extra_options}"
+  $options = "-es.uri=${cnf_uri} -es.timeout=${cnf_timeout} ${extra_options}"
 
   prometheus::daemon { 'elasticsearch_exporter':
     install_method     => $install_method,

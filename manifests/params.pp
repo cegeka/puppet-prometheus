@@ -26,16 +26,16 @@ class prometheus::params {
   $config_template = 'prometheus/prometheus.yaml.erb'
   $download_extension = 'tar.gz'
   $download_url_base = 'https://github.com/prometheus/prometheus/releases'
+  $elasticsearch_exporter_cnf_uri = 'http://localhost:9200'
+  $elasticsearch_exporter_cnf_timeout = '5s'
   $elasticsearch_exporter_download_extension = 'tar.gz'
   $elasticsearch_exporter_download_url_base = 'https://github.com/justwatchcom/elasticsearch_exporter/releases'
   $elasticsearch_exporter_extra_groups = []
   $elasticsearch_exporter_group = 'elasticsearch-exporter'
-  $elasticsearch_exporter_listen_address = ':9108'
   $elasticsearch_exporter_package_ensure = 'latest'
   $elasticsearch_exporter_package_name = 'elasticsearch_exporter'
-  $elasticsearch_exporter_uri = 'http://localhost:9200'
   $elasticsearch_exporter_user = 'elasticsearch-exporter'
-  $elasticsearch_exporter_version = '1.0.1'
+  $elasticsearch_exporter_version = '1.0.2rc1'
   $extra_groups = []
   $global_config = { 'scrape_interval'=> '15s', 'evaluation_interval'=> '15s', 'external_labels'=> { 'monitor'=>'master'}}
   $group = 'prometheus'
