@@ -72,6 +72,15 @@ class prometheus::params {
   $mysqld_exporter_package_name = 'mysqld_exporter'
   $mysqld_exporter_user = 'mysqld-exporter'
   $mysqld_exporter_version = '0.9.0'
+  $mongodb_exporter_cnf_uri = 'mongodb://localhost:27017'
+  $mongodb_exporter_download_extension = 'tar.gz'
+  $mongodb_exporter_download_url_base = 'https://github.com/percona/mongodb_exporter/releases'
+  $mongodb_exporter_extra_groups = []
+  $mongodb_exporter_group = 'mongodb-exporter'
+  $mongodb_exporter_package_ensure = 'latest'
+  $mongodb_exporter_package_name = 'mongodb_exporter'
+  $mongodb_exporter_user = 'mongodb-exporter'
+  $mongodb_exporter_version = '0.3.1'
   $node_exporter_collectors = ['diskstats','filesystem','loadavg','meminfo','netdev','stat','time']
   $node_exporter_download_extension = 'tar.gz'
   $node_exporter_download_url_base = 'https://github.com/prometheus/node_exporter/releases'
