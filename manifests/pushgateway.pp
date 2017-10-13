@@ -69,28 +69,28 @@
 #  [*version*]
 #  The binary release version
 class prometheus::pushgateway (
-  $arch                 = $::prometheus::params::arch,
-  $bin_dir              = $::prometheus::params::bin_dir,
-  $download_extension   = $::prometheus::params::pushgateway_download_extension,
-  $download_url         = undef,
-  $download_url_base    = $::prometheus::params::pushgateway_download_url_base,
-  $extra_groups         = $::prometheus::params::pushgateway_extra_groups,
-  $extra_options        = '',
-  $group                = $::prometheus::params::pushgateway_group,
-  $init_style           = $::prometheus::params::init_style,
-  $install_method       = $::prometheus::params::install_method,
-  $manage_group         = true,
-  $manage_service       = true,
-  $manage_user          = true,
-  $os                   = $::prometheus::params::os,
-  $package_ensure       = $::prometheus::params::pushgateway_package_ensure,
-  $package_name         = $::prometheus::params::pushgateway_package_name,
-  $restart_on_change    = true,
-  $service_enable       = true,
-  $service_ensure       = 'running',
-  $service_name         = 'pushgateway',
-  $user                 = $::prometheus::params::pushgateway_user,
-  $version              = $::prometheus::params::pushgateway_version,
+  String $arch                        = $::prometheus::params::arch,
+  String $bin_dir                     = $::prometheus::params::bin_dir,
+  String $download_extension          = $::prometheus::params::pushgateway_download_extension,
+  Variant[Undef,String] $download_url = undef,
+  String $download_url_base           = $::prometheus::params::pushgateway_download_url_base,
+  Array $extra_groups                 = $::prometheus::params::pushgateway_extra_groups,
+  String $extra_options               = '',
+  String $group                       = $::prometheus::params::pushgateway_group,
+  String $init_style                  = $::prometheus::params::init_style,
+  String $install_method              = $::prometheus::params::install_method,
+  Boolean $manage_group               = true,
+  Boolean $manage_service             = true,
+  Boolean $manage_user                = true,
+  String $os                          = $::prometheus::params::os,
+  String $package_ensure              = $::prometheus::params::pushgateway_package_ensure,
+  String $package_name                = $::prometheus::params::pushgateway_package_name,
+  Boolean $restart_on_change          = true,
+  Boolean $service_enable             = true,
+  String $service_ensure              = 'running',
+  String $service_name                = 'pushgateway',
+  String $user                        = $::prometheus::params::pushgateway_user,
+  String $version                     = $::prometheus::params::pushgateway_version,
 ) inherits prometheus::params {
   # Prometheus added a 'v' on the realease name at 0.3.0
   if versioncmp ($version, '0.3.0') >= 0 {
@@ -100,9 +100,6 @@ class prometheus::pushgateway (
     $release = $version
   }
   $real_download_url = pick($download_url,"${download_url_base}/download/${release}/${package_name}-${version}.${os}-${arch}.${download_extension}")
-  validate_bool($manage_user)
-  validate_bool($manage_service)
-  validate_bool($restart_on_change)
   $notify_service = $restart_on_change ? {
     true    => Service[$service_name],
     default => undef,
