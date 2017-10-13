@@ -92,7 +92,7 @@ class prometheus::pushgateway (
   $user                 = $::prometheus::params::pushgateway_user,
   $version              = $::prometheus::params::pushgateway_version,
 ) inherits prometheus::params {
-  # Prometheus added a 'v' on the realease name at 0.13.0
+  # Prometheus added a 'v' on the realease name at 0.3.0
   if versioncmp ($version, '0.3.0') >= 0 {
     $release = "v${version}"
   }
