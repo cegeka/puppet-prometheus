@@ -124,7 +124,7 @@ class prometheus::pushgateway (
     extra_groups       => $extra_groups,
     group              => $group,
     manage_group       => $manage_group,
-    options            => $options,
+    options            => $extra_options,
     init_style         => $init_style,
     service_ensure     => $service_ensure,
     service_enable     => $service_enable,
