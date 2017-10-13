@@ -10,9 +10,9 @@ describe 'prometheus::pushgateway' do
       context 'with version specified' do
         let(:params) do
           {
-              version: '0.4.0',
-              arch: 'amd64',
-              os: 'linux'
+            version: '0.4.0',
+            arch: 'amd64',
+            os: 'linux'
           }
         end
 
