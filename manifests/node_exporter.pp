@@ -85,32 +85,32 @@
 #  [*version*]
 #  The binary release version
 class prometheus::node_exporter (
-  $arch                             = $::prometheus::params::arch,
-  $bin_dir                          = $::prometheus::params::bin_dir,
-  $collectors                       = undef,
-  Array[String] $collectors_enable  = [],
-  Array[String] $collectors_disable = [],
-  $download_extension               = $::prometheus::params::node_exporter_download_extension,
-  $download_url                     = undef,
-  $download_url_base                = $::prometheus::params::node_exporter_download_url_base,
-  $extra_groups                     = $::prometheus::params::node_exporter_extra_groups,
-  $extra_options                    = '',
-  $group                            = $::prometheus::params::node_exporter_group,
-  $init_style                       = $::prometheus::params::init_style,
-  $install_method                   = $::prometheus::params::install_method,
-  $manage_group                     = true,
-  $manage_service                   = true,
-  $manage_user                      = true,
-  $os                               = $::prometheus::params::os,
-  $package_ensure                   = $::prometheus::params::node_exporter_package_ensure,
-  $package_name                     = $::prometheus::params::node_exporter_package_name,
-  $purge_config_dir                 = true,
-  $restart_on_change                = true,
-  $service_enable                   = true,
-  $service_ensure                   = 'running',
-  $service_name                     = 'node_exporter',
-  $user                             = $::prometheus::params::node_exporter_user,
-  $version                          = $::prometheus::params::node_exporter_version,
+  String                  $arch               = $::prometheus::params::arch,
+  String                  $bin_dir            = $::prometheus::params::bin_dir,
+  Optional[Array[String]] $collectors                       = undef,
+  Array[String]           $collectors_enable  = [],
+  Array[String]           $collectors_disable = [],
+  String                  $download_extension = $::prometheus::params::node_exporter_download_extension,
+  Optional[String]        $download_url       = undef,
+  String                  $download_url_base  = $::prometheus::params::node_exporter_download_url_base,
+  Array[String]           $extra_groups       = $::prometheus::params::node_exporter_extra_groups,
+  String                  $extra_options      = '',
+  String                  $group              = $::prometheus::params::node_exporter_group,
+  Optional[String]        $init_style         = $::prometheus::params::init_style,
+  String                  $install_method     = $::prometheus::params::install_method,
+  Boolean                 $manage_group       = true,
+  Boolean                 $manage_service     = true,
+  Boolean                 $manage_user        = true,
+  String                  $os                 = $::prometheus::params::os,
+  String                  $package_ensure     = $::prometheus::params::node_exporter_package_ensure,
+  String                  $package_name       = $::prometheus::params::node_exporter_package_name,
+  Boolean                 $purge_config_dir   = true,
+  Boolean                 $restart_on_change  = true,
+  Boolean                 $service_enable     = true,
+  String                  $service_ensure     = 'running',
+  String                  $service_name       = 'node_exporter',
+  String                  $user               = $::prometheus::params::node_exporter_user,
+  String                  $version            = $::prometheus::params::node_exporter_version,
 ) inherits prometheus::params {
   # Prometheus added a 'v' on the realease name at 0.13.0
   if versioncmp ($version, '0.13.0') >= 0 {
@@ -120,10 +120,6 @@ class prometheus::node_exporter (
     $release = $version
   }
   $real_download_url = pick($download_url,"${download_url_base}/download/${release}/${package_name}-${version}.${os}-${arch}.${download_extension}")
-  validate_bool($purge_config_dir)
-  validate_bool($manage_user)
-  validate_bool($manage_service)
-  validate_bool($restart_on_change)
   if $collectors {
     warning('Use of $collectors parameter is deprecated')
   }
