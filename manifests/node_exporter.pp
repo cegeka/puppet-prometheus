@@ -124,7 +124,7 @@ class prometheus::node_exporter (
   validate_bool($manage_user)
   validate_bool($manage_service)
   validate_bool($restart_on_change)
-  if $collectors != undef {
+  if $collectors {
     warning('Use of $collectors parameter is deprecated')
   }
 
