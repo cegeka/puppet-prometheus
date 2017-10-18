@@ -50,6 +50,15 @@ class prometheus::params {
   $haproxy_exporter_package_name = 'haproxy_exporter'
   $haproxy_exporter_user = 'haproxy-user'
   $haproxy_exporter_version = '0.7.1'
+  $nginx_vts_exporter_nginx_scrape_uri = 'http://localhost/status/format/json'
+  $nginx_vts_exporter_download_extension = 'tar.gz'
+  $nginx_vts_exporter_download_url_base = 'https://github.com/hnlq715/nginx-vts-exporter/releases'
+  $nginx_vts_exporter_extra_groups = []
+  $nginx_vts_exporter_group = 'nginx-vts-exporter'
+  $nginx_vts_exporter_package_ensure = 'latest'
+  $nginx_vts_exporter_package_name = 'nginx-vts-exporter'
+  $nginx_vts_exporter_user = 'nginx-vts-exporter'
+  $nginx_vts_exporter_version = '0.6'
   $process_exporter_download_extension = 'tar.gz'
   $process_exporter_download_url_base = 'https://github.com/ncabatoff/process-exporter/releases'
   $process_exporter_extra_groups = []
