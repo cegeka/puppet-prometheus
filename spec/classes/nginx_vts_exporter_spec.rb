@@ -18,6 +18,7 @@ describe 'prometheus::nginx_vts_exporter' do
 
         describe 'install correct binary' do
           it { is_expected.to contain_file('/usr/local/bin/nginx-vts-exporter').with('target' => '/opt/nginx-vts-exporter-0.6.linux-amd64/nginx-vts-exporter') }
+          it { is_expected.to compile.with_all_deps }
         end
       end
     end
