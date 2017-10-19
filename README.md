@@ -9,6 +9,8 @@
 | ----------------    | ----------------------------------- |
 | >= 0.16.2           | latest                              |
 
+node_exporter >= 0.15.0
+
 
 ## Background
 
@@ -82,9 +84,7 @@ alertrules:
 On the monitored nodes:
 
 ```puppet
-class { '::prometheus::node_exporter':
-  collectors => ['diskstats','filesystem','loadavg','meminfo','netdev','stat','time']
-}
+   include prometheus::node_exporter
 ```
 
 or:
@@ -92,14 +92,9 @@ or:
 ```puppet
 class { 'prometheus::node_exporter':
     version => '0.12.0',
-    collectors => ['diskstats','filesystem','loadavg','meminfo','logind','netdev','netstat','stat','time','interrupts','ntp','tcpstat'],
-    extra_options => '-collector.ntp.server ntp1.orange.intra',
+    collectors_disable => ['loadavg','mdadm' ],
+    extra_options => '--collector.ntp.server ntp1.orange.intra',
 }
-```
-
-or simply:
-```puppet
-include ::prometheus::node_exporter
 ```
 
 For more information regarding class parameters please take a look at class docstring.
