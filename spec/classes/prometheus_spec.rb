@@ -88,9 +88,18 @@ describe 'prometheus' do
         }
 
         # prometheus::config
-        if ['debian-7-x86_64'].include?(os) ||
-           ['centos-6-x86_64', 'redhat-6-x86_64'].include?(os)
-          # init_style = 'debian' or
+        if ['debian-7-x86_64'].include?(os)
+          # init_style = 'debian'
+
+          it {
+            is_expected.to contain_file('/etc/init.d/prometheus').with(
+              'mode'   => '0555',
+              'owner'  => 'root',
+              'group'  => 'root',
+              'content' => File.read(fixtures('files', 'prometheus.debian'))
+            )
+          }
+        elsif ['centos-6-x86_64', 'redhat-6-x86_64'].include?(os)
           # init_style = 'sysv'
 
           it {
@@ -98,7 +107,7 @@ describe 'prometheus' do
               'mode'   => '0555',
               'owner'  => 'root',
               'group'  => 'root',
-              # 'content' => ...
+              'content' => File.read(fixtures('files', 'prometheus.sysv'))
             )
           }
         elsif ['centos-7-x86_64', 'debian-8-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64'].include?(os)
@@ -106,10 +115,10 @@ describe 'prometheus' do
 
           it {
             is_expected.to contain_file('/etc/systemd/system/prometheus.service').with(
-              'mode'   => '0644',
-              'owner'  => 'root',
-              'group'  => 'root',
-              # 'content' => ...
+              'mode'    => '0644',
+              'owner'   => 'root',
+              'group'   => 'root',
+              'content' => File.read(fixtures('files', 'prometheus.systemd'))
             ).that_notifies(['Exec[prometheus-systemd-reload]', 'Class[Prometheus::Run_service]'])
           }
 
@@ -125,10 +134,10 @@ describe 'prometheus' do
 
           it {
             is_expected.to contain_file('/etc/init/prometheus.conf').with(
-              'mode'  => '0444',
-              'owner' => 'root',
-              'group' => 'root',
-              # 'content' => ...
+              'mode'    => '0444',
+              'owner'   => 'root',
+              'group'   => 'root',
+              'content' => File.read(fixtures('files', 'prometheus.upstart'))
             )
           }
 
@@ -164,7 +173,7 @@ describe 'prometheus' do
             'owner'   => 'prometheus',
             'group'   => 'prometheus',
             'mode'    => '0660',
-            # 'content' => ...,
+            'content' => File.read(fixtures('files', 'prometheus.yaml'))
           ).that_notifies('Class[prometheus::service_reload]')
         }
 
