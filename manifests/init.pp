@@ -156,6 +156,11 @@ class prometheus (
     $real_download_url = pick($download_url,
       "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   }
+  $notify_service = $restart_on_change ? {
+    true    => Service['prometheus'],
+    default => undef,
+  }
+
 
   $config_hash_real = assert_type(Hash, deep_merge($config_defaults, $config_hash))
 
