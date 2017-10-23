@@ -98,10 +98,6 @@ class prometheus::nginx_vts_exporter(
 ) inherits prometheus::params {
 
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
-  validate_bool($purge_config_dir)
-  validate_bool($manage_user)
-  validate_bool($manage_service)
-  validate_bool($restart_on_change)
   $notify_service = $restart_on_change ? {
     true    => Service['nginx-vts-exporter'],
     default => undef,
