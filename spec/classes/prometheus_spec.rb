@@ -196,7 +196,7 @@ describe 'prometheus' do
         it {
           is_expected.to contain_exec('prometheus-reload').with(
             # 'command'     => 'systemctl reload prometheus',
-            'path'        => ['/usr/bin', '/bin', '/usr/sbin'],
+            'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin'],
             'refreshonly' => true
           )
         }
