@@ -13,7 +13,6 @@
 . /etc/init.d/functions
 
 DAEMON=/usr/local/bin/prometheus
-CONFIG=/etc/prometheus/prometheus.yaml
 PID_FILE=/var/run/prometheus/prometheus.pid
 LOG_FILE=/var/log/prometheus
 
@@ -52,7 +51,7 @@ start() {
         [ -f $PID_FILE ] && rm $PID_FILE
         daemon --user=prometheus \
             --pidfile="$PID_FILE" \
-            "$DAEMON" -log.format logger:stdout -config.file="$CONFIG" \
+            "$DAEMON" -log.format logger:stdout -config.file=/etc/prometheus/prometheus.yaml \
             -storage.local.path=/var/lib/prometheus \
             -web.console.templates=/usr/local/share/prometheus/consoles \
             -web.console.libraries=/usr/local/share/prometheus/console_libraries \

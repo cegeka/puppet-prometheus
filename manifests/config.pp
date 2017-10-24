@@ -9,6 +9,21 @@ class prometheus::config(
 ) {
 
   if $prometheus::init_style {
+    if( versioncmp($::prometheus::version, '2.0.0') < 0 ){
+      $daemon_flags = [
+        "-config.file=${::prometheus::config_dir}/prometheus.yaml",
+        "-storage.local.path=${::prometheus::localstorage}",
+        "-web.console.templates=${::prometheus::shared_dir}/consoles",
+        "-web.console.libraries=${::prometheus::shared_dir}/console_libraries",
+      ]
+    } else {
+      $daemon_flags = [
+        "--config.file=${::prometheus::config_dir}/prometheus.yaml",
+        "--storage.tsdb.path=${::prometheus::localstorage}",
+        "--web.console.templates=${::prometheus::shared_dir}/consoles",
+        "--web.console.libraries=${::prometheus::shared_dir}/console_libraries",
+      ]
+    }
 
     # the vast majority of files here are init-files
     # so any change there should trigger a full service restart
