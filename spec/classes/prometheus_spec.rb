@@ -112,23 +112,7 @@ describe 'prometheus' do
           }
         elsif ['centos-7-x86_64', 'debian-8-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64'].include?(os)
           # init_style = 'systemd'
-
-          it {
-            is_expected.to contain_file('/etc/systemd/system/prometheus.service').with(
-              'mode'    => '0644',
-              'owner'   => 'root',
-              'group'   => 'root',
-              'content' => File.read(fixtures('files', 'prometheus.systemd'))
-            ).that_notifies(['Exec[prometheus-systemd-reload]', 'Class[Prometheus::Run_service]'])
-          }
-
-          it {
-            is_expected.to contain_exec('prometheus-systemd-reload').with(
-              'command'     => 'systemctl daemon-reload',
-              'path'        => ['/usr/bin', '/bin', '/usr/sbin'],
-              'refreshonly' => true
-            )
-          }
+          it { is_expected.to contain_systemd__unit_file('prometheus.service') }
         elsif ['ubuntu-14.04-x86_64'].include?(os)
           # init_style = 'upstart'
 
