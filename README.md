@@ -35,7 +35,17 @@ On the server (for prometheus version < 1.0.0):
 class { '::prometheus':
   global_config  => { 'scrape_interval'=> '15s', 'evaluation_interval'=> '15s', 'external_labels'=> { 'monitor'=>'master'}},
   rule_files     => [ "/etc/prometheus/alert.rules" ],
-  scrape_configs => [ { 'job_name'=> 'prometheus', 'scrape_interval'=> '10s', 'scrape_timeout'=> '10s', 'target_groups'=> [ { 'targets'=> [ 'localhost:9090' ], 'labels'=> { 'alias'=> 'Prometheus'} } ] } ]
+  scrape_configs => [ 
+     { 'job_name'=> 'prometheus',
+       'scrape_interval'=> '10s',
+       'scrape_timeout' => '10s',
+       'target_groups'  => [
+        { 'targets'     => [ 'localhost:9090' ],
+            'labels'    => { 'alias'=> 'Prometheus'}
+         }
+      ]
+    }
+  ]
 }
 ```
 
