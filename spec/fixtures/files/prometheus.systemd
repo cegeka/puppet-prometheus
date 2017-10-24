@@ -15,7 +15,6 @@ ExecStart=/usr/local/bin/prometheus \
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=always
-RestartSec=42s
 
 [Install]
 WantedBy=multi-user.target
