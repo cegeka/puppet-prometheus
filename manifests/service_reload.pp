@@ -17,7 +17,7 @@ class prometheus::service_reload() {
 
     exec { 'prometheus-reload':
       command     => $prometheus_reload,
-      path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
+      path        => [ '/usr/bin', '/bin', '/usr/sbin', '/sbin' ],
       refreshonly => true,
     }
   }
