@@ -54,6 +54,7 @@ start() {
             <%- require 'shellwords' -%>
             "$DAEMON" <%= Shellwords.escape(@options) %> >> "$LOG_FILE" &
         retcode=$?
+        sleep 1
         mkpidfile
         touch /var/lock/subsys/<%= @name %>
         return $retcode
