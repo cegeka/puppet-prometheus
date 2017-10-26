@@ -171,6 +171,7 @@ define prometheus::daemon (
         include 'systemd'
         ::systemd::unit_file {"${name}.service":
           content => template('prometheus/daemon.systemd.erb'),
+          notify  => $notify_service,
         }
       }
       'sysv' : {
@@ -179,6 +180,7 @@ define prometheus::daemon (
           owner   => 'root',
           group   => 'root',
           content => template('prometheus/daemon.sysv.erb'),
+          notify  => $notify_service,
         }
       }
       'debian' : {
