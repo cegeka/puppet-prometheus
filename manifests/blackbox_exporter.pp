@@ -128,7 +128,7 @@ class prometheus::blackbox_exporter (
     default => undef,
   }
 
-  $options = "-config.file=${config_file} ${extra_options}"
+  $options = "--config.file=${config_file} ${extra_options}"
 
   file { $config_file:
     ensure  => present,
