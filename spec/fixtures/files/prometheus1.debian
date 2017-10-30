@@ -18,11 +18,11 @@ DESC="Prometheus monitoring framework"
 NAME=prometheus
 DAEMON=/usr/local/bin/$NAME
 PIDFILE=/var/run/$NAME/$NAME.pid
-DAEMON_ARGS=" -config.file=/etc/prometheus/prometheus.yaml
-              -storage.local.path=/var/lib/prometheus
-              -web.console.templates=/usr/local/share/prometheus/consoles
-              -web.console.libraries=/usr/local/share/prometheus/console_libraries
-              "
+DAEMON_ARGS="-config.file=/etc/prometheus/prometheus.yaml
+             -storage.local.path=/var/lib/prometheus
+             -web.console.templates=/usr/local/share/prometheus/consoles
+             -web.console.libraries=/usr/local/share/prometheus/console_libraries
+             "
 USER=prometheus
 SCRIPTNAME=/etc/init.d/$NAME
 

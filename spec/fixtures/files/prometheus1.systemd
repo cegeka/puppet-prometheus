@@ -7,14 +7,14 @@ After=basic.target network.target
 User=prometheus
 Group=prometheus
 ExecStart=/usr/local/bin/prometheus \
-  -config.file=/etc/prometheus/prometheus.yaml\
+  -config.file=/etc/prometheus/prometheus.yaml \
   -storage.local.path=/var/lib/prometheus \
   -web.console.templates=/usr/local/share/prometheus/consoles \
   -web.console.libraries=/usr/local/share/prometheus/console_libraries \
   
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
-Restart=always
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
