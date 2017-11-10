@@ -121,12 +121,12 @@ class prometheus::beanstalkd_exporter (
   file { $config:
     ensure  => file,
     content => $beanstalkd_address,
-    before  => Prometheus::Daemon['beanstalkd_exporter']
+    before  => Prometheus::Daemon['beanstalkd_exporter'],
   }
 
   file { $mapping_config:
     ensure => file,
-    before => Prometheus::Daemon['beanstalkd_exporter']
+    before => Prometheus::Daemon['beanstalkd_exporter'],
   }
 
   prometheus::daemon { 'beanstalkd_exporter':
