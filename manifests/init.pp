@@ -99,6 +99,9 @@
 #  [*scrape_configs*]
 #  Prometheus scrape configs
 #
+#  [*remote_read_configs*]
+#  Prometheus remote_read config to scrape prometheus 1.8+ instances
+#
 #  [*alert_relabel_config*]
 #  Prometheus alert relabel config under alerting
 #
@@ -144,6 +147,7 @@ class prometheus (
   Hash $global_config         = $::prometheus::params::global_config,
   Array $rule_files           = $::prometheus::params::rule_files,
   Array $scrape_configs       = $::prometheus::params::scrape_configs,
+  Array $remote_read_configs  = $::prometheus::params::remote_read_configs,
   $alerts                     = $::prometheus::params::alerts,
   Array $alert_relabel_config = $::prometheus::params::alert_relabel_config,
   Array $alertmanagers_config = $::prometheus::params::alertmanagers_config,
@@ -167,11 +171,12 @@ class prometheus (
   anchor {'prometheus_first': }
   -> class { '::prometheus::install': }
   -> class { '::prometheus::config':
-    global_config   => $global_config,
-    rule_files      => $rule_files,
-    scrape_configs  => $scrape_configs,
-    purge           => $purge_config_dir,
-    config_template => $config_template,
+    global_config       => $global_config,
+    rule_files          => $rule_files,
+    scrape_configs      => $scrape_configs,
+    remote_read_configs => $remote_read_configs,
+    purge               => $purge_config_dir,
+    config_template     => $config_template,
   }
   -> class { '::prometheus::alerts':
     location => $config_dir,

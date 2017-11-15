@@ -170,7 +170,7 @@ describe 'prometheus' do
               'owner'   => 'prometheus',
               'group'   => 'prometheus',
               'mode'    => '0660',
-              'content' => File.read(fixtures('files', 'prometheus.yaml'))
+              'content' => File.read(fixtures('files', "prometheus#{prom_major}.yaml"))
             ).that_notifies('Class[prometheus::service_reload]')
           }
 

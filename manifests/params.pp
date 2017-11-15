@@ -132,6 +132,7 @@ class prometheus::params {
   $package_name = 'prometheus'
   $rule_files = [ "${config_dir}/alert.rules" ]
   $scrape_configs = [ { 'job_name'=> 'prometheus', 'scrape_interval'=> '10s', 'scrape_timeout'=> '10s', 'static_configs'=> [ { 'targets'=> [ 'localhost:9090' ], 'labels'=> { 'alias'=> 'Prometheus'} } ] } ]
+  $remote_read_configs = []
   $shared_dir = '/usr/local/share/prometheus'
   $statsd_exporter_download_extension = 'tar.gz'
   $statsd_exporter_download_url_base = 'https://github.com/prometheus/statsd_exporter/releases'
