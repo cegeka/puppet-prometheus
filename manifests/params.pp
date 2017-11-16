@@ -135,6 +135,16 @@ class prometheus::params {
   $scrape_configs = [ { 'job_name'=> 'prometheus', 'scrape_interval'=> '10s', 'scrape_timeout'=> '10s', 'static_configs'=> [ { 'targets'=> [ 'localhost:9090' ], 'labels'=> { 'alias'=> 'Prometheus'} } ] } ]
   $remote_read_configs = []
   $shared_dir = '/usr/local/share/prometheus'
+  $snmp_exporter_config_file = '/etc/snmp-exporter.yaml'
+  $snmp_exporter_config_template = ''
+  $snmp_exporter_download_extension = 'tar.gz'
+  $snmp_exporter_download_url_base = 'https://github.com/prometheus/snmp_exporter/releases'
+  $snmp_exporter_extra_groups = []
+  $snmp_exporter_group = 'snmp-exporter'
+  $snmp_exporter_package_ensure = 'latest'
+  $snmp_exporter_package_name = 'snmp_exporter'
+  $snmp_exporter_user = 'snmp-exporter'
+  $snmp_exporter_version = '0.7.0'
   $statsd_exporter_download_extension = 'tar.gz'
   $statsd_exporter_download_url_base = 'https://github.com/prometheus/statsd_exporter/releases'
   $statsd_exporter_extra_groups = []
