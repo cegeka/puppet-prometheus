@@ -84,33 +84,33 @@
 #  [*web_telemetry_path*]
 #  Path under which to expose metrics. (default "/metrics")
 class prometheus::consul_exporter (
-  $arch                  = $::prometheus::params::arch,
-  $bin_dir               = $::prometheus::params::bin_dir,
-  $consul_health_summary = $::prometheus::params::consul_exporter_consul_health_summary,
-  $consul_server         = $::prometheus::params::consul_exporter_consul_server,
-  $download_extension    = $::prometheus::params::consul_exporter_download_extension,
-  $download_url          = undef,
-  $download_url_base     = $::prometheus::params::consul_exporter_download_url_base,
-  $extra_groups          = $::prometheus::params::consul_exporter_extra_groups,
-  $extra_options         = '',
-  $group                 = $::prometheus::params::consul_exporter_group,
-  $init_style            = $::prometheus::params::init_style,
-  $install_method        = $::prometheus::params::install_method,
-  $log_level             = $::prometheus::params::consul_exporter_log_level,
-  $manage_group          = true,
-  $manage_service        = true,
-  $manage_user           = true,
-  $os                    = $::prometheus::params::os,
-  $package_ensure        = $::prometheus::params::consul_exporter_package_ensure,
-  $package_name          = $::prometheus::params::consul_exporter_package_name,
-  $purge_config_dir      = true,
-  $restart_on_change     = true,
-  $service_enable        = true,
-  $service_ensure        = 'running',
-  $user                  = $::prometheus::params::consul_exporter_user,
-  $version               = $::prometheus::params::consul_exporter_version,
-  $web_listen_address    = $::prometheus::params::consul_exporter_web_listen_address,
-  $web_telemetry_path    = $::prometheus::params::consul_exporter_web_telemetry_path,
+  String           $arch                  = $::prometheus::params::arch,
+  String           $bin_dir               = $::prometheus::params::bin_dir,
+  Boolean          $consul_health_summary = $::prometheus::params::consul_exporter_consul_health_summary,
+  String           $consul_server         = $::prometheus::params::consul_exporter_consul_server,
+  String           $download_extension    = $::prometheus::params::consul_exporter_download_extension,
+  Optional[String] $download_url          = undef,
+  String           $download_url_base     = $::prometheus::params::consul_exporter_download_url_base,
+  Array            $extra_groups          = $::prometheus::params::consul_exporter_extra_groups,
+  String           $extra_options         = '',
+  String           $group                 = $::prometheus::params::consul_exporter_group,
+  String           $init_style            = $::prometheus::params::init_style,
+  String           $install_method        = $::prometheus::params::install_method,
+  String           $log_level             = $::prometheus::params::consul_exporter_log_level,
+  Boolean          $manage_group          = true,
+  Boolean          $manage_service        = true,
+  Boolean          $manage_user           = true,
+  String           $os                    = $::prometheus::params::os,
+  String           $package_ensure        = $::prometheus::params::consul_exporter_package_ensure,
+  String           $package_name          = $::prometheus::params::consul_exporter_package_name,
+  Boolean          $purge_config_dir      = true,
+  Boolean          $restart_on_change     = true,
+  Boolean          $service_enable        = true,
+  String           $service_ensure        = 'running',
+  String           $user                  = $::prometheus::params::consul_exporter_user,
+  String           $version               = $::prometheus::params::consul_exporter_version,
+  String           $web_listen_address    = $::prometheus::params::consul_exporter_web_listen_address,
+  String           $web_telemetry_path    = $::prometheus::params::consul_exporter_web_telemetry_path,
 ) inherits prometheus::params {
   # Prometheus added a 'v' on the realease name at 0.3.0
   if versioncmp ($version, '0.3.0') == -1 {
@@ -118,11 +118,6 @@ class prometheus::consul_exporter (
   }
 
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
-  validate_bool($purge_config_dir)
-  validate_bool($manage_user)
-  validate_bool($manage_service)
-  validate_bool($restart_on_change)
-  validate_bool($consul_health_summary)
 
   if $consul_health_summary {
     $real_consul_health_summary = '-consul.health-summary'
