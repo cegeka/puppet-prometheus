@@ -10,6 +10,7 @@
 | >= 0.16.2           | latest                              |
 
 node_exporter >= 0.15.0
+consul_exporter >= 0.3.0
 
 
 ## Background
@@ -24,7 +25,7 @@ This module automates the install and configuration of Prometheus monitoring too
 * Installs a configuration file for prometheus daemon (/etc/prometheus/prometheus.yaml) or for alertmanager (/etc/prometheus/alert.rules)
 * Manages the services via upstart, sysv, or systemd
 * Optionally creates alert rules
-* The following exporters are currently implemented: node_exporter, statsd_exporter, process_exporter, haproxy_exporter, mysqld_exporter, blackbox_exporter
+* The following exporters are currently implemented: node_exporter, statsd_exporter, process_exporter, haproxy_exporter, mysqld_exporter, blackbox_exporter, consul_exporter
 
 ## Usage
 
@@ -35,7 +36,7 @@ On the server (for prometheus version < 1.0.0):
 class { '::prometheus':
   global_config  => { 'scrape_interval'=> '15s', 'evaluation_interval'=> '15s', 'external_labels'=> { 'monitor'=>'master'}},
   rule_files     => [ "/etc/prometheus/alert.rules" ],
-  scrape_configs => [ 
+  scrape_configs => [
      { 'job_name'=> 'prometheus',
        'scrape_interval'=> '10s',
        'scrape_timeout' => '10s',
@@ -116,4 +117,3 @@ In version 0.1.14 of this module the alertmanager was configured to run as the s
 Do not use version 1.0.0 of Prometheus: https://groups.google.com/forum/#!topic/prometheus-developers/vuSIxxUDff8 ; it does break the compatibility with thus module!
 
 Even if the module has templates for several linux distributions, only RH family distributions were tested.
-
