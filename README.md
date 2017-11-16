@@ -9,6 +9,8 @@
 | ----------------    | ----------------------------------- |
 | >= 0.16.2           | latest                              |
 
+node_exporter >= 0.15.0
+
 
 ## Background
 
@@ -22,7 +24,7 @@ This module automates the install and configuration of Prometheus monitoring too
 * Installs a configuration file for prometheus daemon (/etc/prometheus/prometheus.yaml) or for alertmanager (/etc/prometheus/alert.rules)
 * Manages the services via upstart, sysv, or systemd
 * Optionally creates alert rules
-* The following exporters are currently implemented: node_exporter, statsd_exporter, process_exporter, haproxy_exporter, mysqld_exporter
+* The following exporters are currently implemented: node_exporter, statsd_exporter, process_exporter, haproxy_exporter, mysqld_exporter, blackbox_exporter
 
 ## Usage
 
@@ -33,7 +35,17 @@ On the server (for prometheus version < 1.0.0):
 class { '::prometheus':
   global_config  => { 'scrape_interval'=> '15s', 'evaluation_interval'=> '15s', 'external_labels'=> { 'monitor'=>'master'}},
   rule_files     => [ "/etc/prometheus/alert.rules" ],
-  scrape_configs => [ { 'job_name'=> 'prometheus', 'scrape_interval'=> '10s', 'scrape_timeout'=> '10s', 'target_groups'=> [ { 'targets'=> [ 'localhost:9090' ], 'labels'=> { 'alias'=> 'Prometheus'} } ] } ]
+  scrape_configs => [ 
+     { 'job_name'=> 'prometheus',
+       'scrape_interval'=> '10s',
+       'scrape_timeout' => '10s',
+       'target_groups'  => [
+        { 'targets'     => [ 'localhost:9090' ],
+            'labels'    => { 'alias'=> 'Prometheus'}
+         }
+      ]
+    }
+  ]
 }
 ```
 
@@ -82,9 +94,7 @@ alertrules:
 On the monitored nodes:
 
 ```puppet
-class { '::prometheus::node_exporter':
-  collectors => ['diskstats','filesystem','loadavg','meminfo','netdev','stat,time']
-}
+   include prometheus::node_exporter
 ```
 
 or:
@@ -92,14 +102,9 @@ or:
 ```puppet
 class { 'prometheus::node_exporter':
     version => '0.12.0',
-    collectors => ['diskstats','filesystem','loadavg','meminfo','logind','netdev','netstat','stat','time','interrupts','ntp','tcpstat'],
-    extra_options => '-collector.ntp.server ntp1.orange.intra',
+    collectors_disable => ['loadavg','mdadm' ],
+    extra_options => '--collector.ntp.server ntp1.orange.intra',
 }
-```
-
-or simply:
-```puppet
-include ::prometheus::node_exporter
 ```
 
 For more information regarding class parameters please take a look at class docstring.

@@ -4,11 +4,45 @@ class prometheus::config(
   $global_config,
   $rule_files,
   $scrape_configs,
+  $remote_read_configs,
   $purge = true,
   $config_template = $::prometheus::params::config_template,
 ) {
 
   if $prometheus::init_style {
+    if( versioncmp($::prometheus::version, '2.0.0') < 0 ){
+      # helper variable indicating prometheus version, so we can use on this information in the template
+      $prometheus_v2 = false
+      if $remote_read_configs != [] {
+        fail('remote_read_configs requires prometheus 2.X')
+      }
+      $daemon_flags = [
+        "-config.file=${::prometheus::config_dir}/prometheus.yaml",
+        "-storage.local.path=${::prometheus::localstorage}",
+        "-web.console.templates=${::prometheus::shared_dir}/consoles",
+        "-web.console.libraries=${::prometheus::shared_dir}/console_libraries",
+      ]
+    } else {
+      # helper variable indicating prometheus version, so we can use on this information in the template
+      $prometheus_v2 = true
+      $daemon_flags = [
+        "--config.file=${::prometheus::config_dir}/prometheus.yaml",
+        "--storage.tsdb.path=${::prometheus::localstorage}",
+        "--web.console.templates=${::prometheus::shared_dir}/consoles",
+        "--web.console.libraries=${::prometheus::shared_dir}/console_libraries",
+      ]
+    }
+
+    # the vast majority of files here are init-files
+    # so any change there should trigger a full service restart
+    if $::prometheus::restart_on_change {
+      File {
+        notify => [Class['::prometheus::run_service']],
+      }
+      $systemd_notify = [Exec['prometheus-systemd-reload'], Class['::prometheus::run_service']]
+    } else {
+      $systemd_notify = Exec['prometheus-systemd-reload']
+    }
 
     case $prometheus::init_style {
       'upstart' : {
@@ -27,16 +61,9 @@ class prometheus::config(
         }
       }
       'systemd' : {
-        file { '/etc/systemd/system/prometheus.service':
-          mode    => '0644',
-          owner   => 'root',
-          group   => 'root',
+        include 'systemd'
+        ::systemd::unit_file {'prometheus.service':
           content => template('prometheus/prometheus.systemd.erb'),
-        }
-        ~> exec { 'prometheus-systemd-reload':
-          command     => 'systemctl daemon-reload',
-          path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
-          refreshonly => true,
         }
       }
       'sysv' : {
@@ -90,6 +117,7 @@ class prometheus::config(
     owner   => $prometheus::user,
     group   => $prometheus::group,
     mode    => $prometheus::config_mode,
+    notify  => Class['::prometheus::service_reload'],
     content => template($config_template),
   }
 

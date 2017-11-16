@@ -129,39 +129,40 @@
 #  [*version*]
 #  The binary release version
 class prometheus::alertmanager (
-  $arch                 = $::prometheus::params::arch,
-  $bin_dir              = $::prometheus::params::bin_dir,
-  $config_dir           = $::prometheus::params::alertmanager_config_dir,
-  $config_file          = $::prometheus::params::alertmanager_config_file,
-  $config_mode          = $::prometheus::params::config_mode,
-  $download_extension   = $::prometheus::params::alertmanager_download_extension,
-  $download_url         = undef,
-  $download_url_base    = $::prometheus::params::alertmanager_download_url_base,
-  $extra_groups         = $::prometheus::params::alertmanager_extra_groups,
-  $extra_options        = '',
-  $global               = $::prometheus::params::alertmanager_global,
-  $group                = $::prometheus::params::alertmanager_group,
-  $inhibit_rules        = $::prometheus::params::alertmanager_inhibit_rules,
-  $init_style           = $::prometheus::params::init_style,
-  $install_method       = $::prometheus::params::install_method,
-  $manage_group         = true,
-  $manage_service       = true,
-  $manage_user          = true,
-  $os                   = $::prometheus::params::os,
-  $package_ensure       = $::prometheus::params::alertmanager_package_ensure,
-  $package_name         = $::prometheus::params::alertmanager_package_name,
-  $purge_config_dir     = true,
-  $receivers            = $::prometheus::params::alertmanager_receivers,
-  $restart_on_change    = true,
-  $route                = $::prometheus::params::alertmanager_route,
-  $service_enable       = true,
-  $service_ensure       = 'running',
-  $service_name         = 'alertmanager',
-  $storage_path         = $::prometheus::params::alertmanager_storage_path,
-  $templates            = $::prometheus::params::alertmanager_templates,
-  $user                 = $::prometheus::params::alertmanager_user,
-  $version              = $::prometheus::params::alertmanager_version,
+  $arch                      = $::prometheus::params::arch,
+  $bin_dir                   = $::prometheus::params::bin_dir,
+  $config_dir                = $::prometheus::params::alertmanager_config_dir,
+  $config_file               = $::prometheus::params::alertmanager_config_file,
+  $config_mode               = $::prometheus::params::config_mode,
+  $download_extension        = $::prometheus::params::alertmanager_download_extension,
+  $download_url              = undef,
+  $download_url_base         = $::prometheus::params::alertmanager_download_url_base,
+  $extra_groups              = $::prometheus::params::alertmanager_extra_groups,
+  $extra_options             = '',
+  Hash $global               = $::prometheus::params::alertmanager_global,
+  $group                     = $::prometheus::params::alertmanager_group,
+  Array $inhibit_rules       = $::prometheus::params::alertmanager_inhibit_rules,
+  $init_style                = $::prometheus::params::init_style,
+  $install_method            = $::prometheus::params::install_method,
+  Boolean $manage_group      = true,
+  Boolean $manage_service    = true,
+  Boolean $manage_user       = true,
+  $os                        = $::prometheus::params::os,
+  $package_ensure            = $::prometheus::params::alertmanager_package_ensure,
+  $package_name              = $::prometheus::params::alertmanager_package_name,
+  Boolean $purge_config_dir  = true,
+  Array $receivers           = $::prometheus::params::alertmanager_receivers,
+  Boolean $restart_on_change = true,
+  Hash $route                = $::prometheus::params::alertmanager_route,
+  Boolean $service_enable    = true,
+  $service_ensure            = 'running',
+  $service_name              = 'alertmanager',
+  $storage_path              = $::prometheus::params::alertmanager_storage_path,
+  Array $templates           = $::prometheus::params::alertmanager_templates,
+  $user                      = $::prometheus::params::alertmanager_user,
+  $version                   = $::prometheus::params::alertmanager_version,
 ) inherits prometheus::params {
+
   if( versioncmp($::prometheus::alertmanager::version, '0.3.0') == -1 ){
     $real_download_url    = pick($download_url,
       "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
@@ -169,15 +170,6 @@ class prometheus::alertmanager (
     $real_download_url    = pick($download_url,
       "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   }
-  validate_bool($purge_config_dir)
-  validate_bool($manage_user)
-  validate_bool($manage_service)
-  validate_bool($restart_on_change)
-  validate_array($templates)
-  validate_array($receivers)
-  validate_array($inhibit_rules)
-  validate_hash($global)
-  validate_hash($route)
   $notify_service = $restart_on_change ? {
     true    => Service[$service_name],
     default => undef,

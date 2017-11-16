@@ -7,6 +7,33 @@ describe 'prometheus::node_exporter' do
         facts
       end
 
+      context 'without parameters' do
+        it { is_expected.to contain_prometheus__daemon('node_exporter').with(options: '  ') }
+      end
+
+      context 'without collector parameters' do
+        let(:params) do
+          {
+            collectors_enable: %w[foo bar],
+            collectors_disable: %w[baz qux]
+          }
+        end
+
+        it { is_expected.to contain_prometheus__daemon('node_exporter').with(options: ' --collector.foo --collector.bar --no-collector.baz --no-collector.qux') }
+      end
+
+      context 'without collector parameters and extra options' do
+        let(:params) do
+          {
+            collectors_enable: %w[foo bar],
+            collectors_disable: %w[baz qux],
+            extra_options: '--path.procfs /host/proc --path.sysfs /host/sys'
+          }
+        end
+
+        it { is_expected.to contain_prometheus__daemon('node_exporter').with(options: '--path.procfs /host/proc --path.sysfs /host/sys --collector.foo --collector.bar --no-collector.baz --no-collector.qux') }
+      end
+
       context 'with version specified' do
         let(:params) do
           {

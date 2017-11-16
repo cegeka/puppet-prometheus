@@ -13,7 +13,6 @@
 . /etc/init.d/functions
 
 DAEMON=<%= scope.lookupvar('prometheus::bin_dir') %>/prometheus
-CONFIG=<%= scope.lookupvar('prometheus::config_dir')%>/prometheus.yaml
 PID_FILE=/var/run/prometheus/prometheus.pid
 LOG_FILE=/var/log/prometheus
 
@@ -52,10 +51,7 @@ start() {
         [ -f $PID_FILE ] && rm $PID_FILE
         daemon --user=<%= scope.lookupvar('prometheus::user') %> \
             --pidfile="$PID_FILE" \
-            "$DAEMON" -log.format logger:stdout -config.file="$CONFIG" \
-            -storage.local.path=<%= scope.lookupvar('prometheus::localstorage')%> \
-            -web.console.templates=<%= scope.lookupvar('prometheus::shared_dir') %>/consoles \
-            -web.console.libraries=<%= scope.lookupvar('prometheus::shared_dir') %>/console_libraries \
+            "$DAEMON" -log.format logger:stdout <%= @daemon_flags.join(" \\\n            ") %> \
             <%= scope.lookupvar('prometheus::extra_options') %> >> "$LOG_FILE" &
         retcode=$?
         mkpidfile
