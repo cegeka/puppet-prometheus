@@ -193,7 +193,7 @@ class prometheus::alertmanager (
     require => File[$config_dir],
   }
 
-  if $::prometheus_alert_manager_running == 'running' {
+  if $facts['prometheus_alert_manager_running'] == 'running' {
     # This is here to stop the previous alertmanager that was installed in version 0.1.14
     service { 'alert_manager':
       ensure => 'stopped',
