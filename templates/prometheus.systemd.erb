@@ -1,7 +1,7 @@
 [Unit]
 Description=Prometheus Monitoring framework
-Wants=basic.target
-After=basic.target network.target
+Requires=network-online.target
+After=network.target network-online.target multi-user.target
 
 [Service]
 User=<%= scope.lookupvar('prometheus::user') %>
@@ -11,7 +11,7 @@ ExecStart=<%= scope.lookupvar('prometheus::bin_dir') %>/prometheus \
   <%= scope.lookupvar('prometheus::extra_options') %>
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
