@@ -4,7 +4,37 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v3.0.0) (2017-10-30)
+## [v3.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v3.1.0) (2017-11-26)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v3.0.0...v3.1.0)
+
+**Implemented enhancements:**
+
+- add support for remote\_read [\#109](https://github.com/voxpupuli/puppet-prometheus/pull/109) ([lobeck](https://github.com/lobeck))
+- messagebird/beanstalkd\_exporter support [\#105](https://github.com/voxpupuli/puppet-prometheus/pull/105) ([TomaszUrugOlszewski](https://github.com/TomaszUrugOlszewski))
+- Add support for mesos exporter [\#59](https://github.com/voxpupuli/puppet-prometheus/pull/59) ([tahaalibra](https://github.com/tahaalibra))
+
+**Fixed bugs:**
+
+- Unable to use this module on fresh alert manager instances [\#55](https://github.com/voxpupuli/puppet-prometheus/issues/55)
+- older versions of puppet don't know about the --to\_yaml option [\#119](https://github.com/voxpupuli/puppet-prometheus/pull/119) ([tuxmea](https://github.com/tuxmea))
+- prometheus systemd needs network-online and started after multi-user. [\#117](https://github.com/voxpupuli/puppet-prometheus/pull/117) ([tuxmea](https://github.com/tuxmea))
+- Disable line wrapping when converting full\_config to yaml.  [\#104](https://github.com/voxpupuli/puppet-prometheus/pull/104) ([benpollardcts](https://github.com/benpollardcts))
+- verify whether alert\_manager is running [\#101](https://github.com/voxpupuli/puppet-prometheus/pull/101) ([tuxmea](https://github.com/tuxmea))
+
+**Closed issues:**
+
+- Error: Could not parse application options: invalid option: --to\_yaml [\#118](https://github.com/voxpupuli/puppet-prometheus/issues/118)
+- Flaky Acceptance Tests in TravisCI [\#114](https://github.com/voxpupuli/puppet-prometheus/issues/114)
+- Update release on forge.puppetlabs.com [\#107](https://github.com/voxpupuli/puppet-prometheus/issues/107)
+
+**Merged pull requests:**
+
+- replace all Variant\[Undef.. with Optional\[... [\#103](https://github.com/voxpupuli/puppet-prometheus/pull/103) ([TheMeier](https://github.com/TheMeier))
+- release 3.0.0 [\#99](https://github.com/voxpupuli/puppet-prometheus/pull/99) ([bastelfreak](https://github.com/bastelfreak))
+- Tests for prometheus::daemon [\#87](https://github.com/voxpupuli/puppet-prometheus/pull/87) ([sathieu](https://github.com/sathieu))
+
+## [v3.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v3.0.0) (2017-10-31)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v2.0.0...v3.0.0)
 
