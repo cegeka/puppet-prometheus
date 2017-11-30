@@ -33,6 +33,9 @@ class prometheus::install
           ensure => link,
           notify => $::prometheus::notify_service,
           target => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/prometheus";
+        "${::prometheus::bin_dir}/promtool":
+          ensure => link,
+          target => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::arch}/promtool";
         $::prometheus::shared_dir:
           ensure => directory,
           owner  => $::prometheus::user,
