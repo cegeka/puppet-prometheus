@@ -175,7 +175,9 @@ class prometheus (
   $config_hash_real = assert_type(Hash, deep_merge($config_defaults, $config_hash))
 
   anchor {'prometheus_first': }
-  -> class { '::prometheus::install': }
+  -> class { '::prometheus::install':
+    purge_config_dir => $purge_config_dir,
+  }
   -> class { '::prometheus::alerts':
     location => $config_dir,
     alerts   => $alerts,
@@ -185,7 +187,6 @@ class prometheus (
     rule_files          => $rule_files,
     scrape_configs      => $scrape_configs,
     remote_read_configs => $remote_read_configs,
-    purge               => $purge_config_dir,
     config_template     => $config_template,
     storage_retention   => $storage_retention,
   }

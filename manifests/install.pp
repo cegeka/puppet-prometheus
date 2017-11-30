@@ -3,8 +3,9 @@
 # Currently only the install from url is implemented, when Prometheus will deliver packages for some Linux distros I will
 # implement the package install method as well
 # The package method needs specific yum or apt repo settings which are not made yet by the module
-class prometheus::install
-{
+class prometheus::install (
+  Boolean $purge_config_dir = true,
+) {
   if $::prometheus::localstorage {
     file { $::prometheus::localstorage:
       ensure => 'directory',
@@ -80,5 +81,12 @@ class prometheus::install
       ensure => 'present',
       system => true,
     })
+  }
+  file { $prometheus::config_dir:
+    ensure  => 'directory',
+    owner   => $prometheus::user,
+    group   => $prometheus::group,
+    purge   => $purge_config_dir,
+    recurse => $purge_config_dir,
   }
 }

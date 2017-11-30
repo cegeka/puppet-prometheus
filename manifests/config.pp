@@ -1,11 +1,10 @@
 # Class prometheus::config
 # Configuration class for prometheus monitoring system
-class prometheus::config(
+class prometheus::config (
   $global_config,
   $rule_files,
   $scrape_configs,
   $remote_read_configs,
-  $purge = true,
   $config_template = $::prometheus::params::config_template,
   $storage_retention = $::prometheus::params::storage_retention,
 ) {
@@ -113,14 +112,7 @@ class prometheus::config(
     $cfg_verify_cmd = 'check-config'
   }
 
-  file { $prometheus::config_dir:
-    ensure  => 'directory',
-    owner   => $prometheus::user,
-    group   => $prometheus::group,
-    purge   => $purge,
-    recurse => $purge,
-  }
-  -> file { 'prometheus.yaml':
+  file { 'prometheus.yaml':
     ensure       => present,
     path         => "${prometheus::config_dir}/prometheus.yaml",
     owner        => $prometheus::user,
