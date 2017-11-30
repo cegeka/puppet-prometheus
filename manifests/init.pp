@@ -137,7 +137,7 @@ class prometheus (
   $download_extension         = $::prometheus::params::download_extension,
   $package_name               = $::prometheus::params::package_name,
   $package_ensure             = $::prometheus::params::package_ensure,
-  $config_dir                 = $::prometheus::params::config_dir,
+  String $config_dir          = $::prometheus::params::config_dir,
   $localstorage               = $::prometheus::params::localstorage,
   $extra_options              = '',
   Hash $config_hash           = {},
@@ -176,6 +176,10 @@ class prometheus (
 
   anchor {'prometheus_first': }
   -> class { '::prometheus::install': }
+  -> class { '::prometheus::alerts':
+    location => $config_dir,
+    alerts   => $alerts,
+  }
   -> class { '::prometheus::config':
     global_config       => $global_config,
     rule_files          => $rule_files,
@@ -184,10 +188,6 @@ class prometheus (
     purge               => $purge_config_dir,
     config_template     => $config_template,
     storage_retention   => $storage_retention,
-  }
-  -> class { '::prometheus::alerts':
-    location => $config_dir,
-    alerts   => $alerts,
   }
   -> class { '::prometheus::run_service': }
   -> class { '::prometheus::service_reload': }

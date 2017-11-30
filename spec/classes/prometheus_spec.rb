@@ -176,7 +176,7 @@ describe 'prometheus' do
 
           # prometheus::alerts
           it {
-            is_expected.not_to contain_file('/etc/prometheus/alert.rules')
+            is_expected.to contain_file('/etc/prometheus/alert.rules')
           }
 
           # prometheus::run_service

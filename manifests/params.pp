@@ -130,7 +130,8 @@ class prometheus::params {
   $beanstalkd_exporter_config = '/etc/beanstalkd-exporter.conf'
   $package_ensure = 'latest'
   $package_name = 'prometheus'
-  $rule_files = [ "${config_dir}/alert.rules" ]
+  $alertfile_name = 'alert.rules'
+  $rule_files = [ "${config_dir}/${alertfile_name}" ]
   $scrape_configs = [ { 'job_name'=> 'prometheus', 'scrape_interval'=> '10s', 'scrape_timeout'=> '10s', 'static_configs'=> [ { 'targets'=> [ 'localhost:9090' ], 'labels'=> { 'alias'=> 'Prometheus'} } ] } ]
   $remote_read_configs = []
   $shared_dir = '/usr/local/share/prometheus'
