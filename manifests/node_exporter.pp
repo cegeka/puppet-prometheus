@@ -18,7 +18,7 @@
 #  Collectors to enable, addtionally to the defaults
 #  https://github.com/prometheus/node_exporter#enabled-by-default
 #
-#  [*collectors_disbale*]
+#  [*collectors_disable*]
 #  disable collectors which are enabled by default
 #  https://github.com/prometheus/node_exporter#enabled-by-default
 #
