@@ -121,6 +121,39 @@ class prometheus::config {
     }
   }
 
+  # TODO: promtool currently does not support checking the syntax of file_sd_config "includes".
+  # Ideally we'd check them the same way the other config files are checked.
+  file { "${prometheus::config_dir}/file_sd_config.d":
+    ensure  => directory,
+    owner   => $prometheus::user,
+    group   => $prometheus::server::group,
+    purge   => true,
+    recurse => true,
+  }
+
+  $prometheus::server::collect_scrape_jobs.each |Hash $job_definition| {
+    if !has_key($job_definition, 'job_name') {
+      fail('collected scrape job has no job_name!')
+    }
+
+    $job_name = $job_definition['job_name']
+
+    Prometheus::Scrape_job <<| job_name == $job_name |>> {
+      collect_dir => "${prometheus::config_dir}/file_sd_config.d",
+      notify      => Class['::prometheus::service_reload'],
+    }
+  }
+  # assemble the scrape jobs in a single list that gets appended to
+  # $scrape_configs in the template
+  $collected_scrape_jobs = $prometheus::server::collect_scrape_jobs.map |$job_definition| {
+    $job_name = $job_definition['job_name']
+    merge($job_definition, {
+      file_sd_configs => [{
+        files => [ "${prometheus::config_dir}/file_sd_config.d/${job_name}_*.yaml" ]
+      }]
+    })
+  }
+
   if versioncmp($prometheus::server::version, '2.0.0') >= 0 {
     $cfg_verify_cmd = 'check config'
   } else {
