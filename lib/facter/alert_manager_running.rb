@@ -1,5 +1,9 @@
+require 'puppet'
+
+service = Puppet::Type.type(:service).new(name: 'alert_manager')
+
 Facter.add('prometheus_alert_manager_running') do
   setcode do
-    Facter::Core::Execution.execute('puppet resource service alert_manager 2>&1').scan('running')[0]
+    service.provider.status == :running
   end
 end
