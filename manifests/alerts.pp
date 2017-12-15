@@ -3,7 +3,7 @@
 # This module manages prometheus alerts for prometheus
 #
 #  [*location*]
-#  Whether to create the alert file for prometheus
+#  Where to create the alert file for prometheus
 #
 #  [*alerts*]
 #  Array (< prometheus 2.0.0) or Hash (>= prometheus 2.0.0) of alerts (see README).
