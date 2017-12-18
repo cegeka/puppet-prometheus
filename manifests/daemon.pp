@@ -223,9 +223,10 @@ define prometheus::daemon (
 
   if $manage_service == true {
     service { $name:
-      ensure => $service_ensure,
-      name   => $init_selector,
-      enable => $service_enable,
+      ensure   => $service_ensure,
+      name     => $init_selector,
+      enable   => $service_enable,
+      provider => $init_style,
     }
   }
 }
