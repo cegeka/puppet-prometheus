@@ -221,11 +221,18 @@ define prometheus::daemon (
     default   => $name,
   }
 
+  $real_provider = $init_style ? {
+    'sles'  => 'redhat',  # mimics puppet's default behaviour
+    'sysv'  => 'redhat',  # all currently used cases for 'sysv' are redhat-compatible
+    default => $init_style,
+  }
+
   if $manage_service == true {
     service { $name:
-      ensure => $service_ensure,
-      name   => $init_selector,
-      enable => $service_enable,
+      ensure   => $service_ensure,
+      name     => $init_selector,
+      enable   => $service_enable,
+      provider => $real_provider,
     }
   }
 }
