@@ -144,6 +144,7 @@ class prometheus::params {
   $statsd_exporter_package_name = 'statsd_exporter'
   $statsd_exporter_user = 'statsd-exporter'
   $statsd_exporter_version = '0.3.0'
+  $storage_retention = '360h' # 15d; "d" suffix is only supported with prom >= 2.*
   $blackbox_exporter_user = 'blackbox-exporter'
   $blackbox_exporter_group = 'blackbox-exporter'
   $blackbox_exporter_download_extension = 'tar.gz'

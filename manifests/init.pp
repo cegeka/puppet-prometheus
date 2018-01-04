@@ -108,6 +108,11 @@
 #  [*alertmanagers_config*]
 #  Prometheus managers config under alerting
 #
+#  [*storage_retention*]
+#  How long to keep timeseries data. This is given as a duration like "100h" or "14d". Until
+#  prometheus 1.8.*, only durations understood by golang's time.ParseDuration are supported. Starting
+#  with prometheus 2, durations can also be given in days, weeks and years.
+#
 # Actions:
 #
 # Requires: see Modulefile
@@ -151,6 +156,7 @@ class prometheus (
   $alerts                     = $::prometheus::params::alerts,
   Array $alert_relabel_config = $::prometheus::params::alert_relabel_config,
   Array $alertmanagers_config = $::prometheus::params::alertmanagers_config,
+  String $storage_retention   = $::prometheus::params::storage_retention,
 ) inherits prometheus::params {
 
   if( versioncmp($::prometheus::version, '1.0.0') == -1 ){
@@ -177,6 +183,7 @@ class prometheus (
     remote_read_configs => $remote_read_configs,
     purge               => $purge_config_dir,
     config_template     => $config_template,
+    storage_retention   => $storage_retention,
   }
   -> class { '::prometheus::alerts':
     location => $config_dir,
