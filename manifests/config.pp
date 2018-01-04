@@ -7,6 +7,7 @@ class prometheus::config(
   $remote_read_configs,
   $purge = true,
   $config_template = $::prometheus::params::config_template,
+  $storage_retention = $::prometheus::params::storage_retention,
 ) {
 
   if $prometheus::init_style {
@@ -19,6 +20,7 @@ class prometheus::config(
       $daemon_flags = [
         "-config.file=${::prometheus::config_dir}/prometheus.yaml",
         "-storage.local.path=${::prometheus::localstorage}",
+        "-storage.local.retention=${storage_retention}",
         "-web.console.templates=${::prometheus::shared_dir}/consoles",
         "-web.console.libraries=${::prometheus::shared_dir}/console_libraries",
       ]
@@ -28,6 +30,7 @@ class prometheus::config(
       $daemon_flags = [
         "--config.file=${::prometheus::config_dir}/prometheus.yaml",
         "--storage.tsdb.path=${::prometheus::localstorage}",
+        "--storage.tsdb.retention=${storage_retention}",
         "--web.console.templates=${::prometheus::shared_dir}/consoles",
         "--web.console.libraries=${::prometheus::shared_dir}/console_libraries",
       ]
