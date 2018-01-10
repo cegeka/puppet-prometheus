@@ -19,3 +19,4 @@ alerting:
   alert_relabel_configs: []
   alertmanagers: []
 remote_read: []
+remote_write: []

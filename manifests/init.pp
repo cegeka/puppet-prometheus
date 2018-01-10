@@ -102,6 +102,9 @@
 #  [*remote_read_configs*]
 #  Prometheus remote_read config to scrape prometheus 1.8+ instances
 #
+#  [*remote_write_configs*]
+#  Prometheus remote_write config to scrape prometheus 1.8+ instances
+#
 #  [*alert_relabel_config*]
 #  Prometheus alert relabel config under alerting
 #
@@ -153,6 +156,7 @@ class prometheus (
   Array $rule_files           = $::prometheus::params::rule_files,
   Array $scrape_configs       = $::prometheus::params::scrape_configs,
   Array $remote_read_configs  = $::prometheus::params::remote_read_configs,
+  Array $remote_write_configs = $::prometheus::params::remote_write_configs,
   $alerts                     = $::prometheus::params::alerts,
   Array $alert_relabel_config = $::prometheus::params::alert_relabel_config,
   Array $alertmanagers_config = $::prometheus::params::alertmanagers_config,
@@ -183,12 +187,13 @@ class prometheus (
     alerts   => $alerts,
   }
   -> class { '::prometheus::config':
-    global_config       => $global_config,
-    rule_files          => $rule_files,
-    scrape_configs      => $scrape_configs,
-    remote_read_configs => $remote_read_configs,
-    config_template     => $config_template,
-    storage_retention   => $storage_retention,
+    global_config        => $global_config,
+    rule_files           => $rule_files,
+    scrape_configs       => $scrape_configs,
+    remote_read_configs  => $remote_read_configs,
+    remote_write_configs => $remote_write_configs,
+    config_template      => $config_template,
+    storage_retention    => $storage_retention,
   }
   -> class { '::prometheus::run_service': }
   -> class { '::prometheus::service_reload': }

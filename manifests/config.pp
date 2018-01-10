@@ -5,6 +5,7 @@ class prometheus::config (
   $rule_files,
   $scrape_configs,
   $remote_read_configs,
+  $remote_write_configs,
   $config_template = $::prometheus::params::config_template,
   $storage_retention = $::prometheus::params::storage_retention,
 ) {
@@ -15,6 +16,9 @@ class prometheus::config (
       $prometheus_v2 = false
       if $remote_read_configs != [] {
         fail('remote_read_configs requires prometheus 2.X')
+      }
+      if $remote_write_configs != [] {
+        fail('remote_write_configs requires prometheus 2.X')
       }
       $daemon_flags = [
         "-config.file=${::prometheus::config_dir}/prometheus.yaml",
