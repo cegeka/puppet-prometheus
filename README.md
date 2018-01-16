@@ -35,7 +35,7 @@ On the server (for prometheus version < 1.0.0):
 class { '::prometheus':
   global_config  => { 'scrape_interval'=> '15s', 'evaluation_interval'=> '15s', 'external_labels'=> { 'monitor'=>'master'}},
   rule_files     => [ "/etc/prometheus/alert.rules" ],
-  scrape_configs => [ 
+  scrape_configs => [
      { 'job_name'=> 'prometheus',
        'scrape_interval'=> '10s',
        'scrape_timeout' => '10s',
@@ -57,6 +57,25 @@ class { 'prometheus':
     scrape_configs => [ {'job_name'=>'prometheus','scrape_interval'=> '30s','scrape_timeout'=>'30s','static_configs'=> [{'targets'=>['localhost:9090'], 'labels'=> { 'alias'=>'Prometheus'}}]}],
     extra_options => '-alertmanager.url http://localhost:9093 -web.console.templates=/opt/prometheus-1.0.0.linux-amd64/consoles -web.console.libraries=/opt/prometheus-1.0.0.linux-amd64/console_libraries',
     localstorage => '/prometheus/prometheus',
+}
+```
+On the server (for prometheus version >= 2.0.0):
+
+```puppet
+class { '::prometheus':
+    version        => '2.0.0',
+    alerts => { 'groups' => [{ 'name' => 'alert.rules', 'rules' => [{ 'alert' => 'InstanceDown', 'expr' => 'up == 0', 'for' => '5m', 'labels' => { 'severity' => 'page', }, 'annotations' => { 'summary' => 'Instance {{ $labels.instance }} down', 'description' => '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.' }}]}]},
+    scrape_configs => [
+      { 'job_name' => 'prometheus',
+        'scrape_interval' => '10s',
+        'scrape_timeout'  => '10s',
+        'static_configs'  => [
+        { 'targets' => [ 'localhost:9090' ],
+          'labels'  => { 'alias' => 'Prometheus'}
+       }
+      ]
+    }
+  ]
 }
 ```
 
@@ -92,6 +111,10 @@ alertrules:
 ```
 
 When using prometheus >= 2.0, we use the new yaml format (https://prometheus.io/docs/prometheus/2.0/migration/#recording-rules-and-alerts) configuration
+
+```puppet
+    alerts => { 'groups' => [{ 'name' => 'alert.rules', 'rules' => [{ 'alert' => 'InstanceDown', 'expr' => 'up == 0', 'for' => '5m', 'labels' => { 'severity' => 'page', }, 'annotations' => { 'summary' => 'Instance {{ $labels.instance }} down', 'description' => '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.' } }]}]},
+```
 
 ```yaml
 alerts:
@@ -133,4 +156,3 @@ In version 0.1.14 of this module the alertmanager was configured to run as the s
 Do not use version 1.0.0 of Prometheus: https://groups.google.com/forum/#!topic/prometheus-developers/vuSIxxUDff8 ; it does break the compatibility with thus module!
 
 Even if the module has templates for several linux distributions, only RH family distributions were tested.
-
