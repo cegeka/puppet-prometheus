@@ -208,9 +208,17 @@ class prometheus::alertmanager (
       mode   => '0755',
     }
 
-    $options = "-config.file=${prometheus::alertmanager::config_file} -storage.path=${prometheus::alertmanager::storage_path} ${prometheus::alertmanager::extra_options}"
+    if( versioncmp($::prometheus::alertmanager::version, '0.12.0') == 1 ){
+      $options = "--config.file=${prometheus::alertmanager::config_file} --storage.path=${prometheus::alertmanager::storage_path} ${prometheus::alertmanager::extra_options}"
+    } else {
+      $options = "-config.file=${prometheus::alertmanager::config_file} -storage.path=${prometheus::alertmanager::storage_path} ${prometheus::alertmanager::extra_options}"
+    }
   } else {
-    $options = "-config.file=${prometheus::alertmanager::config_file} ${prometheus::alertmanager::extra_options}"
+    if( versioncmp($::prometheus::alertmanager::version, '0.12.0') == 1 ){
+      $options = "--config.file=${prometheus::alertmanager::config_file} ${prometheus::alertmanager::extra_options}"
+    } else {
+      $options = "-config.file=${prometheus::alertmanager::config_file} ${prometheus::alertmanager::extra_options}"
+    }
   }
 
   prometheus::daemon { $service_name:
