@@ -244,6 +244,7 @@ prometheus::alertmanager::receivers:
       send_resolved: true
       username: username
 ```
+Test you commit with vagrant https://github.com/kalinux/vagrant-puppet-prometheus.git
 
 ## Limitations/Known issues
 
