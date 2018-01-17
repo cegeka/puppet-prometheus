@@ -16,7 +16,7 @@
 if @prometheus_v2
     # this variable has to be absent on 1.X, so we filter using the helper variable
     full_config['remote_read'] = remote_read_configs,
-    full_config['remote_write'] = remote_write_configs,
+    full_config['remote_write'] = remote_write_configs
 end
  -%>
 <%= full_config.to_yaml(options = {:line_width => -1}).gsub(/source_labels: ".+?"/) { |x| x.gsub('"', '') } -%>
