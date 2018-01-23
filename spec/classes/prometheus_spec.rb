@@ -268,8 +268,6 @@ describe 'prometheus' do
               parameters
             end
 
-            prom_version = parameters[:version] || '1.5.2'
-
             it {
               is_expected.to compile
             }
