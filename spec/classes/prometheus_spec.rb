@@ -259,7 +259,7 @@ describe 'prometheus' do
           {
             version: '2.0.0-rc.1',
             remote_write_configs: [
-              'url' => 'http://domain.tld/path',
+              'url' => 'http://domain.tld/path'
             ]
           }
         ].each do |parameters|
@@ -269,7 +269,6 @@ describe 'prometheus' do
             end
 
             prom_version = parameters[:version] || '1.5.2'
-            prom_major = prom_version[0]
 
             it {
               is_expected.to compile
@@ -280,7 +279,7 @@ describe 'prometheus' do
                 'path'    => '/etc/prometheus/prometheus.yaml',
                 'owner'   => 'prometheus',
                 'group'   => 'prometheus',
-                'content' => /http:\/\/domain.tld\/path/
+                'content' => %r{http://domain.tld/path}
               )
             }
           end
