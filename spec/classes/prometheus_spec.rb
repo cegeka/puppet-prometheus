@@ -176,7 +176,7 @@ describe 'prometheus' do
 
           # prometheus::alerts
           it {
-            is_expected.not_to contain_file('/etc/prometheus/alert.rules')
+            is_expected.to contain_file('/etc/prometheus/alert.rules')
           }
 
           # prometheus::run_service
@@ -197,6 +197,60 @@ describe 'prometheus' do
               'refreshonly' => true
             )
           }
+        end
+      end
+
+      context 'with alerts configured', alerts: true do
+        [
+          {
+            alerts: [{
+              'name'         => 'alert_name',
+              'condition'    => 'up == 0',
+              'timeduration' => '5min',
+              'labels'       => [{ 'name' => 'severity', 'content' => 'woops' }],
+              'annotations'  => [{ 'name' => 'summary', 'content' => 'did a woops {{ $labels.instance }}' }]
+            }]
+          },
+          {
+            version: '2.0.0-rc.1',
+            alerts: {
+              'groups' => [{
+                'name' => 'alert.rules',
+                rules: [
+                  {
+                    'alert'       => 'alert_name',
+                    'expr'        => 'up == 0',
+                    'for'         => '5min',
+                    'labels'      => { 'severity' => 'woops' },
+                    'annotations' => {
+                      'summary' => 'did a woops {{ $labels.instance }}'
+                    }
+                  }
+                ]
+              }]
+            }
+          }
+        ].each do |parameters|
+          context "with prometheus version #{parameters[:version]}" do
+            let(:params) do
+              parameters
+            end
+
+            prom_version = parameters[:version] || '1.5.2'
+            prom_major = prom_version[0]
+
+            it {
+              is_expected.to compile
+            }
+            it {
+              is_expected.to contain_file('/etc/prometheus/alert.rules').with(
+                'ensure'  => 'file',
+                'owner'   => 'prometheus',
+                'group'   => 'prometheus',
+                'content' => File.read(fixtures('files', "prometheus#{prom_major}.alert.rules"))
+              ).that_notifies('Class[prometheus::service_reload]')
+            }
+          end
         end
       end
     end

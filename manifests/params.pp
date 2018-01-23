@@ -143,10 +143,21 @@ class prometheus::params {
   $beanstalkd_exporter_config = '/etc/beanstalkd-exporter.conf'
   $package_ensure = 'latest'
   $package_name = 'prometheus'
-  $rule_files = [ "${config_dir}/alert.rules" ]
+  $alertfile_name = 'alert.rules'
+  $rule_files = [ "${config_dir}/${alertfile_name}" ]
   $scrape_configs = [ { 'job_name'=> 'prometheus', 'scrape_interval'=> '10s', 'scrape_timeout'=> '10s', 'static_configs'=> [ { 'targets'=> [ 'localhost:9090' ], 'labels'=> { 'alias'=> 'Prometheus'} } ] } ]
   $remote_read_configs = []
   $shared_dir = '/usr/local/share/prometheus'
+  $snmp_exporter_config_file = '/etc/snmp-exporter.yaml'
+  $snmp_exporter_config_template = ''
+  $snmp_exporter_download_extension = 'tar.gz'
+  $snmp_exporter_download_url_base = 'https://github.com/prometheus/snmp_exporter/releases'
+  $snmp_exporter_extra_groups = []
+  $snmp_exporter_group = 'snmp-exporter'
+  $snmp_exporter_package_ensure = 'latest'
+  $snmp_exporter_package_name = 'snmp_exporter'
+  $snmp_exporter_user = 'snmp-exporter'
+  $snmp_exporter_version = '0.7.0'
   $statsd_exporter_download_extension = 'tar.gz'
   $statsd_exporter_download_url_base = 'https://github.com/prometheus/statsd_exporter/releases'
   $statsd_exporter_extra_groups = []
@@ -157,6 +168,7 @@ class prometheus::params {
   $statsd_exporter_package_name = 'statsd_exporter'
   $statsd_exporter_user = 'statsd-exporter'
   $statsd_exporter_version = '0.3.0'
+  $storage_retention = '360h' # 15d; "d" suffix is only supported with prom >= 2.*
   $blackbox_exporter_user = 'blackbox-exporter'
   $blackbox_exporter_group = 'blackbox-exporter'
   $blackbox_exporter_download_extension = 'tar.gz'

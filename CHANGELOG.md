@@ -4,7 +4,71 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v3.0.0) (2017-10-30)
+## [v4.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v4.0.0) (2018-01-04)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v3.1.0...v4.0.0)
+
+**Breaking changes:**
+
+- Bump dependencies [\#124](https://github.com/voxpupuli/puppet-prometheus/pull/124) ([juniorsysadmin](https://github.com/juniorsysadmin))
+- Add validation to config changes [\#122](https://github.com/voxpupuli/puppet-prometheus/pull/122) ([costela](https://github.com/costela))
+
+**Implemented enhancements:**
+
+- Install Promtool [\#31](https://github.com/voxpupuli/puppet-prometheus/issues/31)
+- add explicit parameter for retention [\#137](https://github.com/voxpupuli/puppet-prometheus/pull/137) ([costela](https://github.com/costela))
+- Feature/alerts prometheus2 [\#127](https://github.com/voxpupuli/puppet-prometheus/pull/127) ([jhooyberghs](https://github.com/jhooyberghs))
+
+**Fixed bugs:**
+
+- not up to date dependencies: puppetlabs-stdlib should be \>= 4.13.0 [\#123](https://github.com/voxpupuli/puppet-prometheus/issues/123)
+- prometheus.yaml broken syntax when generated from hiera [\#108](https://github.com/voxpupuli/puppet-prometheus/issues/108)
+- prometheus systemd wants and depends "multi-user.target" [\#139](https://github.com/voxpupuli/puppet-prometheus/pull/139) ([bastelfreak](https://github.com/bastelfreak))
+- daemon: explicitly pass provider to service [\#133](https://github.com/voxpupuli/puppet-prometheus/pull/133) ([costela](https://github.com/costela))
+
+**Closed issues:**
+
+- Minor: add explicit retention option? [\#136](https://github.com/voxpupuli/puppet-prometheus/issues/136)
+- node\_exporter: "Could not find init script for node\_exporter" [\#132](https://github.com/voxpupuli/puppet-prometheus/issues/132)
+- Usage of `puppet` in custom alertmanager fact breaks if puppet not in $PATH \(e.g. systemd service\) [\#130](https://github.com/voxpupuli/puppet-prometheus/issues/130)
+
+**Merged pull requests:**
+
+- Use puppet internals to determine the state of the alert\_manager [\#131](https://github.com/voxpupuli/puppet-prometheus/pull/131) ([vStone](https://github.com/vStone))
+- Correct typo in documentation header for node\_exporter [\#121](https://github.com/voxpupuli/puppet-prometheus/pull/121) ([jhooyberghs](https://github.com/jhooyberghs))
+
+## [v3.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v3.1.0) (2017-11-26)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v3.0.0...v3.1.0)
+
+**Implemented enhancements:**
+
+- add support for remote\_read [\#109](https://github.com/voxpupuli/puppet-prometheus/pull/109) ([lobeck](https://github.com/lobeck))
+- messagebird/beanstalkd\_exporter support [\#105](https://github.com/voxpupuli/puppet-prometheus/pull/105) ([TomaszUrugOlszewski](https://github.com/TomaszUrugOlszewski))
+- Add support for mesos exporter [\#59](https://github.com/voxpupuli/puppet-prometheus/pull/59) ([tahaalibra](https://github.com/tahaalibra))
+
+**Fixed bugs:**
+
+- Unable to use this module on fresh alert manager instances [\#55](https://github.com/voxpupuli/puppet-prometheus/issues/55)
+- older versions of puppet don't know about the --to\_yaml option [\#119](https://github.com/voxpupuli/puppet-prometheus/pull/119) ([tuxmea](https://github.com/tuxmea))
+- prometheus systemd needs network-online and started after multi-user. [\#117](https://github.com/voxpupuli/puppet-prometheus/pull/117) ([tuxmea](https://github.com/tuxmea))
+- Disable line wrapping when converting full\_config to yaml.  [\#104](https://github.com/voxpupuli/puppet-prometheus/pull/104) ([benpollardcts](https://github.com/benpollardcts))
+- verify whether alert\_manager is running [\#101](https://github.com/voxpupuli/puppet-prometheus/pull/101) ([tuxmea](https://github.com/tuxmea))
+
+**Closed issues:**
+
+- Error: Could not parse application options: invalid option: --to\_yaml [\#118](https://github.com/voxpupuli/puppet-prometheus/issues/118)
+- Flaky Acceptance Tests in TravisCI [\#114](https://github.com/voxpupuli/puppet-prometheus/issues/114)
+- Update release on forge.puppetlabs.com [\#107](https://github.com/voxpupuli/puppet-prometheus/issues/107)
+
+**Merged pull requests:**
+
+- release 3.1.0 [\#115](https://github.com/voxpupuli/puppet-prometheus/pull/115) ([bastelfreak](https://github.com/bastelfreak))
+- replace all Variant\[Undef.. with Optional\[... [\#103](https://github.com/voxpupuli/puppet-prometheus/pull/103) ([TheMeier](https://github.com/TheMeier))
+- release 3.0.0 [\#99](https://github.com/voxpupuli/puppet-prometheus/pull/99) ([bastelfreak](https://github.com/bastelfreak))
+- Tests for prometheus::daemon [\#87](https://github.com/voxpupuli/puppet-prometheus/pull/87) ([sathieu](https://github.com/sathieu))
+
+## [v3.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v3.0.0) (2017-10-31)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v2.0.0...v3.0.0)
 
@@ -174,4 +238,4 @@ These should not affect the functionality of the module.
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*

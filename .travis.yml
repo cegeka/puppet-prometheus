@@ -4,51 +4,46 @@ dist: trusty
 language: ruby
 cache: bundler
 before_install:
-  - bundle -v
-  - rm Gemfile.lock || true
-  - gem update --system
-  - gem update bundler
-  - gem --version
-  - bundle -v
+  - rm -f Gemfile.lock
 script:
   - 'bundle exec rake $CHECK'
 matrix:
   fast_finish: true
   include:
   - rvm: 2.1.9
-    bundler_args: --without system_tests development
-    env: PUPPET_VERSION="~> 4.0" CHECK=test
+    bundler_args: --without system_tests development release
+    env: PUPPET_VERSION="~> 4.0" CHECK=test PARALLEL_TEST_PROCESSORS=16
   - rvm: 2.4.2
-    bundler_args: --without system_tests development
+    bundler_args: --without system_tests development release
     env: PUPPET_VERSION="~> 5.0" CHECK=test_with_coveralls
   - rvm: 2.4.2
-    bundler_args: --without system_tests development
+    bundler_args: --without system_tests development release
     env: PUPPET_VERSION="~> 5.0" CHECK=rubocop
   - rvm: 2.4.2
-    bundler_args: --without system_tests development
+    bundler_args: --without system_tests development release
     env: PUPPET_VERSION="~> 5.0" CHECK=build DEPLOY_TO_FORGE=yes
   - rvm: 2.4.2
-    bundler_args: --without development
+    bundler_args: --without development release
     dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent CHECK=acceptance BEAKER_debug=true BEAKER_set=docker/centos-7
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/ubuntu-14.04 CHECK=beaker
     services: docker
     sudo: required
   - rvm: 2.4.2
-    bundler_args: --without development
+    bundler_args: --without development release
     dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent CHECK=acceptance BEAKER_debug=true BEAKER_set=docker/ubuntu-16.04
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/ubuntu-16.04 CHECK=beaker
     services: docker
     sudo: required
   - rvm: 2.4.2
-    bundler_args: --without development
+    bundler_args: --without development release
     dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent CHECK=acceptance BEAKER_debug=true BEAKER_set=docker/ubuntu-14.04
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/debian-8 CHECK=beaker
     services: docker
     sudo: required
   - rvm: 2.4.2
-    bundler_args: --without development
+    bundler_args: --without development release
     dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent CHECK=acceptance BEAKER_debug=true BEAKER_set=docker/debian-8
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/centos-7 CHECK=beaker
     services: docker
     sudo: required
 branches:
@@ -57,11 +52,16 @@ branches:
   - /^v\d/
 notifications:
   email: false
+  irc:
+    on_success: always
+    on_failure: always
+    channels:
+      - "chat.freenode.org#voxpupuli-notifications"
 deploy:
   provider: puppetforge
   user: puppet
   password:
-    secure: "JquGPtLafZM/F6sNke12hW2VlKIn5yKfTXh/iAVIOLG/GLi2Om7enhvxl81nuyu1qjeXqMla+6WUKqWHu1s5odzI6JRjaWjdikxwcwuU464h3Fg8r3/enDlZtL6VWbLGQf0pqiaNNKlRl/2P9dYTCx8cbgAUPTqNIGY1Hf/V0oSIXRV1L3DbtDa0Qt5e3WOC0oAHYjoMLDFx/LhAUoFH6h5VGmM2hiuw641OE1PdZcdzkD64xFUpOSuFP7hknNyeGMftr+ZtwH3oymKHhpeH4IYJIiuI74+HEUtSzNsh+8Ok35gRZz3hgab4YmGjbJIVR2BiMIIghbD41Izcp2FmH4mMqkfJx5slLv/uoAtVeyyOgFOz9rcGuGlQE6mFXDeAWTNeXMQdnTEZGiwj7/sKYzbfdRKiPquGqr//so7RiN+0QwO+9MJoQuwZDhIsHsr1EEJhkA9kLy/gZpOD54Ef4w3EcRzu76grxRMzEgwLTOYFKVKIuXUY4y0u6SV/uJeoi80Ke5fCwfGRG/U1heWto2sns5LhEkV+nfH31iM5BLzMLYukuTgX9CJRje22+s/gL8bvXvD6LCQ0bckzZI8Pq+g1w41iILXRYJ7kJsjFszdDG8pQPk1rM5ZNHl+CNq1u7wXEci2ND0b9WQu2QDcOH8eGtasPaVFX+2LBhpaw0k0="
+    secure: "M9rOa2lFaOagSRKNWb6BtS90yj8+8jk0tjeNGxxk73RoSfldKbxczZYY/U+nxGbLAvsDDHqQhMXXhRXxHKngl+Lg+dD6O0qT51ArGBtjSiMnVY00dC/+0nF932oS2skPbgzMGszK+u4o2Efjd6h18q9dT0WTGka2aOv9eJ18pwyESB7vyWbEDgxQ6Bk4J02EeFGhp/is1MlcK5rXpEYUGSPwJJCgEkbWuJek4ZDyT+qG5TTEUJMovNu4Oxy6HVGCDrM65hjK79oT9BVKM5xkgJoxN1trdqpmIEu8KOZck/+Iokcz+mHJfx62dJ2fg6bcOhQFSbW2UdPAYW4f1YaViHuwWWXgT58hPtB1PdEKPI/6HnAKBSLA2Fr3fA26BKbT/0CcRbSLMTjmbd9csEb5VE0eoCoTtVItVEsRkqm0BNvQ8oLRmQgFht2hGwwoczwBAj9aF80MjuDUzG2WjM/WjNIWfIFmeNoWTy/u+/58Q9wj6vIX2EyTJDEOorlP+4RXK+xub3QXntfmqkIlyB5qE6QxMDTAZN8aqBjo/771Ky7pIKAthWLVdDHPKhPHD2bMzilSqoFzNFtCkIbYp8w/eJUCfXhPpFEpt/9QzPLtP4/3KrJ/KUMt3hWfEGWOhUXlbalF5cFCP5aWkDDnoKxWILGS94xkXV2qyEGEMY2tn5o="
   on:
     tags: true
     # all_branches is required to use tags

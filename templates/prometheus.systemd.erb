@@ -11,7 +11,7 @@ ExecStart=<%= scope.lookupvar('prometheus::bin_dir') %>/prometheus \
   <%= scope.lookupvar('prometheus::extra_options') %>
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

@@ -108,6 +108,11 @@
 #  [*alertmanagers_config*]
 #  Prometheus managers config under alerting
 #
+#  [*storage_retention*]
+#  How long to keep timeseries data. This is given as a duration like "100h" or "14d". Until
+#  prometheus 1.8.*, only durations understood by golang's time.ParseDuration are supported. Starting
+#  with prometheus 2, durations can also be given in days, weeks and years.
+#
 # Actions:
 #
 # Requires: see Modulefile
@@ -132,7 +137,7 @@ class prometheus (
   $download_extension         = $::prometheus::params::download_extension,
   $package_name               = $::prometheus::params::package_name,
   $package_ensure             = $::prometheus::params::package_ensure,
-  $config_dir                 = $::prometheus::params::config_dir,
+  String $config_dir          = $::prometheus::params::config_dir,
   $localstorage               = $::prometheus::params::localstorage,
   $extra_options              = '',
   Hash $config_hash           = {},
@@ -151,6 +156,7 @@ class prometheus (
   $alerts                     = $::prometheus::params::alerts,
   Array $alert_relabel_config = $::prometheus::params::alert_relabel_config,
   Array $alertmanagers_config = $::prometheus::params::alertmanagers_config,
+  String $storage_retention   = $::prometheus::params::storage_retention,
 ) inherits prometheus::params {
 
   if( versioncmp($::prometheus::version, '1.0.0') == -1 ){
@@ -169,18 +175,20 @@ class prometheus (
   $config_hash_real = assert_type(Hash, deep_merge($config_defaults, $config_hash))
 
   anchor {'prometheus_first': }
-  -> class { '::prometheus::install': }
+  -> class { '::prometheus::install':
+    purge_config_dir => $purge_config_dir,
+  }
+  -> class { '::prometheus::alerts':
+    location => $config_dir,
+    alerts   => $alerts,
+  }
   -> class { '::prometheus::config':
     global_config       => $global_config,
     rule_files          => $rule_files,
     scrape_configs      => $scrape_configs,
     remote_read_configs => $remote_read_configs,
-    purge               => $purge_config_dir,
     config_template     => $config_template,
-  }
-  -> class { '::prometheus::alerts':
-    location => $config_dir,
-    alerts   => $alerts,
+    storage_retention   => $storage_retention,
   }
   -> class { '::prometheus::run_service': }
   -> class { '::prometheus::service_reload': }

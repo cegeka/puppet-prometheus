@@ -9,12 +9,13 @@ Group=prometheus
 ExecStart=/usr/local/bin/prometheus \
   -config.file=/etc/prometheus/prometheus.yaml \
   -storage.local.path=/var/lib/prometheus \
+  -storage.local.retention=360h \
   -web.console.templates=/usr/local/share/prometheus/consoles \
   -web.console.libraries=/usr/local/share/prometheus/console_libraries \
   
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

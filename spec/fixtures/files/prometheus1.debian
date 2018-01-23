@@ -20,6 +20,7 @@ DAEMON=/usr/local/bin/$NAME
 PIDFILE=/var/run/$NAME/$NAME.pid
 DAEMON_ARGS="-config.file=/etc/prometheus/prometheus.yaml
              -storage.local.path=/var/lib/prometheus
+             -storage.local.retention=360h
              -web.console.templates=/usr/local/share/prometheus/consoles
              -web.console.libraries=/usr/local/share/prometheus/console_libraries
              "
