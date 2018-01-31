@@ -153,7 +153,7 @@ describe 'prometheus::daemon' do
                 'owner'   => 'root',
                 'group'   => 'root'
               ).with_content(
-                %r{SOMEVAR=42\n}
+                %r{SOMEVAR="42"\n}
               )
             }
           elsif ['centos-6-x86_64', 'redhat-6-x86_64', 'centos-7-x86_64', 'redhat-7-x86_64'].include?(os)
@@ -163,7 +163,7 @@ describe 'prometheus::daemon' do
                 'owner'   => 'root',
                 'group'   => 'root'
               ).with_content(
-                %r{SOMEVAR=42\n}
+                %r{SOMEVAR="42"\n}
               )
             }
           end
