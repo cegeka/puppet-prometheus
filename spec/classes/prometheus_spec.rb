@@ -253,6 +253,36 @@ describe 'prometheus' do
           end
         end
       end
+
+      context 'with remote write configured' do
+        [
+          {
+            version: '2.0.0-rc.1',
+            remote_write_configs: [
+              'url' => 'http://domain.tld/path'
+            ]
+          }
+        ].each do |parameters|
+          context "with prometheus version #{parameters[:version]}" do
+            let(:params) do
+              parameters
+            end
+
+            it {
+              is_expected.to compile
+            }
+            it {
+              is_expected.to contain_file('prometheus.yaml').with(
+                'ensure'  => 'present',
+                'path'    => '/etc/prometheus/prometheus.yaml',
+                'owner'   => 'prometheus',
+                'group'   => 'prometheus',
+                'content' => %r{http://domain.tld/path}
+              )
+            }
+          end
+        end
+      end
     end
   end
 end

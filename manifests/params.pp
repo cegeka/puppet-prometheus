@@ -147,6 +147,7 @@ class prometheus::params {
   $rule_files = [ "${config_dir}/${alertfile_name}" ]
   $scrape_configs = [ { 'job_name'=> 'prometheus', 'scrape_interval'=> '10s', 'scrape_timeout'=> '10s', 'static_configs'=> [ { 'targets'=> [ 'localhost:9090' ], 'labels'=> { 'alias'=> 'Prometheus'} } ] } ]
   $remote_read_configs = []
+  $remote_write_configs = []
   $shared_dir = '/usr/local/share/prometheus'
   $snmp_exporter_config_file = '/etc/snmp-exporter.yaml'
   $snmp_exporter_config_template = ''

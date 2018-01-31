@@ -60,6 +60,25 @@ class { 'prometheus':
     localstorage => '/prometheus/prometheus',
 }
 ```
+On the server (for prometheus version >= 2.0.0):
+
+```puppet
+class { '::prometheus':
+    version        => '2.0.0',
+    alerts => { 'groups' => [{ 'name' => 'alert.rules', 'rules' => [{ 'alert' => 'InstanceDown', 'expr' => 'up == 0', 'for' => '5m', 'labels' => { 'severity' => 'page', }, 'annotations' => { 'summary' => 'Instance {{ $labels.instance }} down', 'description' => '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.' }}]}]},
+    scrape_configs => [
+      { 'job_name' => 'prometheus',
+        'scrape_interval' => '10s',
+        'scrape_timeout'  => '10s',
+        'static_configs'  => [
+        { 'targets' => [ 'localhost:9090' ],
+          'labels'  => { 'alias' => 'Prometheus'}
+       }
+      ]
+    }
+  ]
+}
+```
 
 or simply:
 ```puppet
@@ -94,6 +113,10 @@ alertrules:
 
 When using prometheus >= 2.0, we use the new yaml format (https://prometheus.io/docs/prometheus/2.0/migration/#recording-rules-and-alerts) configuration
 
+```puppet
+    alerts => { 'groups' => [{ 'name' => 'alert.rules', 'rules' => [{ 'alert' => 'InstanceDown', 'expr' => 'up == 0', 'for' => '5m', 'labels' => { 'severity' => 'page', }, 'annotations' => { 'summary' => 'Instance {{ $labels.instance }} down', 'description' => '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.' } }]}]},
+```
+
 ```yaml
 alerts:
   groups:
@@ -126,6 +149,103 @@ class { 'prometheus::node_exporter':
 ```
 
 For more information regarding class parameters please take a look at class docstring.
+
+## Example
+
+Real Prometheus >=2.0.0 setup example including alertmanager and slack_configs.
+
+```puppet
+include profiles::prometheus
+
+class { '::prometheus':
+  version => '2.0.0',
+  alerts => { 'groups' => [{ 'name' => 'alert.rules', 'rules' => [{ 'alert' => 'InstanceDown', 'expr' => 'up == 0', 'for' => '5m', 'labels' => { 'severity' => 'page', }, 'annotations' => { 'summary' => 'Instance {{ $labels.instance }} down', 'description' => '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.' } }]}]},
+  scrape_configs => [
+    { 'job_name' => 'prometheus',
+      'scrape_interval' => '10s',
+      'scrape_timeout'  => '10s',
+      'static_configs'  => [
+         { 'targets' => [ 'localhost:9090' ],
+           'labels'  => { 'alias'=> 'Prometheus'}
+         }
+      ]
+    },
+    { 'job_name' => 'node',
+      'scrape_interval' => '5s',
+      'scrape_timeout'  => '5s',
+      'static_configs'  => [
+         { 'targets' => [ 'nodexporter.domain.com:9100' ],
+           'labels'  => { 'alias'=> 'Node'}
+         }
+      ]
+    }
+  ],
+  alertmanagers_config => [{ 'static_configs' => [{'targets' => [ 'localhost:9093' ]}]}],
+}
+class { '::prometheus::alertmanager':
+  version       => '0.13.0',
+  route         => { 'group_by' => [ 'alertname', 'cluster', 'service' ], 'group_wait'=> '30s', 'group_interval'=> '5m', 'repeat_interval'=> '3h', 'receiver'=> 'slack' },
+  receivers     => [ { 'name' => 'slack', 'slack_configs'=> [ { 'api_url'=> 'https://hooks.slack.com/services/ABCDEFG123456', 'channel' => '#channel', 'send_resolved' => true, 'username' => 'username'}] }]
+}
+```
+
+the same in hiera
+
+```puppet
+rometheus::version: '2.0.0'
+prometheus::scrape_configs:
+    - job_name: 'nodexporter'
+      scrape_interval:  '10s'
+      scrape_timeout: '10s'
+      static_configs:
+      - targets:
+        - nodexporter.domain.com:9100
+        labels:
+          alias: 'nodexporter'
+    - job_name: prometheus
+      scrape_interval: 10s
+      scrape_timeout: 10s
+      static_configs:
+      - targets:
+        - localhost:9090
+        labels:
+          alias: Prometheus
+prometheus::alerts:
+  groups:
+    - name: alert.rules
+      rules:
+      - alert: 'InstanceDown'
+        expr: 'up == 0'
+        for: '5m'
+        labels:
+          'severity': 'page'
+        annotations:
+          'summary': 'Instance {{ $labels.instance }} down'
+          'description': '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+prometheus::alertmanagers_config:
+  - static_configs:
+    - targets:
+      - localhost:9093
+
+prometheus::alertmanager::version: '0.13.0'
+prometheus::alertmanager::route:
+  group_by:
+  - alertname
+  - cluster
+  - service
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+  receiver: slack
+prometheus::alertmanager::receivers:
+  - name: slack
+    slack_configs:
+    - api_url: https://hooks.slack.com/services/ABCDEFG123456
+      channel: "#channel"
+      send_resolved: true
+      username: username
+```
+Test you commit with vagrant https://github.com/kalinux/vagrant-puppet-prometheus.git
 
 ## Limitations/Known issues
 
