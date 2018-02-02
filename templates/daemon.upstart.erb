@@ -19,7 +19,9 @@ end script
 
 script
     # read settings like GOMAXPROCS from "/etc/default/<%= @name %>", if available.
+    set -o allexport
     [ -e $DEFAULTS ] && . $DEFAULTS
+    set +o allexport
 
     export GOMAXPROCS=${GOMAXPROCS:-2}
     <%- require 'shellwords' -%>
