@@ -19,7 +19,7 @@ class prometheus::params {
   $alertmanager_templates = [ "${alertmanager_config_dir}/*.tmpl" ]
   $alertmanager_user = 'alertmanager'
   $alertmanager_version = '0.5.1'
-  $alerts = []
+  $alerts = {}
   $bin_dir = '/usr/local/bin'
   $config_dir = '/etc/prometheus'
   $config_mode = '0660'
