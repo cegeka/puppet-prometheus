@@ -83,11 +83,12 @@
 #   simple_ssl:
 #     prober: http
 #     timeout: 10s
-#     valid_status_codes: 2xx
-#     fail_if_not_ssl: true
+#     http:
+#       fail_if_not_ssl: true
 #   easy_tcp:
 #     prober: tcp
-#     preferred_ip_protocol: ip4
+#     tcp:
+#       preferred_ip_protocol: ip4
 class prometheus::blackbox_exporter (
   Hash $modules                       = {},
   String           $arch               = $::prometheus::params::arch,
