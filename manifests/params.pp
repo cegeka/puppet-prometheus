@@ -195,6 +195,15 @@ class prometheus::params {
   $blackbox_exporter_modules = {}
   $blackbox_exporter_config_file = '/etc/blackbox-exporter.yaml'
   $blackbox_exporter_version = '0.7.0'
+  $redis_exporter_redis_address = ['redis://localhost:6379']
+  $redis_exporter_download_extension = 'tar.gz'
+  $redis_exporter_download_url_base = 'https://github.com/oliver006/redis_exporter/releases'
+  $redis_exporter_extra_groups = []
+  $redis_exporter_group = 'redis-exporter'
+  $redis_exporter_package_ensure = 'latest'
+  $redis_exporter_package_name = 'redis_exporter'
+  $redis_exporter_user = 'redis-exporter'
+  $redis_exporter_version = '0.11.2'
   $user = 'prometheus'
   $version = '1.5.2'
   case $::architecture {
