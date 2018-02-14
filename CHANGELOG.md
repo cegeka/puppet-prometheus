@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v4.1.0) (2018-02-14)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- Add support for rabbitmq\_exporter [\#149](https://github.com/voxpupuli/puppet-prometheus/issues/149)
+- Added redis\_exporter module [\#157](https://github.com/voxpupuli/puppet-prometheus/pull/157) ([yackushevas](https://github.com/yackushevas))
+- Add rabbitmq exporter [\#153](https://github.com/voxpupuli/puppet-prometheus/pull/153) ([costela](https://github.com/costela))
+- add envvars support to daemon [\#151](https://github.com/voxpupuli/puppet-prometheus/pull/151) ([costela](https://github.com/costela))
+- adding remote\_write support [\#144](https://github.com/voxpupuli/puppet-prometheus/pull/144) ([kalinux](https://github.com/kalinux))
+
+**Fixed bugs:**
+
+- Alert rule validation error [\#143](https://github.com/voxpupuli/puppet-prometheus/issues/143)
+- Facter error on older distributions \(Ubuntu Trusty\) [\#142](https://github.com/voxpupuli/puppet-prometheus/issues/142)
+- bug: alert rules are still 1.0 syntax for Prometheus 2 [\#120](https://github.com/voxpupuli/puppet-prometheus/issues/120)
+- \[minor\] change default alerts to empty hash [\#152](https://github.com/voxpupuli/puppet-prometheus/pull/152) ([costela](https://github.com/costela))
+
+**Closed issues:**
+
+- Add ability to set environment variables for daemons [\#150](https://github.com/voxpupuli/puppet-prometheus/issues/150)
+
+**Merged pull requests:**
+
+- update blackbox\_exporter.pp inline documentation [\#155](https://github.com/voxpupuli/puppet-prometheus/pull/155) ([tobald](https://github.com/tobald))
+- Ruby 1.8 compatibility \(Agent-side\) [\#146](https://github.com/voxpupuli/puppet-prometheus/pull/146) ([sathieu](https://github.com/sathieu))
+- Fail silently when service is not installed [\#145](https://github.com/voxpupuli/puppet-prometheus/pull/145) ([vladgh](https://github.com/vladgh))
+- release 4.0.0 [\#140](https://github.com/voxpupuli/puppet-prometheus/pull/140) ([bastelfreak](https://github.com/bastelfreak))
+- Add support for snmp\_exporter [\#125](https://github.com/voxpupuli/puppet-prometheus/pull/125) ([sathieu](https://github.com/sathieu))
+- new feature - consul\_exporter [\#36](https://github.com/voxpupuli/puppet-prometheus/pull/36) ([pjfbashton](https://github.com/pjfbashton))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v4.0.0) (2018-01-04)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v3.1.0...v4.0.0)
