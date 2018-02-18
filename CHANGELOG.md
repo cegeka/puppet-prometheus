@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.1](https://github.com/voxpupuli/puppet-prometheus/tree/v4.1.1) (2018-02-18)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v4.1.0...v4.1.1)
+
+**Fixed bugs:**
+
+- puppetlabs/stdlib dependency appears to be 4.20.0 and not 4.13.1  [\#161](https://github.com/voxpupuli/puppet-prometheus/issues/161)
+- raise stdlib version dependency [\#162](https://github.com/voxpupuli/puppet-prometheus/pull/162) ([tuxmea](https://github.com/tuxmea))
+
 ## [v4.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v4.1.0) (2018-02-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v4.0.0...v4.1.0)
@@ -29,6 +38,7 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
+- release 4.1.0 [\#159](https://github.com/voxpupuli/puppet-prometheus/pull/159) ([bastelfreak](https://github.com/bastelfreak))
 - update blackbox\_exporter.pp inline documentation [\#155](https://github.com/voxpupuli/puppet-prometheus/pull/155) ([tobald](https://github.com/tobald))
 - Ruby 1.8 compatibility \(Agent-side\) [\#146](https://github.com/voxpupuli/puppet-prometheus/pull/146) ([sathieu](https://github.com/sathieu))
 - Fail silently when service is not installed [\#145](https://github.com/voxpupuli/puppet-prometheus/pull/145) ([vladgh](https://github.com/vladgh))
