@@ -192,7 +192,7 @@ class { '::prometheus::alertmanager':
 the same in hiera
 
 ```puppet
-rometheus::version: '2.0.0'
+prometheus::version: '2.0.0'
 prometheus::scrape_configs:
     - job_name: 'nodexporter'
       scrape_interval:  '10s'
