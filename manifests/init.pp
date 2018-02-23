@@ -105,6 +105,12 @@
 #  [*remote_write_configs*]
 #  Prometheus remote_write config to scrape prometheus 1.8+ instances
 #
+#  [*alerts*]
+#  alert rules to put in alerts.rules
+#
+#  [*extra_alerts*]
+#  Hash with extra alert rules to put in separate files.
+#
 #  [*alert_relabel_config*]
 #  Prometheus alert relabel config under alerting
 #
@@ -157,8 +163,8 @@ class prometheus (
   Array $scrape_configs       = $::prometheus::params::scrape_configs,
   Array $remote_read_configs  = $::prometheus::params::remote_read_configs,
   Array $remote_write_configs = $::prometheus::params::remote_write_configs,
-  $alerts                     = $::prometheus::params::alerts,
-  $extra_alerts               = {},
+  Variant[Array,Hash] $alerts = $::prometheus::params::alerts,
+  Hash $extra_alerts          = {},
   Array $alert_relabel_config = $::prometheus::params::alert_relabel_config,
   Array $alertmanagers_config = $::prometheus::params::alertmanagers_config,
   String $storage_retention   = $::prometheus::params::storage_retention,
@@ -176,10 +182,9 @@ class prometheus (
     default => undef,
   }
 
-
   $config_hash_real = assert_type(Hash, deep_merge($config_defaults, $config_hash))
 
-  file { "$::prometheus::config_dir/rules":
+  file { "${::prometheus::config_dir}/rules":
     ensure => 'directory',
     owner  => $prometheus::user,
     group  => $prometheus::group,
