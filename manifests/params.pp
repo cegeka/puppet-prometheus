@@ -158,8 +158,8 @@ class prometheus::params {
   $beanstalkd_exporter_config = '/etc/beanstalkd-exporter.conf'
   $package_ensure = 'latest'
   $package_name = 'prometheus'
-  $alertfile_name = 'alert.rules'
-  $rule_files = [ "${config_dir}/${alertfile_name}" ]
+  $alertfile_name = 'alert'
+  $rule_files = [ "${config_dir}/${alertfile_name}.rules" ]
   $scrape_configs = [ { 'job_name'=> 'prometheus', 'scrape_interval'=> '10s', 'scrape_timeout'=> '10s', 'static_configs'=> [ { 'targets'=> [ 'localhost:9090' ], 'labels'=> { 'alias'=> 'Prometheus'} } ] } ]
   $remote_read_configs = []
   $remote_write_configs = []
