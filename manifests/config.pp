@@ -123,7 +123,6 @@ class prometheus::config (
     group        => $prometheus::group,
     mode         => $prometheus::config_mode,
     notify       => Class['::prometheus::service_reload'],
-    require      => File["${prometheus::config_dir}/${prometheus::alertfile_name}"],
     content      => template($config_template),
     validate_cmd => "${prometheus::bin_dir}/promtool ${cfg_verify_cmd} %",
   }
