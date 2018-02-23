@@ -158,6 +158,7 @@ class prometheus (
   Array $remote_read_configs  = $::prometheus::params::remote_read_configs,
   Array $remote_write_configs = $::prometheus::params::remote_write_configs,
   $alerts                     = $::prometheus::params::alerts,
+  $extra_alerts               = {},
   Array $alert_relabel_config = $::prometheus::params::alert_relabel_config,
   Array $alertmanagers_config = $::prometheus::params::alertmanagers_config,
   String $storage_retention   = $::prometheus::params::storage_retention,
@@ -178,17 +179,38 @@ class prometheus (
 
   $config_hash_real = assert_type(Hash, deep_merge($config_defaults, $config_hash))
 
+  file { "$::prometheus::config_dir/rules":
+    ensure => 'directory',
+    owner  => $prometheus::user,
+    group  => $prometheus::group,
+    mode   => $prometheus::config_mode,
+  }
+
+  $extra_alerts.each | String $alerts_file_name, Hash $alerts_config | {
+    ::prometheus::alerts { $alerts_file_name:
+      alerts   => $alerts_config,
+    }
+  }
+  $extra_rule_files = suffix(prefix(keys($extra_alerts), "${config_dir}/rules/"), '.rules')
+
+  if ! empty($alerts) {
+    ::prometheus::alerts { 'alert':
+      alerts   => $alerts,
+      location => $config_dir,
+    }
+    $_rule_files = concat(["${config_dir}/alert.rules"], $extra_rule_files)
+  }
+  else {
+    $_rule_files = $extra_rule_files
+  }
+
   anchor {'prometheus_first': }
   -> class { '::prometheus::install':
     purge_config_dir => $purge_config_dir,
   }
-  -> class { '::prometheus::alerts':
-    location => $config_dir,
-    alerts   => $alerts,
-  }
   -> class { '::prometheus::config':
     global_config        => $global_config,
-    rule_files           => $rule_files,
+    rule_files           => $_rule_files,
     scrape_configs       => $scrape_configs,
     remote_read_configs  => $remote_read_configs,
     remote_write_configs => $remote_write_configs,
