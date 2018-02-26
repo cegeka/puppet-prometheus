@@ -1,4 +1,5 @@
-<% $prometheus::alerts::alerts.each |$alert| { -%>
+<%- | Array   $alerts | -%>
+<% $alerts.each |$alert| { -%>
 ALERT <%= $alert['name'] %>
     IF <%= $alert['condition'] %>
     FOR <%= $alert['timeduration'] %>
