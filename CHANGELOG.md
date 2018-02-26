@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v5.0.0) (2018-02-26)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v4.1.1...v5.0.0)
+
+**Breaking changes:**
+
+- Feature/multiple rules files [\#166](https://github.com/voxpupuli/puppet-prometheus/pull/166) ([zipkid](https://github.com/zipkid))
+
+**Merged pull requests:**
+
+- Fix small typo in hiera example [\#164](https://github.com/voxpupuli/puppet-prometheus/pull/164) ([bearnard](https://github.com/bearnard))
+- release 4.1.1 [\#163](https://github.com/voxpupuli/puppet-prometheus/pull/163) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v4.1.1](https://github.com/voxpupuli/puppet-prometheus/tree/v4.1.1) (2018-02-18)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v4.1.0...v4.1.1)
@@ -122,6 +135,8 @@ These should not affect the functionality of the module.
 
 - Running puppet restarts service [\#37](https://github.com/voxpupuli/puppet-prometheus/issues/37)
 - manage systemd unit files with camptocamp/systemd [\#90](https://github.com/voxpupuli/puppet-prometheus/pull/90) ([bastelfreak](https://github.com/bastelfreak))
+- add basic acceptance tests; fix wrong service handling in Ubuntu 14.04 [\#86](https://github.com/voxpupuli/puppet-prometheus/pull/86) ([bastelfreak](https://github.com/bastelfreak))
+- Fix restart\_on\_change and add tests to Class\[prometheus\] [\#83](https://github.com/voxpupuli/puppet-prometheus/pull/83) ([sathieu](https://github.com/sathieu))
 - add feature blackbox exporter [\#74](https://github.com/voxpupuli/puppet-prometheus/pull/74) ([bramblek1](https://github.com/bramblek1))
 - Add nginx-vts-exporter [\#71](https://github.com/voxpupuli/puppet-prometheus/pull/71) ([viq](https://github.com/viq))
 - Add pushgateway [\#68](https://github.com/voxpupuli/puppet-prometheus/pull/68) ([mdebruyn-trip](https://github.com/mdebruyn-trip))
@@ -135,8 +150,6 @@ These should not affect the functionality of the module.
 - blackbox exporters source\_labels must be unquoted [\#98](https://github.com/voxpupuli/puppet-prometheus/pull/98) ([tuxmea](https://github.com/tuxmea))
 - add service notification to systemd and sysv [\#95](https://github.com/voxpupuli/puppet-prometheus/pull/95) ([tuxmea](https://github.com/tuxmea))
 - Fix isssue with node\_exporter containing empty pid on RHEL6. [\#88](https://github.com/voxpupuli/puppet-prometheus/pull/88) ([mkrakowitzer](https://github.com/mkrakowitzer))
-- add basic acceptance tests; fix wrong service handling in Ubuntu 14.04 [\#86](https://github.com/voxpupuli/puppet-prometheus/pull/86) ([bastelfreak](https://github.com/bastelfreak))
-- Fix restart\_on\_change and add tests to Class\[prometheus\] [\#83](https://github.com/voxpupuli/puppet-prometheus/pull/83) ([sathieu](https://github.com/sathieu))
 
 **Closed issues:**
 
