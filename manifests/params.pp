@@ -205,6 +205,15 @@ class prometheus::params {
   $redis_exporter_user = 'redis-exporter'
   $redis_exporter_version = '0.11.2'
   $user = 'prometheus'
+  $varnish_exporter_download_extension = 'tar.gz'
+  $varnish_exporter_download_url_base = 'https://github.com/jonnenauha/prometheus_varnish_exporter/releases'
+  $varnish_exporter_extra_groups = []
+  $varnish_exporter_group = 'varnish'
+  $varnish_exporter_package_ensure = 'latest'
+  $varnish_exporter_package_name = 'prometheus_varnish_exporter'
+  $varnish_exporter_user = 'varnish_exporter'
+  $varnish_exporter_version = '1.4'
+  $version = '1.5.2'
   case $::architecture {
     'x86_64', 'amd64': { $arch = 'amd64' }
     'i386':            { $arch = '386'   }
