@@ -142,7 +142,7 @@ describe 'prometheus::daemon' do
             }
           else
             it {
-              is_expected.to raise_error(Puppet::Error, %r{I don.t know how to create an init script for style})
+              is_expected.to raise_error(Puppet::Error, %r{I don't know how to create an init script for style})
             }
           end
 
