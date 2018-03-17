@@ -17,6 +17,7 @@ describe 'prometheus::alerts' do
 
       [
         {
+          version: '1.5.2',
           alerts: [
             {
               'name'         => 'alert_name',
@@ -62,7 +63,7 @@ describe 'prometheus::alerts' do
             parameters
           end
 
-          prom_version = parameters[:version] || '1.5.2'
+          prom_version = parameters[:version]
           prom_major = prom_version[0]
 
           it {

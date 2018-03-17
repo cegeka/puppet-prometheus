@@ -12,7 +12,8 @@ describe 'prometheus::pushgateway' do
           {
             version: '0.4.0',
             arch: 'amd64',
-            os: 'linux'
+            os: 'linux',
+            bin_dir: '/usr/local/bin'
           }
         end
 

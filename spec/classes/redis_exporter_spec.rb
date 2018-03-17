@@ -12,7 +12,8 @@ describe 'prometheus::redis_exporter' do
           {
             version: '0.11.2',
             arch: 'amd64',
-            os: 'linux'
+            os: 'linux',
+            bin_dir: '/usr/local/bin'
           }
         end
 

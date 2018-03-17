@@ -12,7 +12,8 @@ describe 'prometheus::haproxy_exporter' do
           {
             version: '0.7.1',
             arch: 'amd64',
-            os: 'linux'
+            os: 'linux',
+            bin_dir: '/usr/local/bin'
           }
         end
 

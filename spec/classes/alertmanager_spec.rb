@@ -12,7 +12,8 @@ describe 'prometheus::alertmanager' do
           {
             version: '0.9.1',
             arch: 'amd64',
-            os: 'linux'
+            os: 'linux',
+            bin_dir: '/usr/local/bin'
           }
         end
 

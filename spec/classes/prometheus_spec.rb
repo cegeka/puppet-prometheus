@@ -7,7 +7,7 @@ describe 'prometheus' do
         facts
       end
 
-      [{}, { version: '2.0.0-rc.1' }].each do |parameters|
+      [{ version: '2.0.0-rc.1', bin_dir: '/usr/local/bin', install_method: 'url' }].each do |parameters|
         context "with parameters #{parameters}" do
           let(:params) do
             parameters
@@ -116,7 +116,7 @@ describe 'prometheus' do
                 'content' => File.read(fixtures('files', "prometheus#{prom_major}.sysv"))
               )
             }
-          elsif ['centos-7-x86_64', 'debian-8-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64'].include?(os)
+          elsif ['centos-7-x86_64', 'debian-8-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64', 'archlinux-4-x86_64'].include?(os)
             # init_style = 'systemd'
 
             it { is_expected.to contain_class('systemd') }
@@ -203,6 +203,7 @@ describe 'prometheus' do
       context 'with alerts configured', alerts: true do
         [
           {
+            version: '1.5.3',
             alerts: [{
               'name'         => 'alert_name',
               'condition'    => 'up == 0',
@@ -236,7 +237,7 @@ describe 'prometheus' do
               parameters
             end
 
-            prom_version = parameters[:version] || '1.5.2'
+            prom_version = parameters[:version]
             prom_major = prom_version[0]
 
             it {

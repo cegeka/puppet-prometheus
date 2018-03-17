@@ -12,7 +12,8 @@ describe 'prometheus::beanstalkd_exporter' do
           {
             version: '1.0.0',
             arch: 'amd64',
-            os: 'linux'
+            os: 'linux',
+            bin_dir: '/usr/local/bin'
           }
         end
 

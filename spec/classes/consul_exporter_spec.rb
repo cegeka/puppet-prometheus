@@ -12,7 +12,8 @@ describe 'prometheus::consul_exporter' do
           {
             version: '0.3.0',
             arch: 'amd64',
-            os: 'linux'
+            os: 'linux',
+            bin_dir: '/usr/local/bin'
           }
         end
 

@@ -13,6 +13,7 @@ describe 'prometheus::blackbox_exporter' do
             version: '0.6.0',
             arch: 'amd64',
             os: 'linux',
+            bin_dir: '/usr/local/bin',
             modules: {
               'http_2xx' => {
                 'prober' => 'http'
