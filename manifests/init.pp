@@ -139,7 +139,7 @@ class prometheus (
   $shared_dir                 = $::prometheus::params::shared_dir,
   $arch                       = $::prometheus::params::arch,
   $version                    = $::prometheus::params::version,
-  $install_method             = $::prometheus::params::install_method,
+  $install_method             = $::prometheus::params::prometheus_install_method,
   $os                         = $::prometheus::params::os,
   $download_url               = undef,
   $download_url_base          = $::prometheus::params::download_url_base,
