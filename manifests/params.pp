@@ -20,7 +20,6 @@ class prometheus::params {
   $alertmanager_user = 'alertmanager'
   $alertmanager_version = '0.5.1'
   $alerts = {}
-  $bin_dir = '/usr/local/bin'
   $config_dir = '/etc/prometheus'
   $config_mode = '0660'
   $config_template = 'prometheus/prometheus.yaml.erb'
@@ -217,6 +216,7 @@ class prometheus::params {
   $os = downcase($::kernel)
 
   if $::operatingsystem == 'Ubuntu' {
+    $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/default'
     if versioncmp($::operatingsystemrelease, '8.04') < 1 {
@@ -227,6 +227,7 @@ class prometheus::params {
       $init_style = 'systemd'
     }
   } elsif $::operatingsystem =~ /Scientific|CentOS|RedHat|OracleLinux/ {
+    $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
     if versioncmp($::operatingsystemrelease, '7.0') < 0 {
@@ -235,6 +236,7 @@ class prometheus::params {
       $init_style  = 'systemd'
     }
   } elsif $::operatingsystem == 'Fedora' {
+    $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
     if versioncmp($::operatingsystemrelease, '12') < 0 {
@@ -243,6 +245,7 @@ class prometheus::params {
       $init_style = 'systemd'
     }
   } elsif $::operatingsystem == 'Debian' {
+    $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/default'
     if versioncmp($::operatingsystemrelease, '8.0') < 0 {
@@ -251,14 +254,17 @@ class prometheus::params {
       $init_style = 'systemd'
     }
   } elsif $::operatingsystem == 'Archlinux' {
+    $bin_dir = '/usr/bin'
     $prometheus_install_method = 'package'
     $env_file_path = '/etc/default'
     $init_style = 'systemd'
   } elsif $::operatingsystem == 'OpenSuSE' {
+    $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
     $init_style = 'systemd'
   } elsif $::operatingsystem =~ /SLE[SD]/ {
+    $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
     if versioncmp($::operatingsystemrelease, '12.0') < 0 {
@@ -267,14 +273,17 @@ class prometheus::params {
       $init_style = 'systemd'
     }
   } elsif $::operatingsystem == 'Darwin' {
+    $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = undef
     $init_style = 'launchd'
   } elsif $::operatingsystem == 'Amazon' {
+    $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
     $init_style = 'sysv'
   } else {
+    $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $init_style = undef
   }
