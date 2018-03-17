@@ -31,6 +31,7 @@ describe 'prometheus::daemon' do
             parameters
           end
 
+          it { is_expected.to contain_class('prometheus::params') }
           prom_os = facts[:kernel].downcase
           prom_arch = facts[:architecture] == 'i386' ? '386' : 'amd64'
 
