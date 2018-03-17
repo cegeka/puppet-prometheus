@@ -204,7 +204,6 @@ class prometheus::params {
   $redis_exporter_user = 'redis-exporter'
   $redis_exporter_version = '0.11.2'
   $user = 'prometheus'
-  $version = '1.5.2'
   case $::architecture {
     'x86_64', 'amd64': { $arch = 'amd64' }
     'i386':            { $arch = '386'   }
@@ -216,6 +215,7 @@ class prometheus::params {
   $os = downcase($::kernel)
 
   if $::operatingsystem == 'Ubuntu' {
+    $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/default'
@@ -227,6 +227,7 @@ class prometheus::params {
       $init_style = 'systemd'
     }
   } elsif $::operatingsystem =~ /Scientific|CentOS|RedHat|OracleLinux/ {
+    $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
@@ -236,6 +237,7 @@ class prometheus::params {
       $init_style  = 'systemd'
     }
   } elsif $::operatingsystem == 'Fedora' {
+    $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
@@ -245,6 +247,7 @@ class prometheus::params {
       $init_style = 'systemd'
     }
   } elsif $::operatingsystem == 'Debian' {
+    $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/default'
@@ -254,16 +257,19 @@ class prometheus::params {
       $init_style = 'systemd'
     }
   } elsif $::operatingsystem == 'Archlinux' {
+    $version = '2.2.0'
     $bin_dir = '/usr/bin'
     $prometheus_install_method = 'package'
     $env_file_path = '/etc/default'
     $init_style = 'systemd'
   } elsif $::operatingsystem == 'OpenSuSE' {
+    $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
     $init_style = 'systemd'
   } elsif $::operatingsystem =~ /SLE[SD]/ {
+    $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
@@ -273,16 +279,19 @@ class prometheus::params {
       $init_style = 'systemd'
     }
   } elsif $::operatingsystem == 'Darwin' {
+    $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = undef
     $init_style = 'launchd'
   } elsif $::operatingsystem == 'Amazon' {
+    $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
     $init_style = 'sysv'
   } else {
+    $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $init_style = undef
