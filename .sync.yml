@@ -6,3 +6,5 @@
     - set: docker/ubuntu-16.04
     - set: docker/debian-8
     - set: docker/centos-7
+spec/spec_helper.rb:
+  spec_overrides: "require 'spec_helper_methods'"

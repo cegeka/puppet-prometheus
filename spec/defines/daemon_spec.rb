@@ -8,7 +8,7 @@ describe 'prometheus::daemon' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts
+        facts.merge(os_specific_facts(facts))
       end
 
       let :pre_condition do

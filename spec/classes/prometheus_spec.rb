@@ -4,7 +4,7 @@ describe 'prometheus' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts
+        facts.merge(os_specific_facts(facts))
       end
 
       [{ version: '2.0.0-rc.1', bin_dir: '/usr/local/bin', install_method: 'url' }].each do |parameters|

@@ -4,7 +4,7 @@ describe 'prometheus::nginx_vts_exporter' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts
+        facts.merge(os_specific_facts(facts))
       end
 
       context 'with version specified' do

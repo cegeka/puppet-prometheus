@@ -1,6 +1,7 @@
 # Class prometheus::params
 # Include default parameters for prometheus class
 class prometheus::params {
+  $init_style = $facts['service_provider']
   $alert_relabel_config = []
   $alertmanagers_config = []
   $alertmanager_config_dir = '/etc/alertmanager'
@@ -219,84 +220,49 @@ class prometheus::params {
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/default'
-    if versioncmp($::operatingsystemrelease, '8.04') < 1 {
-      $init_style = 'debian'
-    } elsif versioncmp($::operatingsystemrelease, '15.04') < 0 {
-      $init_style = 'upstart'
-    } else {
-      $init_style = 'systemd'
-    }
   } elsif $::operatingsystem =~ /Scientific|CentOS|RedHat|OracleLinux/ {
     $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
-    if versioncmp($::operatingsystemrelease, '7.0') < 0 {
-      $init_style = 'sysv'
-    } else {
-      $init_style  = 'systemd'
-    }
   } elsif $::operatingsystem == 'Fedora' {
     $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
-    if versioncmp($::operatingsystemrelease, '12') < 0 {
-      $init_style = 'sysv'
-    } else {
-      $init_style = 'systemd'
-    }
   } elsif $::operatingsystem == 'Debian' {
     $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/default'
-    if versioncmp($::operatingsystemrelease, '8.0') < 0 {
-      $init_style = 'debian'
-    } else {
-      $init_style = 'systemd'
-    }
   } elsif $::operatingsystem == 'Archlinux' {
     $version = '2.2.0'
     $bin_dir = '/usr/bin'
     $prometheus_install_method = 'package'
     $env_file_path = '/etc/default'
-    $init_style = 'systemd'
   } elsif $::operatingsystem == 'OpenSuSE' {
     $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
-    $init_style = 'systemd'
   } elsif $::operatingsystem =~ /SLE[SD]/ {
     $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
-    if versioncmp($::operatingsystemrelease, '12.0') < 0 {
-      $init_style = 'sles'
-    } else {
-      $init_style = 'systemd'
-    }
   } elsif $::operatingsystem == 'Darwin' {
     $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = undef
-    $init_style = 'launchd'
   } elsif $::operatingsystem == 'Amazon' {
     $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
     $env_file_path = '/etc/sysconfig'
-    $init_style = 'sysv'
   } else {
     $version = '1.5.2'
     $bin_dir = '/usr/local/bin'
     $prometheus_install_method = 'url'
-    $init_style = undef
-  }
-  if $init_style == undef {
-    fail('Unsupported OS')
   }
 }
