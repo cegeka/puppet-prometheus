@@ -1,7 +1,23 @@
 # puppet-prometheus
-[![Puppet Forge](https://img.shields.io/puppetforge/e/puppet/prometheus.svg)](https://forge.puppetlabs.com/puppet/prometheus)
+
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-prometheus.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-prometheus)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/prometheus.svg)](https://forge.puppetlabs.com/puppet/prometheus)
-[![Puppet Forge](https://img.shields.io/puppetforge/f/puppet/prometheus.svg)](https://forge.puppetlabs.com/puppet/prometheus)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/prometheus.svg)](https://forge.puppetlabs.com/puppet/prometheus)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/prometheus.svg)](https://forge.puppetlabs.com/puppet/prometheus)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/prometheus.svg)](https://forge.puppetlabs.com/puppet/prometheus)
+[![Apache-2 License](https://img.shields.io/github/license/voxpupuli/puppet-prometheus.svg)](LICENSE)
+
+## Table of Contents
+
+* [Compatibility](#compatibility)
+* [Background](#background)
+* [Usage](#usage)
+* [Example](#example)
+* [Known Issues](#known-issues)
+* [Development](#development)
+* [Authors](#authors)
+
+----
 
 ## Compatibility
 
@@ -247,10 +263,28 @@ prometheus::alertmanager::receivers:
 ```
 Test you commit with vagrant https://github.com/kalinux/vagrant-puppet-prometheus.git
 
-## Limitations/Known issues
+## Known issues
 
 In version 0.1.14 of this module the alertmanager was configured to run as the service `alert_manager`. This has been changed in version 0.2.00 to be `alertmanager`.
 
 Do not use version 1.0.0 of Prometheus: https://groups.google.com/forum/#!topic/prometheus-developers/vuSIxxUDff8 ; it does break the compatibility with thus module!
 
 Even if the module has templates for several linux distributions, only RH family distributions were tested.
+
+This module has unit tests for CentOS/RHEL, Debian, Ubuntu and Archlinux. Acceptance tests are executed for CentOS, Debian and Ubuntu. Other operatingsystems may work but are untested.
+
+
+## Development
+
+This project contains tests for [rspec-puppet](http://rspec-puppet.com/).
+
+Quickstart to run all linter and unit tests:
+
+```bash
+bundle install --path .vendor/ --without system_tests --without development --without release
+bundle exec rake test
+```
+
+## Authors
+
+puppet-prometheus is maintained by [Vox Pupuli](https://voxpupuli.org), it was written by [brutus333](https://github.com/brutus333/).
