@@ -70,31 +70,31 @@
 #  The binary release version
 
 class prometheus::process_exporter(
-  String $arch                                                       = $prometheus::arch,
-  Stdlib::Absolutepath $bin_dir                                      = $prometheus::bin_dir,
   String $download_extension,
-  Optional[Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl]] $download_url = undef,
   Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl] $download_url_base,
   Array $extra_groups,
-  String $extra_options                                              = '',
-  String $config_mode                                                = $prometheus::config_mode,
   String $group,
+  String $package_ensure,
+  String $package_name,
+  String $user,
+  String $version,
+  Stdlib::Absolutepath $config_path,
+  Array $watched_processes                                           = []
+  Boolean $purge_config_dir                                          = true,
+  Boolean $restart_on_change                                         = true,
+  Boolean $service_enable                                            = true,
+  String $service_ensure                                             = 'running',
   String $init_style                                                 = $prometheus::init_style,
   String $install_method                                             = $prometheus::install_method,
   Boolean $manage_group                                              = true,
   Boolean $manage_service                                            = true,
   Boolean $manage_user                                               = true,
   String $os                                                         = $prometheus::os,
-  String $package_ensure,
-  String $package_name,
-  Boolean $purge_config_dir                                          = true,
-  Boolean $restart_on_change                                         = true,
-  Boolean $service_enable                                            = true,
-  String $service_ensure                                             = 'running',
-  String $user,
-  String $version,
-  Stdlib::Absolutepath $config_path,
-  Array $watched_processes                                           = []
+  String $extra_options                                              = '',
+  String $config_mode                                                = $prometheus::config_mode,
+  Optional[Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl]] $download_url = undef,
+  String $arch                                                       = $prometheus::arch,
+  Stdlib::Absolutepath $bin_dir                                      = $prometheus::bin_dir,
 ) inherits prometheus {
 
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
