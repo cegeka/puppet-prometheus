@@ -8,5 +8,7 @@ defaults:
 hierarchy:
   - name: 'Distribution Name'
     path: "%{facts.os.name}.yaml"
+  - name: 'Operating System Family'
+    path: "%{facts.os.family}.yaml"
   - name: 'defaults'
     path: 'defaults.yaml'
