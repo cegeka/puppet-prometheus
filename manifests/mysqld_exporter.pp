@@ -89,37 +89,38 @@
 #
 #  [*version*]
 #  The binary release version
+
 class prometheus::mysqld_exporter (
-  String $arch                                                       = $::prometheus::params::arch,
-  Stdlib::Absolutepath $bin_dir                                      = $::prometheus::params::bin_dir,
-  Stdlib::Absolutepath $cnf_config_path                              = $::prometheus::params::mysqld_exporter_cnf_config_path,
-  String $cnf_host                                                   = $::prometheus::params::mysqld_exporter_cnf_host,
-  String $cnf_password                                               = $::prometheus::params::mysqld_exporter_cnf_password,
-  Stdlib::Port $cnf_port                                             = $::prometheus::params::mysqld_exporter_cnf_port,
+  String $arch                                                       = $prometheus::arch,
+  Stdlib::Absolutepath $bin_dir                                      = $prometheus::bin_dir,
+  Stdlib::Absolutepath $cnf_config_path,
+  String $cnf_host,
+  String $cnf_password,
+  Stdlib::Port $cnf_port,
   Optional[Stdlib::Absolutepath] $cnf_socket                         = undef,
-  String $cnf_user                                                   = $::prometheus::params::mysqld_exporter_cnf_user,
-  String $config_mode                                                = $::prometheus::params::config_mode,
-  String $download_extension                                         = $::prometheus::params::mysqld_exporter_download_extension,
+  String $cnf_user,
+  String $config_mode                                                = $prometheus::config_mode,
+  String $download_extension,
   Optional[Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl]] $download_url = undef,
-  Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl] $download_url_base      = $::prometheus::params::mysqld_exporter_download_url_base,
-  Array $extra_groups                                                = $::prometheus::params::mysqld_exporter_extra_groups,
+  Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl] $download_url_base,
+  Array $extra_groups,
   String $extra_options                                              = '',
-  String $group                                                      = $::prometheus::params::mysqld_exporter_group,
-  String $init_style                                                 = $::prometheus::params::init_style,
-  String $install_method                                             = $::prometheus::params::install_method,
+  String $group,
+  String $init_style                                                 = $prometheus::init_style,
+  String $install_method                                             = $prometheus::install_method,
   Boolean $manage_group                                              = true,
   Boolean $manage_service                                            = true,
   Boolean $manage_user                                               = true,
-  String $os                                                         = $::prometheus::params::os,
-  String $package_ensure                                             = $::prometheus::params::mysqld_exporter_package_ensure,
-  String $package_name                                               = $::prometheus::params::mysqld_exporter_package_name,
+  String $os                                                         = $prometheus::os,
+  String $package_ensure,
+  String $package_name,
   Boolean $purge_config_dir                                          = true,
   Boolean $restart_on_change                                         = true,
   Boolean $service_enable                                            = true,
   String $service_ensure                                             = 'running',
-  String $user                                                       = $::prometheus::params::mysqld_exporter_user,
-  String $version                                                    = $::prometheus::params::mysqld_exporter_version,
-) inherits prometheus::params {
+  String $user,
+  String $version,
+) inherits prometheus {
 
   #Please provide the download_url for versions < 0.9.0
   $real_download_url    = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
