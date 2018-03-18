@@ -38,7 +38,6 @@ describe 'prometheus::snmp_exporter' do
           it { is_expected.to contain_service('snmp_exporter') }
           it { is_expected.to contain_archive('/tmp/snmp_exporter-0.6.0.tar.gz') }
           it { is_expected.to contain_file('/opt/snmp_exporter-0.6.0.linux-amd64/snmp_exporter') }
-          it { is_expected.to contain_class('prometheus::params') }
         end
       end
     end

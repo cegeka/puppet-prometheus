@@ -77,33 +77,35 @@
 #
 #  [*version*]
 #  The binary release version
+
 class prometheus::snmp_exporter (
-  String           $arch               = $::prometheus::params::arch,
-  String           $bin_dir            = $::prometheus::params::bin_dir,
-  String           $config_file        = $::prometheus::params::snmp_exporter_config_file,
-  String           $config_mode        = $::prometheus::params::config_mode,
-  String           $config_template    = $::prometheus::params::snmp_exporter_config_template,
-  String           $download_extension = $::prometheus::params::snmp_exporter_download_extension,
-  Optional[String] $download_url       = undef,
-  String           $download_url_base  = $::prometheus::params::snmp_exporter_download_url_base,
-  Array            $extra_groups       = $::prometheus::params::snmp_exporter_extra_groups,
-  String           $extra_options      = '',
-  String           $group              = $::prometheus::params::snmp_exporter_group,
-  String           $init_style         = $::prometheus::params::init_style,
-  String           $install_method     = $::prometheus::params::install_method,
-  Boolean          $manage_group       = true,
-  Boolean          $manage_service     = true,
-  Boolean          $manage_user        = true,
-  String           $os                 = $::prometheus::params::os,
-  String           $package_ensure     = $::prometheus::params::snmp_exporter_package_ensure,
-  String           $package_name       = $::prometheus::params::snmp_exporter_package_name,
-  Boolean          $purge_config_dir   = true,
-  Boolean          $restart_on_change  = true,
-  Boolean          $service_enable     = true,
-  String           $service_ensure     = 'running',
-  String           $user               = $::prometheus::params::snmp_exporter_user,
-  String           $version            = $::prometheus::params::snmp_exporter_version,
-) inherits prometheus::params {
+  String $arch                   = $prometheus::arch,
+  String $bin_dir                = $prometheus::bin_dir,
+  String $config_file,
+  String $config_mode            = $prometheus::config_mode,
+  String $config_template,
+  String $download_extension,
+  Optional[String] $download_url = undef,
+  String $download_url_base,
+  Array $extra_groups,
+  String $extra_options          = '',
+  String $group,
+  String $init_style             = $prometheus::init_style,
+  String $install_method         = $prometheus::install_method,
+  Boolean $manage_group          = true,
+  Boolean $manage_service        = true,
+  Boolean $manage_user           = true,
+  String $os                     = $prometheus::os,
+  String $package_ensure,
+  String $package_name,
+  Boolean $purge_config_dir      = true,
+  Boolean $restart_on_change     = true,
+  Boolean $service_enable        = true,
+  String $service_ensure         = 'running',
+  String $user,
+  String $version,
+) inherits prometheus {
+
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {
