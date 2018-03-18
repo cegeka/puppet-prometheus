@@ -129,41 +129,41 @@
 #  [*version*]
 #  The binary release version
 class prometheus::alertmanager (
-  String $arch                                                  = $::prometheus::params::arch,
-  Stdlib::Absolutepath $bin_dir                                 = $::prometheus::params::bin_dir,
-  Stdlib::Absolutepath $config_dir                              = $::prometheus::params::alertmanager_config_dir,
-  Stdlib::Absolutepath $config_file                             = $::prometheus::params::alertmanager_config_file,
-  String $config_mode                                           = $::prometheus::params::config_mode,
-  String $download_extension                                    = $::prometheus::params::alertmanager_download_extension,
-  Optional[String] $download_url                                = undef,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base = $::prometheus::params::alertmanager_download_url_base,
-  Array $extra_groups                                           = $::prometheus::params::alertmanager_extra_groups,
-  String $extra_options                                         = '',
-  Hash $global                                                  = $::prometheus::params::alertmanager_global,
-  String $group                                                 = $::prometheus::params::alertmanager_group,
-  Array $inhibit_rules                                          = $::prometheus::params::alertmanager_inhibit_rules,
-  String $init_style                                            = $::prometheus::params::init_style,
-  String $install_method                                        = $::prometheus::params::install_method,
-  Boolean $manage_group                                         = true,
-  Boolean $manage_service                                       = true,
-  Boolean $manage_user                                          = true,
-  String $os                                                    = $::prometheus::params::os,
-  String $package_ensure                                        = $::prometheus::params::alertmanager_package_ensure,
-  String $package_name                                          = $::prometheus::params::alertmanager_package_name,
-  Boolean $purge_config_dir                                     = true,
-  Array $receivers                                              = $::prometheus::params::alertmanager_receivers,
-  Boolean $restart_on_change                                    = true,
-  Hash $route                                                   = $::prometheus::params::alertmanager_route,
-  Boolean $service_enable                                       = true,
-  String $service_ensure                                        = 'running',
-  String $service_name                                          = 'alertmanager',
-  Stdlib::Absolutepath $storage_path                            = $::prometheus::params::alertmanager_storage_path,
-  Array $templates                                              = $::prometheus::params::alertmanager_templates,
-  String $user                                                  = $::prometheus::params::alertmanager_user,
-  String $version                                               = $::prometheus::params::alertmanager_version,
-) inherits prometheus::params {
+  String $arch                   = $prometheus::real_arch,
+  Stdlib::Absolutepath $bin_dir  = $prometheus::bin_dir,
+  Stdlib::Absolutepath $config_dir,
+  Stdlib::Absolutepath $config_file,
+  String $config_mode            = $prometheus::config_mode,
+  String $download_extension,
+  Optional[String] $download_url = undef,
+  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base,
+  Array $extra_groups,
+  String $extra_options          = '',
+  Hash $global,
+  String $group,
+  Array $inhibit_rules,
+  String $init_style             = $prometheus::init_style,
+  String $install_method         = $prometheus::install_method,
+  Boolean $manage_group          = true,
+  Boolean $manage_service        = true,
+  Boolean $manage_user           = true,
+  String $os                     = $prometheus::os,
+  String $package_ensure,
+  String $package_name,
+  Boolean $purge_config_dir      = true,
+  Array $receivers,
+  Boolean $restart_on_change     = true,
+  Hash $route,
+  Boolean $service_enable        = true,
+  String $service_ensure         = 'running',
+  String $service_name           = 'alertmanager',
+  Stdlib::Absolutepath $storage_path,
+  Array $templates,
+  String $user,
+  String $version,
+) inherits prometheus {
 
-  if( versioncmp($::prometheus::alertmanager::version, '0.3.0') == -1 ){
+  if( versioncmp($version, '0.3.0') == -1 ){
     $real_download_url    = pick($download_url,
       "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   } else {
@@ -208,13 +208,13 @@ class prometheus::alertmanager (
       mode   => '0755',
     }
 
-    if( versioncmp($::prometheus::alertmanager::version, '0.12.0') == 1 ){
+    if( versioncmp($version, '0.12.0') == 1 ){
       $options = "--config.file=${prometheus::alertmanager::config_file} --storage.path=${prometheus::alertmanager::storage_path} ${prometheus::alertmanager::extra_options}"
     } else {
       $options = "-config.file=${prometheus::alertmanager::config_file} -storage.path=${prometheus::alertmanager::storage_path} ${prometheus::alertmanager::extra_options}"
     }
   } else {
-    if( versioncmp($::prometheus::alertmanager::version, '0.12.0') == 1 ){
+    if( versioncmp($prometheus::alertmanager::version, '0.12.0') == 1 ){
       $options = "--config.file=${prometheus::alertmanager::config_file} ${prometheus::alertmanager::extra_options}"
     } else {
       $options = "-config.file=${prometheus::alertmanager::config_file} ${prometheus::alertmanager::extra_options}"
