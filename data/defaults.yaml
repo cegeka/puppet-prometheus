@@ -240,14 +240,14 @@ prometheus::blackbox_exporter::package_name: 'blackbox_exporter'
 prometheus::blackbox_exporter::modules: {}
 prometheus::blackbox_exporter::config_file: '/etc/blackbox-exporter.yaml'
 prometheus::blackbox_exporter::version: '0.7.0'
-prometheus::redis_exporter_redis_address:
+prometheus::redis_exporter::addr:
   - 'redis://localhost:6379'
-prometheus::redis_exporter_download_extension: 'tar.gz'
-prometheus::redis_exporter_download_url_base: 'https://github.com/oliver006/redis_exporter/releases'
-prometheus::redis_exporter_extra_groups: []
-prometheus::redis_exporter_group: 'redis-exporter'
-prometheus::redis_exporter_package_ensure: 'latest'
-prometheus::redis_exporter_package_name: 'redis_exporter'
-prometheus::redis_exporter_user: 'redis-exporter'
-prometheus::redis_exporter_version: '0.11.2'
+prometheus::redis_exporter::download_extension: 'tar.gz'
+prometheus::redis_exporter::download_url_base: 'https://github.com/oliver006/redis_exporter/releases'
+prometheus::redis_exporter::extra_groups: []
+prometheus::redis_exporter::group: 'redis-exporter'
+prometheus::redis_exporter::package_ensure: 'latest'
+prometheus::redis_exporter::package_name: 'redis_exporter'
+prometheus::redis_exporter::user: 'redis-exporter'
+prometheus::redis_exporter::version: '0.11.2'
 prometheus::user: 'prometheus'
