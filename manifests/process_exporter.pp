@@ -68,33 +68,34 @@
 #
 #  [*version*]
 #  The binary release version
+
 class prometheus::process_exporter(
-  String $arch                                                       = $::prometheus::params::arch,
-  Stdlib::Absolutepath $bin_dir                                      = $::prometheus::params::bin_dir,
-  String $download_extension                                         = $::prometheus::params::process_exporter_download_extension,
+  String $arch                                                       = $prometheus::arch,
+  Stdlib::Absolutepath $bin_dir                                      = $prometheus::bin_dir,
+  String $download_extension,
   Optional[Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl]] $download_url = undef,
-  Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl] $download_url_base      = $::prometheus::params::process_exporter_download_url_base,
-  Array $extra_groups                                                = $::prometheus::params::process_exporter_extra_groups,
+  Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl] $download_url_base,
+  Array $extra_groups,
   String $extra_options                                              = '',
-  String $config_mode                                                = $::prometheus::params::config_mode,
-  String $group                                                      = $::prometheus::params::process_exporter_group,
-  String $init_style                                                 = $::prometheus::params::init_style,
-  String $install_method                                             = $::prometheus::params::install_method,
+  String $config_mode                                                = $prometheus::config_mode,
+  String $group,
+  String $init_style                                                 = $prometheus::init_style,
+  String $install_method                                             = $prometheus::install_method,
   Boolean $manage_group                                              = true,
   Boolean $manage_service                                            = true,
   Boolean $manage_user                                               = true,
-  String $os                                                         = $::prometheus::params::os,
-  String $package_ensure                                             = $::prometheus::params::process_exporter_package_ensure,
-  String $package_name                                               = $::prometheus::params::process_exporter_package_name,
+  String $os                                                         = $prometheus::os,
+  String $package_ensure,
+  String $package_name,
   Boolean $purge_config_dir                                          = true,
   Boolean $restart_on_change                                         = true,
   Boolean $service_enable                                            = true,
   String $service_ensure                                             = 'running',
-  String $user                                                       = $::prometheus::params::process_exporter_user,
-  String $version                                                    = $::prometheus::params::process_exporter_version,
-  Stdlib::Absolutepath $config_path                                  = $::prometheus::params::process_exporter_config_path,
+  String $user,
+  String $version,
+  Stdlib::Absolutepath $config_path,
   Array $watched_processes                                           = []
-) inherits prometheus::params {
+) inherits prometheus {
 
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {
