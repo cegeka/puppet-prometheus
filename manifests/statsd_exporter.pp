@@ -79,33 +79,34 @@
 #
 #  [*version*]
 #  The binary release version
+
 class prometheus::statsd_exporter (
-  String $arch                                                       = $::prometheus::params::arch,
-  Stdlib::Absolutepath $bin_dir                                      = $::prometheus::params::bin_dir,
-  String $config_mode                                                = $::prometheus::params::config_mode,
-  String $download_extension                                         = $::prometheus::params::statsd_exporter_download_extension,
+  String $arch                                                       = $prometheus::arch,
+  Stdlib::Absolutepath $bin_dir                                      = $prometheus::bin_dir,
+  String $config_mode                                                = $prometheus::config_mode,
+  String $download_extension,
   Optional[Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl]] $download_url = undef,
-  Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl] $download_url_base      = $::prometheus::params::statsd_exporter_download_url_base,
-  Array $extra_groups                                                = $::prometheus::params::statsd_exporter_extra_groups,
+  Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl] $download_url_base,
+  Array $extra_groups,
   String $extra_options                                              = '',
-  String $group                                                      = $::prometheus::params::statsd_exporter_group,
-  String $init_style                                                 = $::prometheus::params::init_style,
-  String $install_method                                             = $::prometheus::params::install_method,
+  String $group,
+  String $init_style                                                 = $prometheus::init_style,
+  String $install_method                                             = $prometheus::install_method,
   Boolean $manage_group                                              = true,
   Boolean $manage_service                                            = true,
   Boolean $manage_user                                               = true,
-  Stdlib::Absolutepath $mapping_config_path                          = $::prometheus::params::statsd_exporter_mapping_config_path,
-  String $os                                                         = $::prometheus::params::os,
-  String $package_ensure                                             = $::prometheus::params::statsd_exporter_package_ensure,
-  String $package_name                                               = $::prometheus::params::statsd_exporter_package_name,
+  Stdlib::Absolutepath $mapping_config_path,
+  String $os                                                         = $prometheus::os,
+  String $package_ensure,
+  String $package_name,
   Boolean $purge_config_dir                                          = true,
   Boolean $restart_on_change                                         = true,
   Boolean $service_enable                                            = true,
   String $service_ensure                                             = 'running',
-  Array[Hash] $statsd_maps                                           = $::prometheus::params::statsd_exporter_maps,
-  String $user                                                       = $::prometheus::params::statsd_exporter_user,
-  String $version                                                    = $::prometheus::params::statsd_exporter_version,
-) inherits prometheus::params {
+  Array[Hash] $statsd_maps,
+  String $user,
+  String $version,
+) inherits prometheus {
 
   $real_download_url    = pick($download_url,"${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {
