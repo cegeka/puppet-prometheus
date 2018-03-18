@@ -12,7 +12,7 @@ describe 'prometheus::daemon' do
       end
 
       let :pre_condition do
-        'include ::prometheus::params'
+        'include prometheus'
       end
 
       [
@@ -31,7 +31,7 @@ describe 'prometheus::daemon' do
             parameters
           end
 
-          it { is_expected.to contain_class('prometheus::params') }
+          it { is_expected.to contain_class('prometheus') }
           prom_os = facts[:kernel].downcase
           prom_arch = facts[:architecture] == 'i386' ? '386' : 'amd64'
 

@@ -62,7 +62,7 @@ define prometheus::daemon (
   String $install_method          = $prometheus::install_method,
   String $download_extension      = $prometheus::download_extension,
   String $os                      = $prometheus::os,
-  String $arch                    = $prometheus::arch,
+  String $arch                    = $prometheus::real_arch,
   Stdlib::Absolutepath $bin_dir   = $prometheus::bin_dir,
   Optional[String] $package_name  = undef,
   String $package_ensure          = 'installed',
