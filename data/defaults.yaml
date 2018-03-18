@@ -230,16 +230,16 @@ prometheus::statsd_exporter_package_name: 'statsd_exporter'
 prometheus::statsd_exporter_user: 'statsd-exporter'
 prometheus::statsd_exporter_version: '0.3.0'
 prometheus::storage_retention: '360h' # 15d; "d" suffix is only supported with prom >= 2.*
-prometheus::blackbox_exporter_user: 'blackbox-exporter'
-prometheus::blackbox_exporter_group: 'blackbox-exporter'
-prometheus::blackbox_exporter_download_extension: 'tar.gz'
-prometheus::blackbox_exporter_download_url_base: 'https://github.com/prometheus/blackbox_exporter/releases'
-prometheus::blackbox_exporter_extra_groups: []
-prometheus::blackbox_exporter_package_ensure: 'latest'
-prometheus::blackbox_exporter_package_name: 'blackbox_exporter'
-prometheus::blackbox_exporter_modules: {}
-prometheus::blackbox_exporter_config_file: '/etc/blackbox-exporter.yaml'
-prometheus::blackbox_exporter_version: '0.7.0'
+prometheus::blackbox_exporter::user: 'blackbox-exporter'
+prometheus::blackbox_exporter::group: 'blackbox-exporter'
+prometheus::blackbox_exporter::download_extension: 'tar.gz'
+prometheus::blackbox_exporter::download_url_base: 'https://github.com/prometheus/blackbox_exporter/releases'
+prometheus::blackbox_exporter::extra_groups: []
+prometheus::blackbox_exporter::package_ensure: 'latest'
+prometheus::blackbox_exporter::package_name: 'blackbox_exporter'
+prometheus::blackbox_exporter::modules: {}
+prometheus::blackbox_exporter::config_file: '/etc/blackbox-exporter.yaml'
+prometheus::blackbox_exporter::version: '0.7.0'
 prometheus::redis_exporter_redis_address:
   - 'redis://localhost:6379'
 prometheus::redis_exporter_download_extension: 'tar.gz'
