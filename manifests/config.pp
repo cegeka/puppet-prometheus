@@ -1,13 +1,13 @@
 # Class prometheus::config
 # Configuration class for prometheus monitoring system
 class prometheus::config (
-  $global_config,
-  $rule_files,
-  $scrape_configs,
-  $remote_read_configs,
-  $remote_write_configs,
-  $config_template = $::prometheus::params::config_template,
-  $storage_retention = $::prometheus::params::storage_retention,
+  Hash $global_config,
+  Array $rule_files,
+  Array $scrape_configs,
+  Array $remote_read_configs,
+  Array $remote_write_configs,
+  String $config_template = $::prometheus::params::config_template,
+  String $storage_retention = $::prometheus::params::storage_retention,
 ) {
 
   if $prometheus::init_style {
