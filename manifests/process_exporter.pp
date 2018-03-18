@@ -79,7 +79,7 @@ class prometheus::process_exporter(
   String $user,
   String $version,
   Stdlib::Absolutepath $config_path,
-  Array $watched_processes                                           = []
+  Array $watched_processes                                           = [],
   Boolean $purge_config_dir                                          = true,
   Boolean $restart_on_change                                         = true,
   Boolean $service_enable                                            = true,
