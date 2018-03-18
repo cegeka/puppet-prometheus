@@ -80,33 +80,34 @@
 #
 #  [*version*]
 #  The binary release version
+
 class prometheus::beanstalkd_exporter (
-  String $arch                        = $prometheus::arch,
-  String $bin_dir                     = $prometheus::bin_dir,
   String $download_extension,
-  Variant[Undef,String] $download_url = undef,
   String $download_url_base,
   Array $extra_groups,
-  String $extra_options               = '',
   String $group,
-  String $init_style                  = $prometheus::init_style,
-  String $install_method              = $prometheus::install_method,
-  Boolean $manage_group               = true,
-  Boolean $manage_service             = true,
-  Boolean $manage_user                = true,
-  String $os                          = $prometheus::os,
   String $package_ensure,
   String $package_name,
-  Boolean $purge_config_dir           = true,
-  Boolean $restart_on_change          = true,
-  Boolean $service_enable             = true,
-  String $service_ensure              = 'running',
   String $user,
   String $version,
   String $config,
   String $mapping_config,
   String $beanstalkd_address,
   String $exporter_listen,
+  Boolean $purge_config_dir           = true,
+  Boolean $restart_on_change          = true,
+  Boolean $service_enable             = true,
+  String $service_ensure              = 'running',
+  String $init_style                  = $prometheus::init_style,
+  String $install_method              = $prometheus::install_method,
+  Boolean $manage_group               = true,
+  Boolean $manage_service             = true,
+  Boolean $manage_user                = true,
+  String $os                          = $prometheus::os,
+  String $extra_options               = '',
+  Variant[Undef,String] $download_url = undef,
+  String $arch                        = $prometheus::arch,
+  String $bin_dir                     = $prometheus::bin_dir,
 ) inherits prometheus {
 
   #Please provide the download_url for versions < 0.9.0
