@@ -213,7 +213,6 @@ class prometheus::params {
   $varnish_exporter_package_name = 'prometheus_varnish_exporter'
   $varnish_exporter_user = 'varnish_exporter'
   $varnish_exporter_version = '1.4'
-  $version = '1.5.2'
   case $::architecture {
     'x86_64', 'amd64': { $arch = 'amd64' }
     'i386':            { $arch = '386'   }
