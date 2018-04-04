@@ -80,34 +80,36 @@
 #
 #  [*version*]
 #  The binary release version
+
 class prometheus::beanstalkd_exporter (
-  String $arch                        = $::prometheus::params::arch,
-  String $bin_dir                     = $::prometheus::params::bin_dir,
-  String $download_extension          = $::prometheus::params::beanstalkd_exporter_download_extension,
-  Variant[Undef,String] $download_url = undef,
-  String $download_url_base           = $::prometheus::params::beanstalkd_exporter_download_url_base,
-  Array $extra_groups                 = $::prometheus::params::beanstalkd_exporter_extra_groups,
-  String $extra_options               = '',
-  String $group                       = $::prometheus::params::beanstalkd_exporter_group,
-  String $init_style                  = $::prometheus::params::init_style,
-  String $install_method              = $::prometheus::params::install_method,
-  Boolean $manage_group               = true,
-  Boolean $manage_service             = true,
-  Boolean $manage_user                = true,
-  String $os                          = $::prometheus::params::os,
-  String $package_ensure              = $::prometheus::params::beanstalkd_exporter_package_ensure,
-  String $package_name                = $::prometheus::params::beanstalkd_exporter_package_name,
+  String $download_extension,
+  String $download_url_base,
+  Array $extra_groups,
+  String $group,
+  String $package_ensure,
+  String $package_name,
+  String $user,
+  String $version,
+  String $config,
+  String $mapping_config,
+  String $beanstalkd_address,
+  String $exporter_listen,
   Boolean $purge_config_dir           = true,
   Boolean $restart_on_change          = true,
   Boolean $service_enable             = true,
   String $service_ensure              = 'running',
-  String $user                        = $::prometheus::params::beanstalkd_exporter_user,
-  String $version                     = $::prometheus::params::beanstalkd_exporter_version,
-  String $config                      = $::prometheus::params::beanstalkd_exporter_config,
-  String $mapping_config              = $::prometheus::params::beanstalkd_exporter_mapping_config,
-  String $beanstalkd_address          = $::prometheus::params::beanstalkd_exporter_beanstalkd_address,
-  String $exporter_listen             = $::prometheus::params::beanstalkd_exporter_listen,
-) inherits prometheus::params {
+  String $init_style                  = $prometheus::init_style,
+  String $install_method              = $prometheus::install_method,
+  Boolean $manage_group               = true,
+  Boolean $manage_service             = true,
+  Boolean $manage_user                = true,
+  String $os                          = $prometheus::os,
+  String $extra_options               = '',
+  Variant[Undef,String] $download_url = undef,
+  String $arch                        = $prometheus::arch,
+  String $bin_dir                     = $prometheus::bin_dir,
+) inherits prometheus {
+
   #Please provide the download_url for versions < 0.9.0
   $real_download_url = pick($download_url,"${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 

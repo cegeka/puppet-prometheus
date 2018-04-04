@@ -129,53 +129,62 @@
 # Sample Usage:
 #
 class prometheus (
-  Boolean $manage_user                                          = true,
-  String $user                                                  = $::prometheus::params::user,
-  Boolean $manage_group                                         = true,
-  Boolean $purge_config_dir                                     = true,
-  String $group                                                 = $::prometheus::params::group,
-  Array $extra_groups                                           = $::prometheus::params::extra_groups,
-  Stdlib::Absolutepath $bin_dir                                 = $::prometheus::params::bin_dir,
-  Stdlib::Absolutepath $shared_dir                              = $::prometheus::params::shared_dir,
-  String $arch                                                  = $::prometheus::params::arch,
-  String $version                                               = $::prometheus::params::version,
-  String $install_method                                        = $::prometheus::params::prometheus_install_method,
-  String $os                                                    = $::prometheus::params::os,
-  Optional[String] $download_url                                = undef,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base = $::prometheus::params::download_url_base,
-  String $download_extension                                    = $::prometheus::params::download_extension,
-  String $package_name                                          = $::prometheus::params::package_name,
-  String $package_ensure                                        = $::prometheus::params::package_ensure,
-  String $config_dir                                            = $::prometheus::params::config_dir,
-  Stdlib::Absolutepath $localstorage                            = $::prometheus::params::localstorage,
-  String $extra_options                                         = '',
-  Hash $config_hash                                             = {},
-  Hash $config_defaults                                         = {},
-  String $config_template                                       = $::prometheus::params::config_template,
-  String $config_mode                                           = $::prometheus::params::config_mode,
-  Boolean $service_enable                                       = true,
-  String $service_ensure                                        = 'running',
-  Boolean $manage_service                                       = true,
-  Boolean $restart_on_change                                    = true,
-  String $init_style                                            = $::prometheus::params::init_style,
-  Hash $global_config                                           = $::prometheus::params::global_config,
-  Array $rule_files                                             = $::prometheus::params::rule_files,
-  Array $scrape_configs                                         = $::prometheus::params::scrape_configs,
-  Array $remote_read_configs                                    = $::prometheus::params::remote_read_configs,
-  Array $remote_write_configs                                   = $::prometheus::params::remote_write_configs,
-  Variant[Array,Hash] $alerts                                   = $::prometheus::params::alerts,
-  Hash $extra_alerts                                            = {},
-  Array $alert_relabel_config                                   = $::prometheus::params::alert_relabel_config,
-  Array $alertmanagers_config                                   = $::prometheus::params::alertmanagers_config,
-  String $storage_retention                                     = $::prometheus::params::storage_retention,
-) inherits prometheus::params {
+  String $user,
+  String $group,
+  Array $extra_groups,
+  Stdlib::Absolutepath $bin_dir,
+  Stdlib::Absolutepath $shared_dir,
+  String $version,
+  String $install_method,
+  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base,
+  String $download_extension,
+  String $package_name,
+  String $package_ensure,
+  String $config_dir,
+  Stdlib::Absolutepath $localstorage,
+  String $config_template,
+  String $config_mode,
+  Hash $global_config,
+  Array $rule_files,
+  Array $scrape_configs,
+  Array $remote_read_configs,
+  Array $remote_write_configs,
+  Variant[Array,Hash] $alerts,
+  Array $alert_relabel_config,
+  Array $alertmanagers_config,
+  String $storage_retention,
+  Stdlib::Absolutepath $env_file_path,
+  Hash $extra_alerts             = {},
+  Boolean $service_enable        = true,
+  String $service_ensure         = 'running',
+  Boolean $manage_service        = true,
+  Boolean $restart_on_change     = true,
+  String $init_style             = $facts['service_provider'],
+  String $extra_options          = '',
+  Hash $config_hash              = {},
+  Hash $config_defaults          = {},
+  String $os                     = downcase($facts['kernel']),
+  Optional[String] $download_url = undef,
+  String $arch                   = $facts['architecture'],
+  Boolean $manage_group          = true,
+  Boolean $purge_config_dir      = true,
+  Boolean $manage_user           = true,
+) {
+
+  case $arch {
+    'x86_64', 'amd64': { $real_arch = 'amd64' }
+    'i386':            { $real_arch = '386'   }
+    default:           {
+      fail("Unsupported kernel architecture: ${arch}")
+    }
+  }
 
   if( versioncmp($::prometheus::version, '1.0.0') == -1 ){
     $real_download_url = pick($download_url,
-      "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+      "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${real_arch}.${download_extension}")
   } else {
     $real_download_url = pick($download_url,
-      "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+      "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${real_arch}.${download_extension}")
   }
   $notify_service = $restart_on_change ? {
     true    => Service['prometheus'],

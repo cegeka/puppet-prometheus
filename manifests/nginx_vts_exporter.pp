@@ -71,31 +71,32 @@
 #
 #  [*version*]
 #  The binary release version
+
 class prometheus::nginx_vts_exporter(
-  String           $arch               = $prometheus::params::arch,
-  String           $bin_dir            = $prometheus::params::bin_dir,
-  String           $nginx_scrape_uri   = $prometheus::params::nginx_vts_exporter_nginx_scrape_uri,
-  String           $download_extension = $prometheus::params::nginx_vts_exporter_download_extension,
-  Optional[String] $download_url       = undef,
-  String           $download_url_base  = $prometheus::params::nginx_vts_exporter_download_url_base,
-  Array            $extra_groups       = $prometheus::params::nginx_vts_exporter_extra_groups,
-  String           $extra_options      = '',
-  String           $group              = $prometheus::params::nginx_vts_exporter_group,
-  String           $init_style         = $prometheus::params::init_style,
-  String           $install_method     = $prometheus::params::install_method,
-  Boolean          $manage_group       = true,
-  Boolean          $manage_service     = true,
-  Boolean          $manage_user        = true,
-  String           $os                 = $prometheus::params::os,
-  String           $package_ensure     = $prometheus::params::nginx_vts_exporter_package_ensure,
-  String           $package_name       = $prometheus::params::nginx_vts_exporter_package_name,
-  Boolean          $purge_config_dir   = true,
-  Boolean          $restart_on_change  = true,
-  Boolean          $service_enable     = true,
-  String           $service_ensure     = 'running',
-  String           $user               = $prometheus::params::nginx_vts_exporter_user,
-  String           $version            = $prometheus::params::nginx_vts_exporter_version,
-) inherits prometheus::params {
+  String           $nginx_scrape_uri,
+  String           $download_extension,
+  String           $download_url_base,
+  Array            $extra_groups,
+  String           $group,
+  String           $package_ensure,
+  String           $package_name,
+  String           $user,
+  String           $version,
+  Boolean          $purge_config_dir  = true,
+  Boolean          $restart_on_change = true,
+  Boolean          $service_enable    = true,
+  String           $service_ensure    = 'running',
+  String           $init_style        = $prometheus::init_style,
+  String           $install_method    = $prometheus::install_method,
+  Boolean          $manage_group      = true,
+  Boolean          $manage_service    = true,
+  Boolean          $manage_user       = true,
+  String           $os                = $prometheus::os,
+  String           $extra_options     = '',
+  Optional[String] $download_url      = undef,
+  String           $arch              = $prometheus::arch,
+  String           $bin_dir           = $prometheus::bin_dir,
+) inherits prometheus {
 
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {

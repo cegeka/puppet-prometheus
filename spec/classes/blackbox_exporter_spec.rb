@@ -31,7 +31,6 @@ describe 'prometheus::blackbox_exporter' do
           it { is_expected.to contain_service('blackbox_exporter') }
           it { is_expected.to contain_archive('/tmp/blackbox_exporter-0.6.0.tar.gz') }
           it { is_expected.to contain_file('/opt/blackbox_exporter-0.6.0.linux-amd64/blackbox_exporter') }
-          it { is_expected.to contain_class('prometheus::params') }
           it {
             is_expected.to contain_file('/etc/blackbox-exporter.yaml')
             verify_contents(catalogue, '/etc/blackbox-exporter.yaml', ['---', 'modules:', '  http_2xx:', '    prober: http'])

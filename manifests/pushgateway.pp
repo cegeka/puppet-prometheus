@@ -68,30 +68,32 @@
 #
 #  [*version*]
 #  The binary release version
+
 class prometheus::pushgateway (
-  String           $arch               = $::prometheus::params::arch,
-  String           $bin_dir            = $::prometheus::params::bin_dir,
-  String           $download_extension = $::prometheus::params::pushgateway_download_extension,
-  Optional[String] $download_url       = undef,
-  String           $download_url_base  = $::prometheus::params::pushgateway_download_url_base,
-  Array            $extra_groups       = $::prometheus::params::pushgateway_extra_groups,
-  String           $extra_options      = '',
-  String           $group              = $::prometheus::params::pushgateway_group,
-  String           $init_style         = $::prometheus::params::init_style,
-  String           $install_method     = $::prometheus::params::install_method,
-  Boolean          $manage_group       = true,
-  Boolean          $manage_service     = true,
-  Boolean          $manage_user        = true,
-  String           $os                 = $::prometheus::params::os,
-  String           $package_ensure     = $::prometheus::params::pushgateway_package_ensure,
-  String           $package_name       = $::prometheus::params::pushgateway_package_name,
-  Boolean          $restart_on_change  = true,
-  Boolean          $service_enable     = true,
-  String           $service_ensure     = 'running',
-  String           $service_name       = 'pushgateway',
-  String           $user               = $::prometheus::params::pushgateway_user,
-  String           $version            = $::prometheus::params::pushgateway_version,
-) inherits prometheus::params {
+  String $download_extension,
+  String $download_url_base,
+  Array $extra_groups,
+  String $group,
+  String $package_ensure,
+  String $package_name,
+  String $user,
+  String $version,
+  Boolean $restart_on_change     = true,
+  Boolean $service_enable        = true,
+  String $service_ensure         = 'running',
+  String $service_name           = 'pushgateway',
+  String $init_style             = $prometheus::init_style,
+  String $install_method         = $prometheus::install_method,
+  Boolean $manage_group          = true,
+  Boolean $manage_service        = true,
+  Boolean $manage_user           = true,
+  String $os                     = $prometheus::os,
+  String $extra_options          = '',
+  Optional[String] $download_url = undef,
+  String $arch                   = $prometheus::arch,
+  String $bin_dir                = $prometheus::bin_dir,
+) inherits prometheus {
+
   # Prometheus added a 'v' on the realease name at 0.3.0
   if versioncmp ($version, '0.3.0') >= 0 {
     $release = "v${version}"

@@ -89,33 +89,35 @@
 #     prober: tcp
 #     tcp:
 #       preferred_ip_protocol: ip4
+
 class prometheus::blackbox_exporter (
-  Hash $modules                       = {},
-  String           $arch               = $::prometheus::params::arch,
-  String           $bin_dir            = $::prometheus::params::bin_dir,
-  String           $config_file        = $::prometheus::params::blackbox_exporter_config_file,
-  String           $config_mode        = $::prometheus::params::config_mode,
-  String           $download_extension = $::prometheus::params::blackbox_exporter_download_extension,
-  Optional[String] $download_url       = undef,
-  String           $download_url_base  = $::prometheus::params::blackbox_exporter_download_url_base,
-  Array[String]    $extra_groups       = $::prometheus::params::blackbox_exporter_extra_groups,
-  String           $extra_options      = '',
-  String           $group              = $::prometheus::params::blackbox_exporter_group,
-  String           $init_style         = $::prometheus::params::init_style,
-  String           $install_method     = $::prometheus::params::install_method,
-  Boolean          $manage_group       = true,
-  Boolean          $manage_service     = true,
-  Boolean          $manage_user        = true,
-  String           $os                 = $::prometheus::params::os,
-  String           $package_ensure     = $::prometheus::params::blackbox_exporter_package_ensure,
-  String           $package_name       = $::prometheus::params::blackbox_exporter_package_name,
-  Boolean          $restart_on_change  = true,
-  Boolean          $service_enable     = true,
-  String           $service_ensure     = 'running',
-  String           $service_name       = 'blackbox_exporter',
-  String           $user               = $::prometheus::params::blackbox_exporter_user,
-  String           $version            = $::prometheus::params::blackbox_exporter_version,
-) inherits prometheus::params {
+  String $config_file,
+  String $download_extension,
+  String $download_url_base,
+  Array[String] $extra_groups,
+  String $group,
+  String $package_ensure,
+  String $package_name,
+  String $user,
+  String $version,
+  Boolean $restart_on_change     = true,
+  Boolean $service_enable        = true,
+  String $service_ensure         = 'running',
+  String $service_name           = 'blackbox_exporter',
+  String $init_style             = $prometheus::init_style,
+  String $install_method         = $prometheus::install_method,
+  Boolean $manage_group          = true,
+  Boolean $manage_service        = true,
+  Boolean $manage_user           = true,
+  String $os                     = $prometheus::os,
+  String $extra_options          = '',
+  Optional[String] $download_url = undef,
+  String $config_mode            = $prometheus::config_mode,
+  String $arch                   = $prometheus::arch,
+  String $bin_dir                = $prometheus::bin_dir,
+  Hash $modules                  = {},
+) inherits prometheus {
+
   # Prometheus added a 'v' on the release name at 0.1.0 of blackbox
   if versioncmp ($version, '0.1.0') >= 0 {
     $release = "v${version}"

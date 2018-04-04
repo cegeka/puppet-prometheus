@@ -84,34 +84,36 @@
 #
 #  [*version*]
 #  The binary release version
+
 class prometheus::node_exporter (
-  String                  $arch               = $::prometheus::params::arch,
-  String                  $bin_dir            = $::prometheus::params::bin_dir,
-  Optional[Array[String]] $collectors                       = undef,
-  Array[String]           $collectors_enable  = [],
-  Array[String]           $collectors_disable = [],
-  String                  $download_extension = $::prometheus::params::node_exporter_download_extension,
-  Optional[String]        $download_url       = undef,
-  String                  $download_url_base  = $::prometheus::params::node_exporter_download_url_base,
-  Array[String]           $extra_groups       = $::prometheus::params::node_exporter_extra_groups,
-  String                  $extra_options      = '',
-  String                  $group              = $::prometheus::params::node_exporter_group,
-  Optional[String]        $init_style         = $::prometheus::params::init_style,
-  String                  $install_method     = $::prometheus::params::install_method,
-  Boolean                 $manage_group       = true,
-  Boolean                 $manage_service     = true,
-  Boolean                 $manage_user        = true,
-  String                  $os                 = $::prometheus::params::os,
-  String                  $package_ensure     = $::prometheus::params::node_exporter_package_ensure,
-  String                  $package_name       = $::prometheus::params::node_exporter_package_name,
-  Boolean                 $purge_config_dir   = true,
-  Boolean                 $restart_on_change  = true,
-  Boolean                 $service_enable     = true,
-  String                  $service_ensure     = 'running',
-  String                  $service_name       = 'node_exporter',
-  String                  $user               = $::prometheus::params::node_exporter_user,
-  String                  $version            = $::prometheus::params::node_exporter_version,
-) inherits prometheus::params {
+  String $download_extension,
+  String $download_url_base,
+  Array[String] $extra_groups,
+  String $group,
+  String $package_ensure,
+  String $package_name,
+  String $user,
+  String $version,
+  Boolean $purge_config_dir           = true,
+  Boolean $restart_on_change          = true,
+  Boolean $service_enable             = true,
+  String $service_ensure              = 'running',
+  String $service_name                = 'node_exporter',
+  Optional[String] $init_style        = $prometheus::init_style,
+  String $install_method              = $prometheus::install_method,
+  Boolean $manage_group               = true,
+  Boolean $manage_service             = true,
+  Boolean $manage_user                = true,
+  String $os                          = $prometheus::os,
+  String $extra_options               = '',
+  Optional[String] $download_url      = undef,
+  String $arch                        = $prometheus::arch,
+  String $bin_dir                     = $prometheus::bin_dir,
+  Optional[Array[String]] $collectors = undef,
+  Array[String] $collectors_enable    = [],
+  Array[String] $collectors_disable   = [],
+) inherits prometheus {
+
   # Prometheus added a 'v' on the realease name at 0.13.0
   if versioncmp ($version, '0.13.0') >= 0 {
     $release = "v${version}"
