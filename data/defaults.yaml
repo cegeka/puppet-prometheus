@@ -15,13 +15,13 @@ prometheus::alertmanager::global:
 prometheus::alertmanager::group: 'alertmanager'
 prometheus::alertmanager::inhibit_rules:
   - 'source_match':
-    'severity': 'critical'
-  - 'target_match':
-    'severity': 'warning'
-  - 'equal':
-    - 'alertname'
-    - 'cluster'
-    - 'service'
+      'severity': 'critical'
+    'target_match':
+      'severity': 'warning'
+    'equal':
+      - 'alertname'
+      - 'cluster'
+      - 'service'
 prometheus::alertmanager::package_ensure: 'latest'
 prometheus::alertmanager::package_name: 'alertmanager'
 prometheus::alertmanager::receivers:
