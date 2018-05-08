@@ -169,7 +169,7 @@ define prometheus::daemon (
       }
       'systemd' : {
         include 'systemd'
-        ::systemd::unit_file {"${name}.service":
+        systemd::unit_file {"${name}.service":
           content => template('prometheus/daemon.systemd.erb'),
           notify  => $notify_service,
         }

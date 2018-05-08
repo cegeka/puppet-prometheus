@@ -43,9 +43,9 @@ class prometheus::config (
     # so any change there should trigger a full service restart
     if $prometheus::restart_on_change {
       File {
-        notify => [Class['::prometheus::run_service']],
+        notify => [Class['prometheus::run_service']],
       }
-      $systemd_notify = [Exec['prometheus-systemd-reload'], Class['::prometheus::run_service']]
+      $systemd_notify = [Exec['prometheus-systemd-reload'], Class['prometheus::run_service']]
     } else {
       $systemd_notify = Exec['prometheus-systemd-reload']
     }
@@ -68,7 +68,7 @@ class prometheus::config (
       }
       'systemd' : {
         include 'systemd'
-        ::systemd::unit_file {'prometheus.service':
+        systemd::unit_file {'prometheus.service':
           content => template('prometheus/prometheus.systemd.erb'),
         }
       }

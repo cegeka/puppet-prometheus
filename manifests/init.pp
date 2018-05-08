@@ -179,7 +179,7 @@ class prometheus (
     }
   }
 
-  if( versioncmp($::prometheus::version, '1.0.0') == -1 ){
+  if( versioncmp($prometheus::version, '1.0.0') == -1 ){
     $real_download_url = pick($download_url,
       "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${real_arch}.${download_extension}")
   } else {
@@ -201,14 +201,14 @@ class prometheus (
   }
 
   $extra_alerts.each | String $alerts_file_name, Hash $alerts_config | {
-    ::prometheus::alerts { $alerts_file_name:
+    prometheus::alerts { $alerts_file_name:
       alerts   => $alerts_config,
     }
   }
   $extra_rule_files = suffix(prefix(keys($extra_alerts), "${config_dir}/rules/"), '.rules')
 
   if ! empty($alerts) {
-    ::prometheus::alerts { 'alert':
+    prometheus::alerts { 'alert':
       alerts   => $alerts,
       location => $config_dir,
     }
@@ -219,10 +219,10 @@ class prometheus (
   }
 
   anchor {'prometheus_first': }
-  -> class { '::prometheus::install':
+  -> class { 'prometheus::install':
     purge_config_dir => $purge_config_dir,
   }
-  -> class { '::prometheus::config':
+  -> class { 'prometheus::config':
     global_config        => $global_config,
     rule_files           => $_rule_files,
     scrape_configs       => $scrape_configs,
@@ -231,7 +231,7 @@ class prometheus (
     config_template      => $config_template,
     storage_retention    => $storage_retention,
   }
-  -> class { '::prometheus::run_service': }
-  -> class { '::prometheus::service_reload': }
+  -> class { 'prometheus::run_service': }
+  -> class { 'prometheus::service_reload': }
   -> anchor {'prometheus_last': }
 }
