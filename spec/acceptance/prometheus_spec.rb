@@ -13,4 +13,25 @@ describe 'prometheus' do
     it { is_expected.to be_running }
     it { is_expected.to be_enabled }
   end
+
+  it 'graphite_exporter works idempotently with no errors' do
+    pp = 'include prometheus::graphite_exporter'
+    # Run it twice and test for idempotency
+    apply_manifest(pp, catch_failures: true)
+    apply_manifest(pp, catch_changes: true)
+  end
+
+  describe service('graphite_exporter') do
+    it { is_expected.to be_running }
+    it { is_expected.to be_enabled }
+  end
+  describe port(9108) do
+    it { is_expected.to be_listening.with('tcp6') }
+  end
+  describe port(9109) do
+    it { is_expected.to be_listening.with('tcp6') }
+  end
+  describe port(9109) do
+    it { is_expected.to be_listening.with('udp6') }
+  end
 end
