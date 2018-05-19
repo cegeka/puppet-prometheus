@@ -12,7 +12,7 @@ describe 'prometheus::alerts' do
       end
 
       let :pre_condition do
-        'include ::prometheus'
+        'include prometheus::server'
       end
 
       [

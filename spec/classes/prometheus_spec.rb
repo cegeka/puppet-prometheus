@@ -7,7 +7,7 @@ describe 'prometheus' do
         facts.merge(os_specific_facts(facts))
       end
 
-      [{ version: '2.0.0-rc.1', bin_dir: '/usr/local/bin', install_method: 'url' }].each do |parameters|
+      [{ manage_prometheus_server: true, version: '2.0.0-rc.1', bin_dir: '/usr/local/bin', install_method: 'url' }].each do |parameters|
         context "with parameters #{parameters}" do
           let(:params) do
             parameters
@@ -203,6 +203,7 @@ describe 'prometheus' do
       context 'with alerts configured', alerts: true do
         [
           {
+            manage_prometheus_server: true,
             version: '1.5.3',
             alerts: [{
               'name'         => 'alert_name',
@@ -213,6 +214,7 @@ describe 'prometheus' do
             }]
           },
           {
+            manage_prometheus_server: true,
             version: '2.0.0-rc.1',
             alerts: {
               'groups' => [{
@@ -258,6 +260,7 @@ describe 'prometheus' do
       context 'with remote write configured' do
         [
           {
+            manage_prometheus_server: true,
             version: '2.0.0-rc.1',
             remote_write_configs: [
               'url' => 'http://domain.tld/path'
