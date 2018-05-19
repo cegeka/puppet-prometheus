@@ -45,11 +45,20 @@ This module automates the install and configuration of Prometheus monitoring too
 
 ## Usage
 
+**Notice about breaking changes**
+
+Version 5.0.0 and older of this module allowed you to deploy the prometheus server by doing a simple `include prometheus`.
+We introduced a [new class layout](https://github.com/voxpupuli/puppet-prometheus/pull/194) in
+version 6. By default, including the `prometheus` class won't deploy the server now.
+You need to include the `prometheus::server` class for this (which has the same
+parameters as `prometheus` had). An alterntive approach is to set the
+`manage_prometheus_server` parameter to true in the `prometheus` class. Backgroud information about this change are available in the related [pull request](https://github.com/voxpupuli/puppet-prometheus/pull/187) and the [issue](https://github.com/voxpupuli/puppet-prometheus/issues/184)
+
 To set up a prometheus daemon:
 On the server (for prometheus version < 1.0.0):
 
 ```puppet
-class { '::prometheus':
+class { 'prometheus::server':
   global_config  => { 'scrape_interval'=> '15s', 'evaluation_interval'=> '15s', 'external_labels'=> { 'monitor'=>'master'}},
   rule_files     => [ "/etc/prometheus/alert.rules" ],
   scrape_configs => [
@@ -69,7 +78,7 @@ class { '::prometheus':
 On the server (for prometheus version >= 1.0.0):
 
 ```puppet
-class { 'prometheus':
+class { 'prometheus::server':
     version => '1.0.0',
     scrape_configs => [ {'job_name'=>'prometheus','scrape_interval'=> '30s','scrape_timeout'=>'30s','static_configs'=> [{'targets'=>['localhost:9090'], 'labels'=> { 'alias'=>'Prometheus'}}]}],
     extra_options => '-alertmanager.url http://localhost:9093 -web.console.templates=/opt/prometheus-1.0.0.linux-amd64/consoles -web.console.libraries=/opt/prometheus-1.0.0.linux-amd64/console_libraries',
@@ -79,7 +88,7 @@ class { 'prometheus':
 On the server (for prometheus version >= 2.0.0):
 
 ```puppet
-class { '::prometheus':
+class { 'prometheus::server':
     version        => '2.0.0',
     alerts => { 'groups' => [{ 'name' => 'alert.rules', 'rules' => [{ 'alert' => 'InstanceDown', 'expr' => 'up == 0', 'for' => '5m', 'labels' => { 'severity' => 'page', }, 'annotations' => { 'summary' => 'Instance {{ $labels.instance }} down', 'description' => '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.' }}]}]},
     scrape_configs => [
@@ -98,7 +107,7 @@ class { '::prometheus':
 
 or simply:
 ```puppet
-include ::prometheus
+include prometheus::server
 ```
 
 To add alert rules, add the following to the class prometheus in case you are using prometheus < 2.0:
@@ -173,7 +182,8 @@ Real Prometheus >=2.0.0 setup example including alertmanager and slack_configs.
 ```puppet
 include profiles::prometheus
 
-class { '::prometheus':
+class { 'prometheus':
+  manage_prometheus_server => true,
   version => '2.0.0',
   alerts => { 'groups' => [{ 'name' => 'alert.rules', 'rules' => [{ 'alert' => 'InstanceDown', 'expr' => 'up == 0', 'for' => '5m', 'labels' => { 'severity' => 'page', }, 'annotations' => { 'summary' => 'Instance {{ $labels.instance }} down', 'description' => '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.' } }]}]},
   scrape_configs => [
@@ -198,7 +208,7 @@ class { '::prometheus':
   ],
   alertmanagers_config => [{ 'static_configs' => [{'targets' => [ 'localhost:9093' ]}]}],
 }
-class { '::prometheus::alertmanager':
+class { 'prometheus::alertmanager':
   version       => '0.13.0',
   route         => { 'group_by' => [ 'alertname', 'cluster', 'service' ], 'group_wait'=> '30s', 'group_interval'=> '5m', 'repeat_interval'=> '3h', 'receiver'=> 'slack' },
   receivers     => [ { 'name' => 'slack', 'slack_configs'=> [ { 'api_url'=> 'https://hooks.slack.com/services/ABCDEFG123456', 'channel' => '#channel', 'send_resolved' => true, 'username' => 'username'}] }]
@@ -207,7 +217,8 @@ class { '::prometheus::alertmanager':
 
 the same in hiera
 
-```puppet
+```yaml
+prometheus::manage_prometheus_server: true
 prometheus::version: '2.0.0'
 prometheus::scrape_configs:
     - job_name: 'nodexporter'
