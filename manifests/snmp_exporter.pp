@@ -102,7 +102,7 @@ class prometheus::snmp_exporter (
   String $extra_options          = '',
   Optional[String] $download_url = undef,
   String $config_mode            = $prometheus::config_mode,
-  String $arch                   = $prometheus::arch,
+  String $arch                   = $prometheus::real_arch,
   String $bin_dir                = $prometheus::bin_dir,
 ) inherits prometheus {
 
