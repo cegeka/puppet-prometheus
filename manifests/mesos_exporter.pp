@@ -98,7 +98,7 @@ class prometheus::mesos_exporter (
   String $os                     = $prometheu::os,
   String $extra_options          = '',
   Optional[String] $download_url = undef,
-  String $arch                   = $prometheus::arch,
+  String $arch                   = $prometheus::real_arch,
   String $bin_dir                = $prometheus::bin_dir,
 ) inherits prometheus {
 

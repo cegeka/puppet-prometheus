@@ -113,7 +113,7 @@ class prometheus::rabbitmq_exporter (
   String $queues_exclude_regex,
   Array[String] $rabbit_capabilities,
   Array[String] $rabbit_exporters,
-  String $arch                        = $prometheus::arch,
+  String $arch                        = $prometheus::real_arch,
   String $bin_dir                     = $prometheus::bin_dir,
   Optional[String] $download_url      = undef,
   String $extra_options               = '',

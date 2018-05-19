@@ -118,7 +118,7 @@ class prometheus::mysqld_exporter (
   Optional[Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl]] $download_url = undef,
   String $config_mode                                                = $prometheus::config_mode,
   Optional[Stdlib::Absolutepath] $cnf_socket                         = undef,
-  String $arch                                                       = $prometheus::arch,
+  String $arch                                                       = $prometheus::real_arch,
   Stdlib::Absolutepath $bin_dir                                      = $prometheus::bin_dir,
 ) inherits prometheus {
 

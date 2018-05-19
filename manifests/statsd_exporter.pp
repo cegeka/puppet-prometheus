@@ -91,7 +91,7 @@ class prometheus::statsd_exporter (
   Array[Hash] $statsd_maps,
   String $user,
   String $version,
-  String $arch                                                       = $prometheus::arch,
+  String $arch                                                       = $prometheus::real_arch,
   Stdlib::Absolutepath $bin_dir                                      = $prometheus::bin_dir,
   String $config_mode                                                = $prometheus::config_mode,
   Boolean $purge_config_dir                                          = true,
