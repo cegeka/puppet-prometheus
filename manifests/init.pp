@@ -154,6 +154,7 @@ class prometheus (
   Array $alertmanagers_config,
   String $storage_retention,
   Stdlib::Absolutepath $env_file_path,
+  Boolean $manage_prometheus_server,
   Hash $extra_alerts             = {},
   Boolean $service_enable        = true,
   String $service_ensure         = 'running',
@@ -179,59 +180,7 @@ class prometheus (
     }
   }
 
-  if( versioncmp($prometheus::version, '1.0.0') == -1 ){
-    $real_download_url = pick($download_url,
-      "${download_url_base}/download/${version}/${package_name}-${version}.${os}-${real_arch}.${download_extension}")
-  } else {
-    $real_download_url = pick($download_url,
-      "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${real_arch}.${download_extension}")
+  if $manage_prometheus_server {
+    include prometheus::server
   }
-  $notify_service = $restart_on_change ? {
-    true    => Service['prometheus'],
-    default => undef,
-  }
-
-  $config_hash_real = assert_type(Hash, deep_merge($config_defaults, $config_hash))
-
-  file { "${::prometheus::config_dir}/rules":
-    ensure => 'directory',
-    owner  => $prometheus::user,
-    group  => $prometheus::group,
-    mode   => $prometheus::config_mode,
-  }
-
-  $extra_alerts.each | String $alerts_file_name, Hash $alerts_config | {
-    prometheus::alerts { $alerts_file_name:
-      alerts   => $alerts_config,
-    }
-  }
-  $extra_rule_files = suffix(prefix(keys($extra_alerts), "${config_dir}/rules/"), '.rules')
-
-  if ! empty($alerts) {
-    prometheus::alerts { 'alert':
-      alerts   => $alerts,
-      location => $config_dir,
-    }
-    $_rule_files = concat(["${config_dir}/alert.rules"], $extra_rule_files)
-  }
-  else {
-    $_rule_files = $extra_rule_files
-  }
-
-  anchor {'prometheus_first': }
-  -> class { 'prometheus::install':
-    purge_config_dir => $purge_config_dir,
-  }
-  -> class { 'prometheus::config':
-    global_config        => $global_config,
-    rule_files           => $_rule_files,
-    scrape_configs       => $scrape_configs,
-    remote_read_configs  => $remote_read_configs,
-    remote_write_configs => $remote_write_configs,
-    config_template      => $config_template,
-    storage_retention    => $storage_retention,
-  }
-  -> class { 'prometheus::run_service': }
-  -> class { 'prometheus::service_reload': }
-  -> anchor {'prometheus_last': }
 }

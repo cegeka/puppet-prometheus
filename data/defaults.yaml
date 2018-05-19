@@ -2,6 +2,7 @@
 prometheus::bin_dir: '/usr/local/bin'
 prometheus::version: '1.5.2'
 prometheus::install_method: 'url'
+prometheus::manage_prometheus_server: false
 prometheus::alert_relabel_config: []
 prometheus::alertmanagers_config: []
 prometheus::alertmanager::config_dir: '/etc/alertmanager'

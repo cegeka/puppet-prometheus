@@ -5,16 +5,16 @@
 #
 class prometheus::run_service {
 
-  $init_selector = $prometheus::init_style ? {
+  $init_selector = $prometheus::server::init_style ? {
     'launchd' => 'io.prometheus.daemon',
     default   => 'prometheus',
   }
 
-  if $prometheus::manage_service == true {
+  if $prometheus::server::manage_service == true {
     service { 'prometheus':
-      ensure     => $prometheus::service_ensure,
+      ensure     => $prometheus::server::service_ensure,
       name       => $init_selector,
-      enable     => $prometheus::service_enable,
+      enable     => $prometheus::server::service_enable,
       hasrestart => true,
     }
   }

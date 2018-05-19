@@ -1,4 +1,4 @@
-# Class prometheus::install
+# Class prometheus::server::install
 # Install prometheus via different methods with parameters from init
 # Currently only the install from url is implemented, when Prometheus will deliver packages for some Linux distros I will
 # implement the package install method as well
@@ -6,86 +6,89 @@
 class prometheus::install (
   Boolean $purge_config_dir = true,
 ) {
-  if $prometheus::localstorage {
-    file { $prometheus::localstorage:
+
+  assert_private()
+
+  if $prometheus::server::localstorage {
+    file { $prometheus::server::localstorage:
       ensure => 'directory',
-      owner  => $prometheus::user,
-      group  => $prometheus::group,
+      owner  => $prometheus::server::user,
+      group  => $prometheus::server::group,
       mode   => '0755',
     }
   }
-  case $prometheus::install_method {
+  case $prometheus::server::install_method {
     'url': {
-      archive { "/tmp/prometheus-${prometheus::version}.${prometheus::download_extension}":
+      archive { "/tmp/prometheus-${prometheus::server::version}.${prometheus::server::download_extension}":
         ensure          => present,
         extract         => true,
         extract_path    => '/opt',
-        source          => $prometheus::real_download_url,
+        source          => $prometheus::server::real_download_url,
         checksum_verify => false,
-        creates         => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::real_arch}/prometheus",
+        creates         => "/opt/prometheus-${prometheus::server::version}.${prometheus::server::os}-${prometheus::server::real_arch}/prometheus",
         cleanup         => true,
       }
       -> file {
-        "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::real_arch}/prometheus":
+        "/opt/prometheus-${prometheus::server::version}.${prometheus::server::os}-${prometheus::server::real_arch}/prometheus":
           owner => 'root',
           group => 0, # 0 instead of root because OS X uses "wheel".
           mode  => '0555';
-        "${prometheus::bin_dir}/prometheus":
+        "${prometheus::server::bin_dir}/prometheus":
           ensure => link,
-          notify => $prometheus::notify_service,
-          target => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::real_arch}/prometheus";
-        "${prometheus::bin_dir}/promtool":
+          notify => $prometheus::server::notify_service,
+          target => "/opt/prometheus-${prometheus::server::version}.${prometheus::server::os}-${prometheus::server::real_arch}/prometheus";
+        "${prometheus::server::bin_dir}/promtool":
           ensure => link,
-          target => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::real_arch}/promtool";
-        $prometheus::shared_dir:
+          target => "/opt/prometheus-${prometheus::server::version}.${prometheus::server::os}-${prometheus::server::real_arch}/promtool";
+        $prometheus::server::shared_dir:
           ensure => directory,
-          owner  => $prometheus::user,
-          group  => $prometheus::group,
+          owner  => $prometheus::server::user,
+          group  => $prometheus::server::group,
           mode   => '0755';
-        "${prometheus::shared_dir}/consoles":
+        "${prometheus::server::shared_dir}/consoles":
           ensure => link,
-          notify => $prometheus::notify_service,
-          target => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::real_arch}/consoles";
-        "${prometheus::shared_dir}/console_libraries":
+          notify => $prometheus::server::notify_service,
+          target => "/opt/prometheus-${prometheus::server::version}.${prometheus::server::os}-${prometheus::server::real_arch}/consoles";
+        "${prometheus::server::shared_dir}/console_libraries":
           ensure => link,
-          notify => $prometheus::notify_service,
-          target => "/opt/prometheus-${prometheus::version}.${prometheus::os}-${prometheus::real_arch}/console_libraries";
+          notify => $prometheus::server::notify_service,
+          target => "/opt/prometheus-${prometheus::server::version}.${prometheus::server::os}-${prometheus::server::real_arch}/console_libraries";
       }
     }
     'package': {
-      package { $prometheus::package_name:
-        ensure => $prometheus::package_ensure,
+      package { $prometheus::server::package_name:
+        ensure => $prometheus::server::package_ensure,
       }
-      if $prometheus::manage_user {
-        User[$prometheus::user] -> Package[$prometheus::package_name]
+      if $prometheus::server::manage_user {
+        User[$prometheus::server::user] -> Package[$prometheus::server::package_name]
       }
     }
     'none': {}
     default: {
-      fail("The provided install method ${prometheus::install_method} is invalid")
+      fail("The provided install method ${prometheus::server::install_method} is invalid")
     }
   }
-  if $prometheus::manage_user {
-    ensure_resource('user', [ $prometheus::user ], {
+  if $prometheus::server::manage_user {
+    ensure_resource('user', [ $prometheus::server::user ], {
       ensure => 'present',
       system => true,
-      groups => $prometheus::extra_groups,
+      groups => $prometheus::server::extra_groups,
     })
 
-    if $prometheus::manage_group {
-      Group[$prometheus::group] -> User[$prometheus::user]
+    if $prometheus::server::manage_group {
+      Group[$prometheus::server::group] -> User[$prometheus::server::user]
     }
   }
-  if $prometheus::manage_group {
-    ensure_resource('group', [ $prometheus::group ],{
+  if $prometheus::server::manage_group {
+    ensure_resource('group', [ $prometheus::server::group ],{
       ensure => 'present',
       system => true,
     })
   }
-  file { $prometheus::config_dir:
+  file { $prometheus::server::config_dir:
     ensure  => 'directory',
-    owner   => $prometheus::user,
-    group   => $prometheus::group,
+    owner   => $prometheus::server::user,
+    group   => $prometheus::server::group,
     purge   => $purge_config_dir,
     recurse => $purge_config_dir,
   }

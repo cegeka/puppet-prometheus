@@ -6,8 +6,8 @@ class prometheus::config (
   Array $scrape_configs,
   Array $remote_read_configs,
   Array $remote_write_configs,
-  String $config_template = $prometheus::config_template,
-  String $storage_retention = $prometheus::storage_retention,
+  String $config_template = $prometheus::server::config_template,
+  String $storage_retention = $prometheus::server::storage_retention,
 ) {
 
   if $prometheus::init_style {
@@ -21,8 +21,8 @@ class prometheus::config (
         fail('remote_write_configs requires prometheus 2.X')
       }
       $daemon_flags = [
-        "-config.file=${prometheus::config_dir}/prometheus.yaml",
-        "-storage.local.path=${prometheus::localstorage}",
+        "-config.file=${prometheus::server::config_dir}/prometheus.yaml",
+        "-storage.local.path=${prometheus::server::localstorage}",
         "-storage.local.retention=${storage_retention}",
         "-web.console.templates=${prometheus::shared_dir}/consoles",
         "-web.console.libraries=${prometheus::shared_dir}/console_libraries",
@@ -31,11 +31,11 @@ class prometheus::config (
       # helper variable indicating prometheus version, so we can use on this information in the template
       $prometheus_v2 = true
       $daemon_flags = [
-        "--config.file=${prometheus::config_dir}/prometheus.yaml",
-        "--storage.tsdb.path=${prometheus::localstorage}",
+        "--config.file=${prometheus::server::config_dir}/prometheus.yaml",
+        "--storage.tsdb.path=${prometheus::server::localstorage}",
         "--storage.tsdb.retention=${storage_retention}",
-        "--web.console.templates=${prometheus::shared_dir}/consoles",
-        "--web.console.libraries=${prometheus::shared_dir}/console_libraries",
+        "--web.console.templates=${prometheus::server::shared_dir}/consoles",
+        "--web.console.libraries=${prometheus::server::shared_dir}/console_libraries",
       ]
     }
 
@@ -50,7 +50,7 @@ class prometheus::config (
       $systemd_notify = Exec['prometheus-systemd-reload']
     }
 
-    case $prometheus::init_style {
+    case $prometheus::server::init_style {
       'upstart' : {
         file { '/etc/init/prometheus.conf':
           mode    => '0444',
@@ -105,12 +105,12 @@ class prometheus::config (
         }
       }
       default : {
-        fail("I don't know how to create an init script for style ${prometheus::init_style}")
+        fail("I don't know how to create an init script for style ${prometheus::server::init_style}")
       }
     }
   }
 
-  if versioncmp($prometheus::version, '2.0.0') >= 0 {
+  if versioncmp($prometheus::server::version, '2.0.0') >= 0 {
     $cfg_verify_cmd = 'check config'
   } else {
     $cfg_verify_cmd = 'check-config'
@@ -118,13 +118,13 @@ class prometheus::config (
 
   file { 'prometheus.yaml':
     ensure       => present,
-    path         => "${prometheus::config_dir}/prometheus.yaml",
-    owner        => $prometheus::user,
-    group        => $prometheus::group,
-    mode         => $prometheus::config_mode,
+    path         => "${prometheus::server::config_dir}/prometheus.yaml",
+    owner        => $prometheus::server::user,
+    group        => $prometheus::server::group,
+    mode         => $prometheus::server::config_mode,
     notify       => Class['prometheus::service_reload'],
     content      => template($config_template),
-    validate_cmd => "${prometheus::bin_dir}/promtool ${cfg_verify_cmd} %",
+    validate_cmd => "${prometheus::server::bin_dir}/promtool ${cfg_verify_cmd} %",
   }
 
 }

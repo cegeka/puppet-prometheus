@@ -1,19 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'prometheus' do
-  it 'works idempotently with no errors' do
-    pp = 'include prometheus'
-
-    # Run it twice and test for idempotency
-    apply_manifest(pp, catch_failures: true)
-    apply_manifest(pp, catch_changes: true)
-  end
-
-  describe service('prometheus') do
-    it { is_expected.to be_running }
-    it { is_expected.to be_enabled }
-  end
-
+describe 'prometheus exporter' do
   it 'graphite_exporter works idempotently with no errors' do
     pp = 'include prometheus::graphite_exporter'
     # Run it twice and test for idempotency
@@ -25,6 +12,8 @@ describe 'prometheus' do
     it { is_expected.to be_running }
     it { is_expected.to be_enabled }
   end
+  # the class installs an exporter that listens on three ports
+  # it should not install the prometheus server (port 9090)
   describe port(9108) do
     it { is_expected.to be_listening.with('tcp6') }
   end
@@ -33,5 +22,40 @@ describe 'prometheus' do
   end
   describe port(9109) do
     it { is_expected.to be_listening.with('udp6') }
+  end
+  describe port(9090) do
+    it { is_expected.not_to be_listening.with('tcp6') }
+  end
+end
+describe 'prometheus server' do
+  it 'prometheus server via main class works idempotently with no errors' do
+    pp = "class{'prometheus': manage_prometheus_server => true }"
+
+    # Run it twice and test for idempotency
+    apply_manifest(pp, catch_failures: true)
+    apply_manifest(pp, catch_changes: true)
+  end
+
+  describe service('prometheus') do
+    it { is_expected.to be_running }
+    it { is_expected.to be_enabled }
+  end
+  describe port(9090) do
+    it { is_expected.to be_listening.with('tcp6') }
+  end
+  it 'prometheus server via server class works idempotently with no errors' do
+    pp = 'include prometheus::server'
+
+    # Run it twice and test for idempotency
+    apply_manifest(pp, catch_failures: true)
+    apply_manifest(pp, catch_changes: true)
+  end
+
+  describe service('prometheus') do
+    it { is_expected.to be_running }
+    it { is_expected.to be_enabled }
+  end
+  describe port(9090) do
+    it { is_expected.to be_listening.with('tcp6') }
   end
 end
