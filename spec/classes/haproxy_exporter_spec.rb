@@ -13,13 +13,18 @@ describe 'prometheus::haproxy_exporter' do
             version: '0.7.1',
             arch: 'amd64',
             os: 'linux',
-            bin_dir: '/usr/local/bin'
+            bin_dir: '/usr/local/bin',
+            install_method: 'url'
           }
         end
 
-        describe 'install correct binary' do
-          it { is_expected.to contain_file('/usr/local/bin/haproxy_exporter').with('target' => '/opt/haproxy_exporter-0.7.1.linux-amd64/haproxy_exporter') }
-        end
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_file('/usr/local/bin/haproxy_exporter').with('target' => '/opt/haproxy_exporter-0.7.1.linux-amd64/haproxy_exporter') }
+        it { is_expected.to contain_archive('/tmp/haproxy_exporter-0.7.1.tar.gz') }
+        it { is_expected.to contain_class('prometheus') }
+        it { is_expected.to contain_user('haproxy-user') }
+        it { is_expected.to contain_group('haproxy-exporter') }
+        it { is_expected.to contain_prometheus__daemon('haproxy_exporter') }
       end
     end
   end

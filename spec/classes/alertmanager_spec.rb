@@ -13,10 +13,20 @@ describe 'prometheus::alertmanager' do
             version: '0.9.1',
             arch: 'amd64',
             os: 'linux',
-            bin_dir: '/usr/local/bin'
+            bin_dir: '/usr/local/bin',
+            install_method: 'url'
           }
         end
 
+        describe 'with specific params' do
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_archive('/tmp/alertmanager-0.9.1.tar.gz') }
+          it { is_expected.to contain_class('prometheus') }
+          it { is_expected.to contain_group('alertmanager') }
+          it { is_expected.to contain_user('alertmanager') }
+          it { is_expected.to contain_prometheus__daemon('alertmanager') }
+          it { is_expected.to contain_service('alertmanager') }
+        end
         describe 'install correct binary' do
           it { is_expected.to contain_file('/usr/local/bin/alertmanager').with('target' => '/opt/alertmanager-0.9.1.linux-amd64/alertmanager') }
         end

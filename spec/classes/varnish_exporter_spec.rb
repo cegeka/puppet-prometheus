@@ -13,10 +13,12 @@ describe 'prometheus::varnish_exporter' do
             version: '1.4',
             arch: 'amd64',
             os: 'linux',
-            bin_dir: '/usr/local/bin'
+            bin_dir: '/usr/local/bin',
+            install_method: 'url'
           }
         end
 
+        it { is_expected.to compile.with_all_deps }
         describe 'install correct binary' do
           it { is_expected.to contain_file('/usr/local/bin/prometheus_varnish_exporter').with('target' => '/opt/prometheus_varnish_exporter-1.4.linux-amd64/prometheus_varnish_exporter') }
         end

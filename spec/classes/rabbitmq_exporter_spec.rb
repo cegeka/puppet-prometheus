@@ -13,7 +13,8 @@ describe 'prometheus::rabbitmq_exporter' do
             version: '1.0.0',
             arch: 'amd64',
             os: 'linux',
-            bin_dir: '/usr/local/bin'
+            bin_dir: '/usr/local/bin',
+            install_method: 'url'
           }
         end
 

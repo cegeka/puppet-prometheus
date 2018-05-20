@@ -13,7 +13,8 @@ describe 'prometheus::consul_exporter' do
             version: '0.3.0',
             arch: 'amd64',
             os: 'linux',
-            bin_dir: '/usr/local/bin'
+            bin_dir: '/usr/local/bin',
+            install_method: 'url'
           }
         end
 
@@ -24,6 +25,8 @@ describe 'prometheus::consul_exporter' do
           it { is_expected.to contain_user('consul-exporter') }
           it { is_expected.to contain_group('consul-exporter') }
           it { is_expected.to contain_service('consul_exporter') }
+          it { is_expected.to contain_archive('/tmp/consul_exporter-0.3.0.tar.gz') }
+          it { is_expected.to contain_class('prometheus') }
         end
       end
     end
