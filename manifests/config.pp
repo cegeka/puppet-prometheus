@@ -1,29 +1,23 @@
 # Class prometheus::config
 # Configuration class for prometheus monitoring system
-class prometheus::config (
-  Hash $global_config,
-  Array $rule_files,
-  Array $scrape_configs,
-  Array $remote_read_configs,
-  Array $remote_write_configs,
-  String $config_template = $prometheus::server::config_template,
-  String $storage_retention = $prometheus::server::storage_retention,
-) {
+class prometheus::config {
 
-  if $prometheus::init_style {
-    if( versioncmp($prometheus::version, '2.0.0') < 0 ){
+  assert_private()
+
+  if $prometheus::server::init_style {
+    if( versioncmp($prometheus::server::version, '2.0.0') < 0 ){
       # helper variable indicating prometheus version, so we can use on this information in the template
       $prometheus_v2 = false
-      if $remote_read_configs != [] {
+      if $prometheus::server::remote_read_configs != [] {
         fail('remote_read_configs requires prometheus 2.X')
       }
-      if $remote_write_configs != [] {
+      if $prometheus::server::remote_write_configs != [] {
         fail('remote_write_configs requires prometheus 2.X')
       }
       $daemon_flags = [
         "-config.file=${prometheus::server::config_dir}/prometheus.yaml",
         "-storage.local.path=${prometheus::server::localstorage}",
-        "-storage.local.retention=${storage_retention}",
+        "-storage.local.retention=${prometheus::server::storage_retention}",
         "-web.console.templates=${prometheus::shared_dir}/consoles",
         "-web.console.libraries=${prometheus::shared_dir}/console_libraries",
       ]
@@ -33,7 +27,7 @@ class prometheus::config (
       $daemon_flags = [
         "--config.file=${prometheus::server::config_dir}/prometheus.yaml",
         "--storage.tsdb.path=${prometheus::server::localstorage}",
-        "--storage.tsdb.retention=${storage_retention}",
+        "--storage.tsdb.retention=${prometheus::server::storage_retention}",
         "--web.console.templates=${prometheus::server::shared_dir}/consoles",
         "--web.console.libraries=${prometheus::server::shared_dir}/console_libraries",
       ]
@@ -41,7 +35,7 @@ class prometheus::config (
 
     # the vast majority of files here are init-files
     # so any change there should trigger a full service restart
-    if $prometheus::restart_on_change {
+    if $prometheus::server::restart_on_change {
       File {
         notify => [Class['prometheus::run_service']],
       }
@@ -123,7 +117,7 @@ class prometheus::config (
     group        => $prometheus::server::group,
     mode         => $prometheus::server::config_mode,
     notify       => Class['prometheus::service_reload'],
-    content      => template($config_template),
+    content      => template($prometheus::server::config_template),
     validate_cmd => "${prometheus::server::bin_dir}/promtool ${cfg_verify_cmd} %",
   }
 
