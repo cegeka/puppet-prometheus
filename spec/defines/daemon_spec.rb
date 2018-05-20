@@ -23,13 +23,16 @@ describe 'prometheus::daemon' do
           user:              'smurf_user',
           group:             'smurf_group',
           env_vars:          { SOMEVAR: 42 },
-          bin_dir:           '/usr/local/bin'
+          bin_dir:           '/usr/local/bin',
+          install_method:    'url'
         }
       ].each do |parameters|
         context "with parameters #{parameters}" do
           let(:params) do
             parameters
           end
+
+          it { is_expected.to compile.with_all_deps }
 
           it { is_expected.to contain_class('prometheus') }
           prom_os = facts[:kernel].downcase

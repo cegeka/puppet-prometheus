@@ -13,7 +13,8 @@ describe 'prometheus::snmp_exporter' do
             version: '0.6.0',
             arch: 'amd64',
             os: 'linux',
-            bin_dir: '/usr/local/bin'
+            bin_dir: '/usr/local/bin',
+            install_method: 'url'
           }
         end
 
@@ -31,6 +32,7 @@ describe 'prometheus::snmp_exporter' do
               'notify'  => 'Service[snmp_exporter]'
             )
           }
+          it { is_expected.to contain_class('prometheus') }
           it { is_expected.to contain_file('/usr/local/bin/snmp_exporter').with('target' => '/opt/snmp_exporter-0.6.0.linux-amd64/snmp_exporter') }
           it { is_expected.to contain_prometheus__daemon('snmp_exporter') }
           it { is_expected.to contain_user('snmp-exporter') }
