@@ -1,5 +1,16 @@
 ---
 prometheus::configname: 'prometheus.yaml'
+prometheus::service_enable: true
+prometheus::service_ensure: 'running'
+prometheus::manage_service: true
+prometheus::restart_on_change: true
+prometheus::init_style: '%{facts.service_provider}'
+prometheus::extra_options: ''
+prometheus::download_url: ~
+prometheus::arch: '%{facts.architecture}'
+prometheus::manage_group: true
+prometheus::purge_config_dir: true
+prometheus::manage_user: true
 prometheus::bin_dir: '/usr/local/bin'
 prometheus::version: '1.5.2'
 prometheus::install_method: 'url'
