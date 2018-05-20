@@ -37,7 +37,7 @@ class prometheus::config {
     # so any change there should trigger a full service restart
     if $prometheus::server::restart_on_change {
       File {
-        notify => [Class['prometheus::run_service']],
+        notify => Class['prometheus::run_service'],
       }
       $systemd_notify = [Exec['prometheus-systemd-reload'], Class['prometheus::run_service']]
     } else {
