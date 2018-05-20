@@ -1,4 +1,5 @@
 ---
+prometheus::configname: 'prometheus.yaml'
 prometheus::bin_dir: '/usr/local/bin'
 prometheus::version: '1.5.2'
 prometheus::install_method: 'url'

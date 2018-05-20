@@ -15,7 +15,7 @@ class prometheus::config {
         fail('remote_write_configs requires prometheus 2.X')
       }
       $daemon_flags = [
-        "-config.file=${prometheus::server::config_dir}/prometheus.yaml",
+        "-config.file=${prometheus::server::config_dir}/${prometheus::server::configname}",
         "-storage.local.path=${prometheus::server::localstorage}",
         "-storage.local.retention=${prometheus::server::storage_retention}",
         "-web.console.templates=${prometheus::shared_dir}/consoles",
@@ -25,7 +25,7 @@ class prometheus::config {
       # helper variable indicating prometheus version, so we can use on this information in the template
       $prometheus_v2 = true
       $daemon_flags = [
-        "--config.file=${prometheus::server::config_dir}/prometheus.yaml",
+        "--config.file=${prometheus::server::config_dir}/${prometheus::server::configname}",
         "--storage.tsdb.path=${prometheus::server::localstorage}",
         "--storage.tsdb.retention=${prometheus::server::storage_retention}",
         "--web.console.templates=${prometheus::server::shared_dir}/consoles",
@@ -112,7 +112,7 @@ class prometheus::config {
 
   file { 'prometheus.yaml':
     ensure       => present,
-    path         => "${prometheus::server::config_dir}/prometheus.yaml",
+    path         => "${prometheus::server::config_dir}/${prometheus::server::configname}",
     owner        => $prometheus::server::user,
     group        => $prometheus::server::group,
     mode         => $prometheus::server::config_mode,

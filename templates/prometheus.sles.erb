@@ -21,7 +21,7 @@
 rc_reset
 
 PROMETHEUS_BIN=<%= scope.lookupvar('prometheus::bin_dir') %>/prometheus
-CONFIG_FILE=<%= scope.lookupvar('prometheus::config_dir') %>/prometheus.yaml
+CONFIG_FILE=<%= scope.lookupvar('prometheus::config_dir') %>/<%= scope.lookupvar('prometheus::server::configname') %>
 LOG_FILE=/var/log/prometheus
 
 

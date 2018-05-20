@@ -4,6 +4,9 @@
 #
 # Parameters:
 #
+#  [*configname*]
+#  the name of the configfile, defaults to prometheus.yaml or prometheus.yml on most operating systems
+#
 #  [*manage_user*]
 #  Whether to create user for prometheus or rely on external code for that
 #
@@ -129,6 +132,7 @@
 # Sample Usage:
 #
 class prometheus (
+  String $configname,
   String $user,
   String $group,
   Array $extra_groups,

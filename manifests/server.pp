@@ -1,6 +1,7 @@
 # class to manage the actual prometheus server
 # this is a private class that gets called from the init.pp
 class prometheus::server (
+  String $configname                                            = $prometheus::configname,
   String $user                                                  = $prometheus::user,
   String $group                                                 = $prometheus::group,
   Array $extra_groups                                           = $prometheus::extra_groups,
