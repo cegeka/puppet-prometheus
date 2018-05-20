@@ -81,18 +81,13 @@ class prometheus::server (
   else {
     $_rule_files = $extra_rule_files
   }
-  class { 'prometheus::install':
-    purge_config_dir => $prometheus::purge_config_dir,
-  }
-  -> class { 'prometheus::config':
-    global_config        => $global_config,
-    rule_files           => $_rule_files,
-    scrape_configs       => $scrape_configs,
-    remote_read_configs  => $remote_read_configs,
-    remote_write_configs => $remote_write_configs,
-    config_template      => $config_template,
-    storage_retention    => $storage_retention,
-  }
-  -> class { 'prometheus::run_service': }
-  -> class { 'prometheus::service_reload': }
+  contain prometheus::install
+  contain prometheus::config
+  contain prometheus::run_service
+  contain prometheus::service_reload
+
+  Class['prometheus::install']
+  -> Class['prometheus::config']
+  -> Class['prometheus::run_service']
+  -> Class['prometheus::service_reload']
 }

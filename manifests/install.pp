@@ -3,9 +3,7 @@
 # Currently only the install from url is implemented, when Prometheus will deliver packages for some Linux distros I will
 # implement the package install method as well
 # The package method needs specific yum or apt repo settings which are not made yet by the module
-class prometheus::install (
-  Boolean $purge_config_dir = true,
-) {
+class prometheus::install {
 
   assert_private()
 
@@ -89,7 +87,7 @@ class prometheus::install (
     ensure  => 'directory',
     owner   => $prometheus::server::user,
     group   => $prometheus::server::group,
-    purge   => $purge_config_dir,
-    recurse => $purge_config_dir,
+    purge   => $prometheus::server::purge_config_dir,
+    recurse => $prometheus::server::purge_config_dir,
   }
 }
