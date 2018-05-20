@@ -51,8 +51,8 @@ Version 5.0.0 and older of this module allowed you to deploy the prometheus serv
 We introduced a [new class layout](https://github.com/voxpupuli/puppet-prometheus/pull/194) in
 version 6. By default, including the `prometheus` class won't deploy the server now.
 You need to include the `prometheus::server` class for this (which has the same
-parameters as `prometheus` had). An alterntive approach is to set the
-`manage_prometheus_server` parameter to true in the `prometheus` class. Backgroud information about this change are available in the related [pull request](https://github.com/voxpupuli/puppet-prometheus/pull/187) and the [issue](https://github.com/voxpupuli/puppet-prometheus/issues/184)
+parameters that `prometheus` had). An alternative approach is to set the
+`manage_prometheus_server` parameter to true in the `prometheus` class. Background information about this change is described in the related [pull request](https://github.com/voxpupuli/puppet-prometheus/pull/187) and the [issue](https://github.com/voxpupuli/puppet-prometheus/issues/184).
 
 To set up a prometheus daemon:
 On the server (for prometheus version < 1.0.0):
