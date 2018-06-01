@@ -4,6 +4,52 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.0) (2018-06-01)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v5.0.0...v6.0.0)
+
+**Breaking changes:**
+
+- Install prometheus server via own class [\#194](https://github.com/voxpupuli/puppet-prometheus/pull/194) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- allow to set prometheus server config filename [\#200](https://github.com/voxpupuli/puppet-prometheus/pull/200) ([bastelfreak](https://github.com/bastelfreak))
+- Add Graphite exporter [\#191](https://github.com/voxpupuli/puppet-prometheus/pull/191) ([bastelfreak](https://github.com/bastelfreak))
+- Convert to data-in-modules [\#178](https://github.com/voxpupuli/puppet-prometheus/pull/178) ([bastelfreak](https://github.com/bastelfreak))
+- Add Debian 9 support [\#176](https://github.com/voxpupuli/puppet-prometheus/pull/176) ([bastelfreak](https://github.com/bastelfreak))
+- Add Datatypes to all parameters [\#175](https://github.com/voxpupuli/puppet-prometheus/pull/175) ([bastelfreak](https://github.com/bastelfreak))
+- simplify init handling with service\_provider fact [\#173](https://github.com/voxpupuli/puppet-prometheus/pull/173) ([bastelfreak](https://github.com/bastelfreak))
+- Add Archlinux support [\#172](https://github.com/voxpupuli/puppet-prometheus/pull/172) ([bastelfreak](https://github.com/bastelfreak))
+- add varnish\_exporter [\#171](https://github.com/voxpupuli/puppet-prometheus/pull/171) ([blupman](https://github.com/blupman))
+
+**Fixed bugs:**
+
+- Wrong installation method on archlinux [\#195](https://github.com/voxpupuli/puppet-prometheus/issues/195)
+- Wrong architecture used on CentOS 64bit for exporters [\#192](https://github.com/voxpupuli/puppet-prometheus/issues/192)
+- fix hiera key {prometheus\_,}install\_method on arch [\#196](https://github.com/voxpupuli/puppet-prometheus/pull/196) ([bastelfreak](https://github.com/bastelfreak))
+- use correct architecture variable from init.pp in exporters [\#193](https://github.com/voxpupuli/puppet-prometheus/pull/193) ([bastelfreak](https://github.com/bastelfreak))
+- change default inhibit\_rules to reflect previous params.pp config [\#181](https://github.com/voxpupuli/puppet-prometheus/pull/181) ([blupman](https://github.com/blupman))
+
+**Closed issues:**
+
+- node\_exporterd defaults to older version [\#188](https://github.com/voxpupuli/puppet-prometheus/issues/188)
+- node exporter also installs prometheus server on monitored node [\#184](https://github.com/voxpupuli/puppet-prometheus/issues/184)
+- alertmanager default inhibit\_rules error [\#182](https://github.com/voxpupuli/puppet-prometheus/issues/182)
+
+**Merged pull requests:**
+
+- Update node\_exporter default version 0.14.0 -\> 0.15.2 [\#204](https://github.com/voxpupuli/puppet-prometheus/pull/204) ([blupman](https://github.com/blupman))
+- migrate more default values to hiera [\#201](https://github.com/voxpupuli/puppet-prometheus/pull/201) ([bastelfreak](https://github.com/bastelfreak))
+- dont use single class reference in an array [\#199](https://github.com/voxpupuli/puppet-prometheus/pull/199) ([bastelfreak](https://github.com/bastelfreak))
+- fix typos in the README.md [\#198](https://github.com/voxpupuli/puppet-prometheus/pull/198) ([bastelfreak](https://github.com/bastelfreak))
+- migrate server related classes to private scope [\#197](https://github.com/voxpupuli/puppet-prometheus/pull/197) ([bastelfreak](https://github.com/bastelfreak))
+- Rely on beaker-hostgenerator for docker nodesets [\#190](https://github.com/voxpupuli/puppet-prometheus/pull/190) ([ekohl](https://github.com/ekohl))
+- switch from topscope to class scope for variables [\#189](https://github.com/voxpupuli/puppet-prometheus/pull/189) ([bastelfreak](https://github.com/bastelfreak))
+- extend README.md [\#177](https://github.com/voxpupuli/puppet-prometheus/pull/177) ([bastelfreak](https://github.com/bastelfreak))
+- drop legacy debian 7 [\#174](https://github.com/voxpupuli/puppet-prometheus/pull/174) ([bastelfreak](https://github.com/bastelfreak))
+- allow camptocamp/systemd 2.X [\#170](https://github.com/voxpupuli/puppet-prometheus/pull/170) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v5.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v5.0.0) (2018-02-26)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v4.1.1...v5.0.0)
@@ -15,7 +61,6 @@ These should not affect the functionality of the module.
 **Merged pull requests:**
 
 - Fix small typo in hiera example [\#164](https://github.com/voxpupuli/puppet-prometheus/pull/164) ([bearnard](https://github.com/bearnard))
-- release 4.1.1 [\#163](https://github.com/voxpupuli/puppet-prometheus/pull/163) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [v4.1.1](https://github.com/voxpupuli/puppet-prometheus/tree/v4.1.1) (2018-02-18)
 
@@ -25,6 +70,10 @@ These should not affect the functionality of the module.
 
 - puppetlabs/stdlib dependency appears to be 4.20.0 and not 4.13.1  [\#161](https://github.com/voxpupuli/puppet-prometheus/issues/161)
 - raise stdlib version dependency [\#162](https://github.com/voxpupuli/puppet-prometheus/pull/162) ([tuxmea](https://github.com/tuxmea))
+
+**Merged pull requests:**
+
+- release 4.1.1 [\#163](https://github.com/voxpupuli/puppet-prometheus/pull/163) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [v4.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v4.1.0) (2018-02-14)
 
@@ -36,7 +85,7 @@ These should not affect the functionality of the module.
 - Added redis\_exporter module [\#157](https://github.com/voxpupuli/puppet-prometheus/pull/157) ([yackushevas](https://github.com/yackushevas))
 - Add rabbitmq exporter [\#153](https://github.com/voxpupuli/puppet-prometheus/pull/153) ([costela](https://github.com/costela))
 - add envvars support to daemon [\#151](https://github.com/voxpupuli/puppet-prometheus/pull/151) ([costela](https://github.com/costela))
-- adding remote\_write support [\#144](https://github.com/voxpupuli/puppet-prometheus/pull/144) ([kalinux](https://github.com/kalinux))
+- adding remote\_write support [\#144](https://github.com/voxpupuli/puppet-prometheus/pull/144) ([gangsta](https://github.com/gangsta))
 
 **Fixed bugs:**
 
@@ -55,7 +104,6 @@ These should not affect the functionality of the module.
 - update blackbox\_exporter.pp inline documentation [\#155](https://github.com/voxpupuli/puppet-prometheus/pull/155) ([tobald](https://github.com/tobald))
 - Ruby 1.8 compatibility \(Agent-side\) [\#146](https://github.com/voxpupuli/puppet-prometheus/pull/146) ([sathieu](https://github.com/sathieu))
 - Fail silently when service is not installed [\#145](https://github.com/voxpupuli/puppet-prometheus/pull/145) ([vladgh](https://github.com/vladgh))
-- release 4.0.0 [\#140](https://github.com/voxpupuli/puppet-prometheus/pull/140) ([bastelfreak](https://github.com/bastelfreak))
 - Add support for snmp\_exporter [\#125](https://github.com/voxpupuli/puppet-prometheus/pull/125) ([sathieu](https://github.com/sathieu))
 - new feature - consul\_exporter [\#36](https://github.com/voxpupuli/puppet-prometheus/pull/36) ([pjfbashton](https://github.com/pjfbashton))
 
@@ -118,9 +166,7 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- release 3.1.0 [\#115](https://github.com/voxpupuli/puppet-prometheus/pull/115) ([bastelfreak](https://github.com/bastelfreak))
 - replace all Variant\[Undef.. with Optional\[... [\#103](https://github.com/voxpupuli/puppet-prometheus/pull/103) ([TheMeier](https://github.com/TheMeier))
-- release 3.0.0 [\#99](https://github.com/voxpupuli/puppet-prometheus/pull/99) ([bastelfreak](https://github.com/bastelfreak))
 - Tests for prometheus::daemon [\#87](https://github.com/voxpupuli/puppet-prometheus/pull/87) ([sathieu](https://github.com/sathieu))
 
 ## [v3.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v3.0.0) (2017-10-31)
@@ -174,7 +220,6 @@ These should not affect the functionality of the module.
 - replace validate\_\* with datatypes in alertmanager [\#76](https://github.com/voxpupuli/puppet-prometheus/pull/76) ([bastelfreak](https://github.com/bastelfreak))
 - replace validate\_\* with datatypes in init [\#75](https://github.com/voxpupuli/puppet-prometheus/pull/75) ([bastelfreak](https://github.com/bastelfreak))
 - use Optional instead of Variant\[Undef... [\#73](https://github.com/voxpupuli/puppet-prometheus/pull/73) ([TheMeier](https://github.com/TheMeier))
-- release 2.0.0 [\#67](https://github.com/voxpupuli/puppet-prometheus/pull/67) ([bastelfreak](https://github.com/bastelfreak))
 
 ## [v2.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v2.0.0) (2017-10-12)
 
