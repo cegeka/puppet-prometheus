@@ -51,7 +51,7 @@ prometheus::alertmanager::route:
   'repeat_interval': '3h'
   'receiver': 'Admin'
 prometheus::alertmanager::storage_path: '/var/lib/alertmanager'
-prometheus::alertmanager::templates: [ "$prometheus::{alertmanager_config_dir}/*.tmpl" ]
+prometheus::alertmanager::templates: [ "%{lookup('prometheus::alertmanager::config_dir')}/*.tmpl" ]
 prometheus::alertmanager::user: 'alertmanager'
 prometheus::alertmanager::version: '0.5.1'
 prometheus::alerts: {}
