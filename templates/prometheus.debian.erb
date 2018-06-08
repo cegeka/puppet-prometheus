@@ -13,14 +13,14 @@
 # Do NOT "set -e"
 
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
-PATH=/usr/sbin:/usr/bin:/sbin:/bin:<%= scope.lookupvar('prometheus::bin_dir') %>
+PATH=/usr/sbin:/usr/bin:/sbin:/bin:<%= scope.lookupvar('prometheus::server::bin_dir') %>
 DESC="Prometheus monitoring framework"
 NAME=prometheus
-DAEMON=<%= scope.lookupvar('prometheus::bin_dir') %>/$NAME
+DAEMON=<%= scope.lookupvar('prometheus::server::bin_dir') %>/$NAME
 PIDFILE=/var/run/$NAME/$NAME.pid
 DAEMON_ARGS="<%= @daemon_flags.join("\n             ") %>
-             <%= scope.lookupvar('prometheus::extra_options') %>"
-USER=<%= scope.lookupvar('prometheus::user') %>
+             <%= scope.lookupvar('prometheus::server::extra_options') %>"
+USER=<%= scope.lookupvar('prometheus::server::user') %>
 SCRIPTNAME=/etc/init.d/$NAME
 
 # Exit if the package is not installed

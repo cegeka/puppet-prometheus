@@ -12,7 +12,7 @@
 # Source function library.
 . /etc/init.d/functions
 
-DAEMON=<%= scope.lookupvar('prometheus::bin_dir') %>/prometheus
+DAEMON=<%= scope.lookupvar('prometheus::server::bin_dir') %>/prometheus
 PID_FILE=/var/run/prometheus/prometheus.pid
 LOG_FILE=/var/log/prometheus
 
@@ -26,7 +26,7 @@ export GOMAXPROCS=${GOMAXPROCS:-2}
 #
 mkrundir() {
         [ ! -d /var/run/prometheus ] && mkdir -p /var/run/prometheus
-        chown <%= scope.lookupvar('prometheus::user') %> /var/run/prometheus
+        chown <%= scope.lookupvar('prometheus::server::user') %> /var/run/prometheus
 }
 
 #
@@ -38,7 +38,7 @@ mkpidfile() {
         # Create PID file if it didn't exist
         mkrundir
         [ ! -f $PID_FILE ] && pidofproc $DAEMON > $PID_FILE
-        chown <%= scope.lookupvar('prometheus::user') %> /var/run/prometheus
+        chown <%= scope.lookupvar('prometheus::server::user') %> /var/run/prometheus
         if [ $? -ne 0 ] ; then
             rm $PID_FILE
             KILLPROC_OPT=""
@@ -49,10 +49,10 @@ start() {
         echo -n "Starting prometheus: "
         mkrundir
         [ -f $PID_FILE ] && rm $PID_FILE
-        daemon --user=<%= scope.lookupvar('prometheus::user') %> \
+        daemon --user=<%= scope.lookupvar('prometheus::server::user') %> \
             --pidfile="$PID_FILE" \
             "$DAEMON" -log.format logger:stdout <%= @daemon_flags.join(" \\\n            ") %> \
-            <%= scope.lookupvar('prometheus::extra_options') %> >> "$LOG_FILE" &
+            <%= scope.lookupvar('prometheus::server::extra_options') %> >> "$LOG_FILE" &
         retcode=$?
         mkpidfile
         touch /var/lock/subsys/prometheus

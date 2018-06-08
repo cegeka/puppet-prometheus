@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>             <string>io.prometheus.daemon</string>
-    <key>UserName</key>          <string><%= scope.lookupvar('prometheus::user') %></string>
-    <key>GroupName</key>         <string><%= scope.lookupvar('prometheus::group') %></string>
-<% if scope.lookupvar('prometheus::service_enable') %>
+    <key>UserName</key>          <string><%= scope.lookupvar('prometheus::server::user') %></string>
+    <key>GroupName</key>         <string><%= scope.lookupvar('prometheus::server::group') %></string>
+<% if scope.lookupvar('prometheus::server::service_enable') %>
     <key>Disabled</key>          <false/>
 <% else %>
     <key>Disabled></key>         <true/>
@@ -14,13 +14,13 @@
     <key>KeepAlive</key>         <true/>
     <key>ProgramArguments</key>
         <array>
-            <string><%= scope.lookupvar('prometheus::bin_dir') %>/prometheus</string>
+            <string><%= scope.lookupvar('prometheus::server::bin_dir') %>/prometheus</string>
             <string>agent</string>
             <%- daemon_flags.each do |flag| -%>
             <string><%= flag %></string>
             <%- end -%>
 <% require 'shellwords' %>
-<% for extra_option in Shellwords.split(scope.lookupvar('prometheus::extra_options')) %>
+<% for extra_option in Shellwords.split(scope.lookupvar('prometheus::server::extra_options')) %>
             <string><%= extra_option %></string>
 <% end %>
         </array>
