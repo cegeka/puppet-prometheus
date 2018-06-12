@@ -20,8 +20,8 @@
 
 rc_reset
 
-PROMETHEUS_BIN=<%= scope.lookupvar('prometheus::bin_dir') %>/prometheus
-CONFIG_FILE=<%= scope.lookupvar('prometheus::config_dir') %>/<%= scope.lookupvar('prometheus::server::configname') %>
+PROMETHEUS_BIN=<%= scope.lookupvar('prometheus::server::bin_dir') %>/prometheus
+CONFIG_FILE=<%= scope.lookupvar('prometheus::server::config_dir') %>/<%= scope.lookupvar('prometheus::server::server::configname') %>
 LOG_FILE=/var/log/prometheus
 
 
@@ -37,7 +37,7 @@ case "$1" in
         ## Start daemon with startproc(8). If this fails
         ## the return value is set appropriately by startproc.
         startproc $PROMETHEUS_BIN <%= @daemon_flags.join(" \\\n          ") %> \
-          <%= scope.lookupvar('prometheus::extra_options') %> >> "$LOG_FILE"
+          <%= scope.lookupvar('prometheus::server::extra_options') %> >> "$LOG_FILE"
 
         # Remember status and be verbose
         rc_status -v
