@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.1](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.1) (2018-06-12)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.0...v6.0.1)
+
+**Fixed bugs:**
+
+- Prometheus service wont run if installed from package [\#62](https://github.com/voxpupuli/puppet-prometheus/issues/62)
+- start-stop scripts get vars from prometheus::server scope [\#210](https://github.com/voxpupuli/puppet-prometheus/pull/210) ([edevreede](https://github.com/edevreede))
+- use lookup instead of puppet variable in data [\#209](https://github.com/voxpupuli/puppet-prometheus/pull/209) ([tuxmea](https://github.com/tuxmea))
+- upgrade stdlib dependancy to minium 4.25.0 [\#207](https://github.com/voxpupuli/puppet-prometheus/pull/207) ([blupman](https://github.com/blupman))
+
+**Closed issues:**
+
+- stdlib dependancy should be updated to 4.25 [\#206](https://github.com/voxpupuli/puppet-prometheus/issues/206)
+
 ## [v6.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.0) (2018-06-01)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v5.0.0...v6.0.0)
