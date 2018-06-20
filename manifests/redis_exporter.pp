@@ -126,7 +126,8 @@ class prometheus::redis_exporter (
     # redis_exporter lacks.
     # TODO: patch prometheus::daemon to support custom extract directories
     $exporter_install_method = 'none'
-    file { "/opt/${service_name}-${version}.${os}-${arch}":
+    $install_dir = "/opt/${service_name}-${version}.${os}-${arch}"
+    file { $install_dir:
       ensure => 'directory',
       owner  => 'root',
       group  => 0, # 0 instead of root because OS X uses "wheel".
@@ -135,16 +136,16 @@ class prometheus::redis_exporter (
     -> archive { "/tmp/${service_name}-${version}.${download_extension}":
       ensure          => present,
       extract         => true,
-      extract_path    => "/opt/${service_name}-${version}.${os}-${arch}",
+      extract_path    => $install_dir,
       source          => $real_download_url,
       checksum_verify => false,
-      creates         => "/opt/${name}-${version}.${os}-${arch}/${name}",
+      creates         => "${install_dir}/${service_name}",
       cleanup         => true,
     }
     -> file { "${bin_dir}/${service_name}":
       ensure => link,
       notify => $notify_service,
-      target => "/opt/${service_name}-${version}.${os}-${arch}/${service_name}",
+      target => "${install_dir}/${service_name}",
       before => Prometheus::Daemon[$service_name],
     }
   } else {
