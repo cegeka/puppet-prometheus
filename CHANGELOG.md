@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.4](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.4) (2018-06-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.3...v6.0.4)
+
+**Merged pull requests:**
+
+- bump archive upper version boundary to \<4.0.0 [\#218](https://github.com/voxpupuli/puppet-prometheus/pull/218) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v6.0.3](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.3) (2018-06-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.2...v6.0.3)
