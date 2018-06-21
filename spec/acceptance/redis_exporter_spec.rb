@@ -13,11 +13,7 @@ describe 'prometheus redis exporter' do
     it { is_expected.to be_enabled }
   end
   # the class installs an the redis_exporter that listens on port 9121
-  # it should not install the prometheus server (port 9090)
   describe port(9121) do
     it { is_expected.to be_listening.with('tcp6') }
-  end
-  describe port(9090) do
-    it { is_expected.not_to be_listening.with('tcp6') }
   end
 end
