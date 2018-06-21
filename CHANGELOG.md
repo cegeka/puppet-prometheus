@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.3](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.3) (2018-06-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.2...v6.0.3)
+
+**Fixed bugs:**
+
+- use service name for redis\_exporter to prevent multiple downloads of redis\_exporter [\#216](https://github.com/voxpupuli/puppet-prometheus/pull/216) ([blupman](https://github.com/blupman))
+
+**Closed issues:**
+
+- redis\_exporter is downloaded every puppet run [\#215](https://github.com/voxpupuli/puppet-prometheus/issues/215)
+
 ## [v6.0.2](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.2) (2018-06-19)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.1...v6.0.2)
