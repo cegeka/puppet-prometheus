@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.5](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.5) (2018-06-23)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.4...v6.0.5)
+
+**Fixed bugs:**
+
+- The real\_download\_url in process-exporter manifest doesn't match to newer versions [\#212](https://github.com/voxpupuli/puppet-prometheus/issues/212)
+- fix support for process\_exporter 0.2.0 and newer [\#220](https://github.com/voxpupuli/puppet-prometheus/pull/220) ([tuxmea](https://github.com/tuxmea))
+
 ## [v6.0.4](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.4) (2018-06-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.3...v6.0.4)
