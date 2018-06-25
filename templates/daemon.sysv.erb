@@ -52,7 +52,7 @@ start() {
         daemon --user=<%= @user %> \
             --pidfile="$PID_FILE" \
             <%- require 'shellwords' -%>
-            "$DAEMON" <%= Shellwords.escape(@options) %> >> "$LOG_FILE" &
+            "$DAEMON" <%= Shellwords.escape(@options) %> &>> "$LOG_FILE" &
         retcode=$?
         sleep 1
         mkpidfile
