@@ -189,7 +189,7 @@ class prometheus::alertmanager (
     group   => $group,
     mode    => $config_mode,
     content => template('prometheus/alertmanager.yaml.erb'),
-    notify  => Service['alertmanager'],
+    notify  => $notify_service,
     require => File[$config_dir],
   }
 
