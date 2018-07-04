@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.6](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.6) (2018-07-04)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.5...v6.0.6)
+
+**Fixed bugs:**
+
+- Redirect SDTERR to SDTOUT for logfile [\#223](https://github.com/voxpupuli/puppet-prometheus/pull/223) ([mkrakowitzer](https://github.com/mkrakowitzer))
+- fix notify $service\_name in the alertmanager [\#222](https://github.com/voxpupuli/puppet-prometheus/pull/222) ([thde](https://github.com/thde))
+
+**Closed issues:**
+
+- haproxy\_exporter New flag handling \> 0.8 [\#227](https://github.com/voxpupuli/puppet-prometheus/issues/227)
+
 ## [v6.0.5](https://github.com/voxpupuli/puppet-prometheus/tree/v6.0.5) (2018-06-23)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.4...v6.0.5)
