@@ -14,6 +14,8 @@ def os_specific_facts(facts)
       { service_provider: 'upstart' }
     when '16.04'
       { service_provider: 'systemd' }
+    when '18.04'
+      { service_provider: 'systemd' }
     end
   when 'RedHat'
     case facts[:os]['release']['major']
