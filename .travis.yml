@@ -4,7 +4,7 @@ dist: trusty
 language: ruby
 cache: bundler
 before_install:
-  - 'rm -f Gemfile.lock'
+  - rm -f Gemfile.lock
 script:
   - 'bundle exec rake $CHECK'
 matrix:
