@@ -21,14 +21,14 @@ describe 'prometheus::redis_exporter' do
         it { is_expected.to compile.with_all_deps }
         describe 'install correct binary' do
           it { is_expected.to contain_file('/usr/local/bin/redis_exporter').with('target' => '/opt/redis_exporter-0.11.2.linux-amd64/redis_exporter') }
+          it { is_expected.to contain_file('/opt/redis_exporter-0.11.2.linux-amd64') }
+          it { is_expected.to contain_archive('/tmp/redis_exporter-0.11.2.tar.gz') }
         end
         describe 'required resources' do
           it { is_expected.to contain_group('redis-exporter') }
           it { is_expected.to contain_prometheus__daemon('prometheus_redis_exporter') }
           it { is_expected.to contain_service('prometheus_redis_exporter') }
           it { is_expected.to contain_user('redis-exporter') }
-          it { is_expected.to contain_file('/opt/redis_exporter-0.11.2.linux-amd64') }
-          it { is_expected.to contain_archive('/tmp/redis_exporter-0.11.2.tar.gz') }
         end
       end
     end
