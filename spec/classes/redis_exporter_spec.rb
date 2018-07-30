@@ -26,7 +26,7 @@ describe 'prometheus::redis_exporter' do
         end
         describe 'required resources' do
           it { is_expected.to contain_group('redis-exporter') }
-          it { is_expected.to contain_prometheus__daemon('prometheus_redis_exporter') }
+          it { is_expected.to contain_prometheus__daemon('redis_exporter') }
           it { is_expected.to contain_service('prometheus_redis_exporter') }
           it { is_expected.to contain_user('redis-exporter') }
         end
