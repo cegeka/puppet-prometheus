@@ -7,7 +7,7 @@ describe 'prometheus' do
         facts.merge(os_specific_facts(facts))
       end
 
-      [{ manage_prometheus_server: true, version: '2.0.0-rc.1', bin_dir: '/usr/local/bin', install_method: 'url', rule_files: ['/etc/prometheus/rules.d/*.rules'], }].each do |parameters|
+      [{ manage_prometheus_server: true, version: '2.0.0-rc.1', bin_dir: '/usr/local/bin', install_method: 'url', rule_files: ['/etc/prometheus/rules.d/*.rules']}].each do |parameters|
         context "with parameters #{parameters}" do
           let(:params) do
             parameters
