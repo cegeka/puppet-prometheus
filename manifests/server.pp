@@ -78,10 +78,10 @@ class prometheus::server (
       alerts   => $alerts,
       location => $config_dir,
     }
-    $_rule_files = concat(["${config_dir}/alert.rules"], $extra_rule_files)
+    $_rule_files = concat(["${config_dir}/alert.rules"], $extra_rule_files, $rule_files)
   }
   else {
-    $_rule_files = $extra_rule_files
+    $_rule_files = concat($extra_rule_files, $rule_files)
   }
   contain prometheus::install
   contain prometheus::config
