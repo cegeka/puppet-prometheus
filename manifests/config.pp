@@ -24,14 +24,18 @@ class prometheus::config {
     } else {
       # helper variable indicating prometheus version, so we can use on this information in the template
       $prometheus_v2 = true
-      $daemon_flags = [
+      $daemon_flags_basic = [
         "--config.file=${prometheus::server::config_dir}/${prometheus::server::configname}",
         "--storage.tsdb.path=${prometheus::server::localstorage}",
         "--storage.tsdb.retention=${prometheus::server::storage_retention}",
         "--web.console.templates=${prometheus::server::shared_dir}/consoles",
         "--web.console.libraries=${prometheus::server::shared_dir}/console_libraries",
-        "--web.external-url='${prometheus::server::external_url}'",
       ]
+      if $prometheus::server::external_url {
+        $daemon_flags = $daemon_flags_basic + "--web.external-url=${prometheus::server::external_url}"
+      } else {
+        $daemon_flags = $daemon_flags_basic
+      }
     }
 
     # the vast majority of files here are init-files

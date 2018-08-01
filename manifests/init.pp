@@ -179,7 +179,7 @@ class prometheus (
   Hash $config_hash     = {},
   Hash $config_defaults = {},
   String $os            = downcase($facts['kernel']),
-  Variant[Stdlib::HTTPUrl, Stdlib::Unixpath, String[0]] $external_url = '',
+  Optional[Variant[Stdlib::HTTPUrl, Stdlib::Unixpath, String[1]]] $external_url = undef,
 ) {
 
   case $arch {
