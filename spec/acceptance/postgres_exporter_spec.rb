@@ -2,6 +2,10 @@ require 'spec_helper_acceptance'
 
 describe 'prometheus postgres exporter' do
   it 'postgres_exporter works idempotently with no errors' do
+    if default[:platform] =~ %r{ubuntu-18.04-amd64}
+      pp = "package{'iproute2': ensure => present}"
+      apply_manifest(pp, catch_failures: true)
+    end
     pp = "class{'prometheus::postgres_exporter': postgres_pass => 'password', postgres_user => 'username' }"
     # Run it twice and test for idempotency
     apply_manifest(pp, catch_failures: true)
