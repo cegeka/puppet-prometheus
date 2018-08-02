@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.2.0](https://github.com/voxpupuli/puppet-prometheus/tree/v6.2.0) (2018-08-02)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.1.0...v6.2.0)
+
+**Implemented enhancements:**
+
+- add postgres exporter [\#236](https://github.com/voxpupuli/puppet-prometheus/pull/236) ([blupman](https://github.com/blupman))
+- add ubuntu 18.04 support [\#235](https://github.com/voxpupuli/puppet-prometheus/pull/235) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- $rule\_files parameter not respected  [\#180](https://github.com/voxpupuli/puppet-prometheus/issues/180)
+- enhance acceptance tests / dont quote web.external-url param [\#245](https://github.com/voxpupuli/puppet-prometheus/pull/245) ([bastelfreak](https://github.com/bastelfreak))
+- 180 rule files param [\#241](https://github.com/voxpupuli/puppet-prometheus/pull/241) ([bramblek1](https://github.com/bramblek1))
+
+**Merged pull requests:**
+
+- extra spec tests for redis\_exporter [\#237](https://github.com/voxpupuli/puppet-prometheus/pull/237) ([blupman](https://github.com/blupman))
+
 ## [v6.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v6.1.0) (2018-07-29)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.0.6...v6.1.0)
