@@ -79,7 +79,7 @@
 # details of the format: https://github.com/prometheus/blackbox_exporter/blob/master/CONFIGURATION.md
 #
 # ---
-# prometheus::blackbox::exporter::modules:
+# prometheus::blackbox_exporter::modules:
 #   simple_ssl:
 #     prober: http
 #     timeout: 10s
