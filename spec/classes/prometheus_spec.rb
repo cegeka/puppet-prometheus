@@ -184,8 +184,7 @@ describe 'prometheus' do
             is_expected.to contain_service('prometheus').with(
               'ensure'     => 'running',
               'name'       => 'prometheus',
-              'enable'     => true,
-              'hasrestart' => true
+              'enable'     => true
             )
           }
 
