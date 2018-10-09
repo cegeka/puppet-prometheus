@@ -11,6 +11,7 @@ describe 'prometheus consul exporter' do
   describe 'prometheus consul exporter version 0.3.0' do
     it ' consul_exporter installs with version 0.3.0' do
       pp = "class {'prometheus::consul_exporter': version => '0.3.0' }"
+      # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
     end
@@ -22,6 +23,7 @@ describe 'prometheus consul exporter' do
   describe 'prometheus consul exporter version 0.4.0' do
     it ' consul_exporter installs with version 0.4.0' do
       pp = "class {'prometheus::consul_exporter': version => '0.4.0' }"
+      # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
     end
@@ -30,4 +32,3 @@ describe 'prometheus consul exporter' do
     end
   end
 end
-
