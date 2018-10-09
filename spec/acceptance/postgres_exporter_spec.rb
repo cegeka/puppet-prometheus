@@ -1,4 +1,4 @@
-#require 'spec_helper_acceptance'
+require 'spec_helper_acceptance'
 
 describe 'prometheus postgres exporter' do
   it 'postgres_exporter works idempotently with no errors' do
