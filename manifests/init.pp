@@ -183,8 +183,9 @@ class prometheus (
 ) {
 
   case $arch {
-    # 'armv5', "armv7"           { $real_arch = $arch }
+    # 'armv5', 
     'armv6l':          { $real_arch = 'armv6' }
+    "armv7l"           { $real_arch = 'armv7' }
     'x86_64', 'amd64': { $real_arch = 'amd64' }
     'i386':            { $real_arch = '386'   }
     'armv7l':          { $real_arch = 'armv7' }
