@@ -134,7 +134,7 @@
 #
 # Requires: see Modulefile
 #
-# Sample Usage:
+# Sample Usage: 
 #
 class prometheus (
   String $configname,
@@ -182,12 +182,9 @@ class prometheus (
   Optional[Variant[Stdlib::HTTPUrl, Stdlib::Unixpath, String[1]]] $external_url = undef,
 ) {
 
-  $real_arch = $arch 
   case $arch {
-    # 'armv5':  {}
+    # 'armv5', "armv7"           { $real_arch = $arch }
     'armv6l':          { $real_arch = 'armv6' }
-    # 'armv7':  {}
-    # 'armv64': {}
     'x86_64', 'amd64': { $real_arch = 'amd64' }
     'i386':            { $real_arch = '386'   }
     'armv7l':          { $real_arch = 'armv7' }
