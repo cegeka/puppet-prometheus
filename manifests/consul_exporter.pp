@@ -122,7 +122,11 @@ class prometheus::consul_exporter (
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 
   if $consul_health_summary {
-    $real_consul_health_summary = '-consul.health-summary'
+    if versioncmp ($version, '0.4.0') == -1 {
+      $real_consul_health_summary = '-consul.health-summary'
+    } else {
+      $real_consul_health_summary = '--consul.health-summary'
+    }
   } else {
     $real_consul_health_summary = ''
   }
@@ -132,7 +136,11 @@ class prometheus::consul_exporter (
     default => undef,
   }
 
-  $options = "-consul.server=${consul_server} ${real_consul_health_summary} -web.listen-address=${web_listen_address} -web.telemetry-path=${web_telemetry_path} -log.level=${log_level} ${extra_options}"
+  if versioncmp ($version, '0.4.0') == -1 {
+    $options = "-consul.server=${consul_server} ${real_consul_health_summary} -web.listen-address=${web_listen_address} -web.telemetry-path=${web_telemetry_path} -log.level=${log_level} ${extra_options}"
+  } else {
+    $options = "--consul.server=${consul_server} ${real_consul_health_summary} --web.listen-address=${web_listen_address} --web.telemetry-path=${web_telemetry_path} --log.level=${log_level} ${extra_options}"
+  }
 
   prometheus::daemon { 'consul_exporter':
     install_method     => $install_method,
