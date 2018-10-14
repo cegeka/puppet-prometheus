@@ -4,10 +4,6 @@ class prometheus::config {
 
   assert_private()
 
-  if $prometheus::server::init_style == 'redhat' {
-    $prometheus::server::init_style = 'sysv'
-  }
-
   if $prometheus::server::init_style {
     if( versioncmp($prometheus::server::version, '2.0.0') < 0 ){
       # helper variable indicating prometheus version, so we can use on this information in the template
@@ -76,7 +72,7 @@ class prometheus::config {
           content => template('prometheus/prometheus.systemd.erb'),
         }
       }
-      'sysv' : {
+      'sysv', 'redhat' : {
         file { '/etc/init.d/prometheus':
           mode    => '0555',
           owner   => 'root',
