@@ -4,7 +4,7 @@ class prometheus::config {
 
   assert_private()
 
-  if $prometheus::server::init_style = 'redhat' {
+  if $prometheus::server::init_style == 'redhat' {
     $prometheus::server::init_style = 'sysv'
   }
 
