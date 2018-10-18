@@ -81,7 +81,7 @@ class prometheus::collectd_exporter (
   Boolean $manage_group,
   Boolean $manage_service,
   Boolean $manage_user,
-  String[1] $options,
+  String $options,
   String[1] $os                     = $prometheus::os,
   String[1] $init_style             = $prometheus::init_style,
   String[1] $install_method         = $prometheus::install_method,
