@@ -185,6 +185,7 @@ class prometheus (
   case $arch {
     'x86_64', 'amd64': { $real_arch = 'amd64' }
     'i386':            { $real_arch = '386'   }
+    'armv7l':          { $real_arch = 'armv7' }
     default:           {
       fail("Unsupported kernel architecture: ${arch}")
     }
