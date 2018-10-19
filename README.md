@@ -28,6 +28,10 @@
 node_exporter >= 0.15.0
 consul_exporter >= 0.3.0
 
+This module supports below Prometheus architectures:
+- x86_64/amd64
+- i386
+- armv71 (Tested on raspberry pi 3)
 
 ## Background
 
