@@ -26,7 +26,7 @@ describe 'prometheus::node_exporter' do
         end
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_archive('/tmp/node_exporter-0.15.2.tar.gz') }
+        it { is_expected.to contain_archive('/tmp/node_exporter-0.16.0.tar.gz') }
         it { is_expected.to contain_prometheus__daemon('node_exporter').with(options: ' --collector.foo --collector.bar --no-collector.baz --no-collector.qux') }
       end
 
