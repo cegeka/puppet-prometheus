@@ -6,7 +6,7 @@ describe 'prometheus server basics' do
       pp = "package{'iproute2': ensure => present}"
       apply_manifest(pp, catch_failures: true)
     end
-    pp = "class{'prometheus': manage_prometheus_server => true }"
+    pp = "class{'prometheus': manage_prometheus_server => true, version => '1.5.2' }"
 
     # Run it twice and test for idempotency
     apply_manifest(pp, catch_failures: true)
@@ -38,7 +38,7 @@ describe 'prometheus server basics' do
 
   describe 'prometheus server with options' do
     it 'is idempotent' do
-      pp = "class{'prometheus::server': version => '2.3.2', external_url => '/test'}"
+      pp = "class{'prometheus::server': version => '2.4.3', external_url => '/test'}"
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
@@ -58,7 +58,7 @@ describe 'prometheus server basics' do
     it 'is idempotent' do
       pp = <<-EOS
     class { 'prometheus::server':
-      version => '2.3.2',
+      version => '2.4.3',
       alerts => {
         'groups' => [
           {
