@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.4.0](https://github.com/voxpupuli/puppet-prometheus/tree/v6.4.0) (2018-10-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.3.0...v6.4.0)
+
+**Implemented enhancements:**
+
+- Add armv7 support [\#273](https://github.com/voxpupuli/puppet-prometheus/pull/273) ([othalla](https://github.com/othalla))
+- Feature/collectd exporter [\#272](https://github.com/voxpupuli/puppet-prometheus/pull/272) ([mindriot88](https://github.com/mindriot88))
+- consul\_exporter improvement for version 0.4.0 and above [\#264](https://github.com/voxpupuli/puppet-prometheus/pull/264) ([RogierO](https://github.com/RogierO))
+
 ## [v6.3.0](https://github.com/voxpupuli/puppet-prometheus/tree/v6.3.0) (2018-10-06)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.2.0...v6.3.0)
