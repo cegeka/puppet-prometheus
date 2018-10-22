@@ -15,7 +15,7 @@ class prometheus::config {
         fail('remote_write_configs requires prometheus 2.X')
       }
       $daemon_flags = [
-        "-log.format logger:stdout",
+        '-log.format logger:stdout',
         "-config.file=${prometheus::server::config_dir}/${prometheus::server::configname}",
         "-storage.local.path=${prometheus::server::localstorage}",
         "-storage.local.retention=${prometheus::server::storage_retention}",
