@@ -125,7 +125,7 @@ class prometheus::statsd_exporter (
     mode    => $config_mode,
     owner   => $user,
     group   => $group,
-    content => template('prometheus/statsd_mapping.yaml.erb'),
+    content => to_yaml({ mappings => $mappings }),
     notify  => $notify_service,
   }
 
