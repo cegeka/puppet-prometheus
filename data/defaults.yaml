@@ -227,19 +227,12 @@ prometheus::statsd_exporter::download_extension: 'tar.gz'
 prometheus::statsd_exporter::download_url_base: 'https://github.com/prometheus/statsd_exporter/releases'
 prometheus::statsd_exporter::extra_groups: []
 prometheus::statsd_exporter::group: 'statsd-exporter'
-prometheus::statsd_exporter::mapping_config_path: '/etc/statsd_mappings.conf'
-prometheus::statsd_exporter::maps:
-  - 'map': 'test.dispatcher.*.*.*'
-    'name': 'dispatcher_events_total'
-    'labels':
-      'processor': '$prometheus::1'
-      'action': '$prometheus::2'
-      'outcome': '$prometheus::3'
-      'job': 'test_dispatcher'
+prometheus::statsd_exporter::mapping_config_path: '/etc/statsd-exporter-mapping.yaml'
+prometheus::statsd_exporter::mappings: []
 prometheus::statsd_exporter::package_ensure: 'latest'
 prometheus::statsd_exporter::package_name: 'statsd_exporter'
 prometheus::statsd_exporter::user: 'statsd-exporter'
-prometheus::statsd_exporter::version: '0.3.0'
+prometheus::statsd_exporter::version: '0.8.0'
 prometheus::storage_retention: '360h' # 15d; "d" suffix is only supported with prom >= 2.*
 prometheus::blackbox_exporter::user: 'blackbox-exporter'
 prometheus::blackbox_exporter::group: 'blackbox-exporter'
