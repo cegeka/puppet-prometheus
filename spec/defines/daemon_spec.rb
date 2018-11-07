@@ -205,7 +205,7 @@ describe 'prometheus::daemon' do
               is_expected.to contain_file('/etc/default/smurf_exporter').with(
                 'mode'    => '0644',
                 'owner'   => 'root',
-                'group'   => 'root'
+                'group'   => '0'
               ).with_content(
                 %r{SOMEVAR="42"\n}
               )
@@ -215,7 +215,7 @@ describe 'prometheus::daemon' do
               is_expected.to contain_file('/etc/sysconfig/smurf_exporter').with(
                 'mode'    => '0644',
                 'owner'   => 'root',
-                'group'   => 'root'
+                'group'   => '0'
               ).with_content(
                 %r{SOMEVAR="42"\n}
               )
