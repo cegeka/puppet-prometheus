@@ -29,6 +29,9 @@
 #  [*bin_dir*]
 #  Directory where binaries are located
 #
+#  [*bin_name*]
+#  The name of the binary to execute
+#
 #  [*package_name*]
 #  The binary package name
 #
@@ -64,6 +67,7 @@ define prometheus::daemon (
   String $os                      = $prometheus::os,
   String $arch                    = $prometheus::real_arch,
   Stdlib::Absolutepath $bin_dir   = $prometheus::bin_dir,
+  String $bin_name                = $name,
   Optional[String] $package_name  = undef,
   String $package_ensure          = 'installed',
   Boolean $manage_user            = true,

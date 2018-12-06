@@ -21,7 +21,7 @@
         </dict>
     <key>ProgramArguments</key>
         <array>
-            <string><%= @bin_dir %>/<%= @name %></string>
+            <string><%= @bin_dir %>/<%= @bin_name %></string>
 <% require 'shellwords' %>
 <% for extra_option in Shellwords.split(@options) %>
             <string><%= extra_option %></string>

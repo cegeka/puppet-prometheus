@@ -8,7 +8,7 @@ User=<%= @user %>
 Group=<%= @group %>
 EnvironmentFile=<%= @env_file_path %>/<%= @name%>
 <%- require 'shellwords' -%>
-ExecStart=<%= @bin_dir %>/<%= @name %><% for option in Shellwords.split(@options) %> \
+ExecStart=<%= @bin_dir %>/<%= @bin_name %><% for option in Shellwords.split(@options) %> \
 <%= option -%>
 <% end %>
 
