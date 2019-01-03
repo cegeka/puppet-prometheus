@@ -3,7 +3,7 @@ description "Prometheus <%= @name %>"
 start on runlevel [2345]
 stop on runlevel [06]
 
-env DAEMON=<%= @bin_dir %>/<%= @name %>
+env DAEMON=<%= @bin_dir %>/<%= @bin_name %>
 env USER=<%= @user %>
 env GROUP=<%= @group %>
 env DEFAULTS=/etc/default/<%= @name %>

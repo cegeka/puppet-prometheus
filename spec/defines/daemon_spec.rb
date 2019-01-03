@@ -95,6 +95,18 @@ describe 'prometheus::daemon' do
                 %r{USER=smurf_user\n}
               )
             }
+
+            context 'with overidden bin_name' do
+              let(:params) do
+                parameters.merge(bin_name: 'notsmurf_exporter')
+              end
+
+              it {
+                is_expected.to contain_file('/etc/init.d/smurf_exporter').with_content(
+                  %r{DAEMON=/usr/local/bin/notsmurf_exporter}
+                )
+              }
+            end
           elsif ['centos-6-x86_64', 'redhat-6-x86_64'].include?(os)
             # init_style = 'sysv'
 
@@ -107,6 +119,18 @@ describe 'prometheus::daemon' do
                 %r{daemon --user=smurf_user \\\n            --pidfile="\$PID_FILE" \\\n            "\$DAEMON" '' >> "\$LOG_FILE" 2>&1 &}
               )
             }
+
+            context 'with overidden bin_name' do
+              let(:params) do
+                parameters.merge(bin_name: 'notsmurf_exporter')
+              end
+
+              it {
+                is_expected.to contain_file('/etc/init.d/smurf_exporter').with_content(
+                  %r{DAEMON=/usr/local/bin/notsmurf_exporter}
+                )
+              }
+            end
           elsif ['centos-7-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'archlinux-4-x86_64'].include?(os)
             # init_style = 'systemd'
 
@@ -121,6 +145,19 @@ describe 'prometheus::daemon' do
                 %r{ExecStart=/usr/local/bin/smurf_exporter\n\nExecReload=}
               )
             }
+
+            context 'with overidden bin_name' do
+              let(:params) do
+                parameters.merge(bin_name: 'notsmurf_exporter')
+              end
+
+              it {
+                is_expected.to contain_systemd__unit_file('smurf_exporter.service').with_content(
+                  %r{ExecStart=/usr/local/bin/notsmurf_exporter}
+                )
+              }
+            end
+
           elsif ['ubuntu-14.04-x86_64'].include?(os)
             # init_style = 'upstart'
 
@@ -145,6 +182,18 @@ describe 'prometheus::daemon' do
                 'mode'   => '0755'
               )
             }
+
+            context 'with overidden bin_name' do
+              let(:params) do
+                parameters.merge(bin_name: 'notsmurf_exporter')
+              end
+
+              it {
+                is_expected.to contain_file('/etc/init/smurf_exporter.conf').with_content(
+                  %r{env DAEMON=/usr/local/bin/notsmurf_exporter}
+                )
+              }
+            end
           else
             it {
               is_expected.to raise_error(Puppet::Error, %r{I don't know how to create an init script for style})
@@ -156,7 +205,7 @@ describe 'prometheus::daemon' do
               is_expected.to contain_file('/etc/default/smurf_exporter').with(
                 'mode'    => '0644',
                 'owner'   => 'root',
-                'group'   => 'root'
+                'group'   => '0'
               ).with_content(
                 %r{SOMEVAR="42"\n}
               )
@@ -166,7 +215,7 @@ describe 'prometheus::daemon' do
               is_expected.to contain_file('/etc/sysconfig/smurf_exporter').with(
                 'mode'    => '0644',
                 'owner'   => 'root',
-                'group'   => 'root'
+                'group'   => '0'
               ).with_content(
                 %r{SOMEVAR="42"\n}
               )
