@@ -26,6 +26,24 @@ describe 'prometheus::haproxy_exporter' do
         it { is_expected.to contain_group('haproxy-exporter') }
         it { is_expected.to contain_prometheus__daemon('haproxy_exporter') }
       end
+
+      context 'with unix socket as scraping url' do
+        let(:params) do
+          {
+            cnf_scrape_uri: 'unix:/var/haproxy/listen.sock',
+            arch: 'amd64',
+            os: 'linux',
+            bin_dir: '/usr/local/bin',
+            install_method: 'url'
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_class('prometheus') }
+        it { is_expected.to contain_user('haproxy-user') }
+        it { is_expected.to contain_group('haproxy-exporter') }
+        it { is_expected.to contain_prometheus__daemon('haproxy_exporter') }
+      end
     end
   end
 end

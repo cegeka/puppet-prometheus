@@ -73,7 +73,7 @@
 #  The binary release version
 
 class prometheus::haproxy_exporter(
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $cnf_scrape_uri,
+  Variant[Stdlib::HTTPUrl, Pattern[/unix:(?:\/.+)+/]] $cnf_scrape_uri,
   String $download_extension,
   Array $extra_groups,
   String $group,
