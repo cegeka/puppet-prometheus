@@ -27,7 +27,7 @@ describe 'prometheus::haproxy_exporter' do
         it { is_expected.to contain_prometheus__daemon('haproxy_exporter') }
       end
 
-      context 'with unix socket as scraping url' do
+      context 'with custom scraping uri' do
         let(:params) do
           {
             cnf_scrape_uri: 'unix:/var/haproxy/listen.sock',
@@ -38,11 +38,21 @@ describe 'prometheus::haproxy_exporter' do
           }
         end
 
-        it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_class('prometheus') }
-        it { is_expected.to contain_user('haproxy-user') }
-        it { is_expected.to contain_group('haproxy-exporter') }
-        it { is_expected.to contain_prometheus__daemon('haproxy_exporter') }
+        context 'unix socket' do
+          let(:params) do
+            super().merge(cnf_scrape_uri: 'unix:/var/haproxy/listen.sock')
+          end
+
+          it { is_expected.to compile.with_all_deps }
+        end
+
+        context 'bad format' do
+          let(:params) do
+            super().merge(cnf_scrape_uri: 'nosocket:/not/a/socket.format')
+          end
+
+          it { is_expected.to raise_error(Puppet::Error) }
+        end
       end
     end
   end
