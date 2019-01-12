@@ -38,12 +38,19 @@ describe 'prometheus::haproxy_exporter' do
           }
         end
 
-        context 'unix socket' do
-          let(:params) do
-            super().merge(cnf_scrape_uri: 'unix:/var/haproxy/listen.sock')
-          end
+        scraping_uri = {
+          http: 'http://host/stats',
+          https: 'https://host/stats',
+          socket: 'unix:/var/haproxy/listen.sock'
+        }
+        scraping_uri.each do |uri, value|
+          context uri do
+            let(:params) do
+              super().merge(cnf_scrape_uri: value)
+            end
 
-          it { is_expected.to compile.with_all_deps }
+            it { is_expected.to compile.with_all_deps }
+          end
         end
 
         context 'bad format' do
