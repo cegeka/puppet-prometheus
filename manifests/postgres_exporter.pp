@@ -105,7 +105,7 @@ class prometheus::postgres_exporter (
   String[1] $version,
   String[1] $data_source_uri,
   Enum['custom', 'env', 'file'] $postgres_auth_method,
-  Hash[String,String] $data_source_custom = {},
+  Hash[String[1],String[1]] $data_source_custom = {},
   Boolean $purge_config_dir               = true,
   Boolean $restart_on_change              = true,
   Boolean $service_enable                 = true,
