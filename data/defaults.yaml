@@ -303,3 +303,12 @@ prometheus::collectd_exporter::manage_group: true
 prometheus::collectd_exporter::manage_service: true
 prometheus::collectd_exporter::manage_user: true
 prometheus::collectd_exporter::options: ''
+prometheus::apache_exporter::scrape_uri: 'http://localhost/server-status?auto'
+prometheus::apache_exporter::download_extension: 'tar.gz'
+prometheus::apache_exporter::download_url_base: 'https://github.com/Lusitaniae/apache_exporter/releases'
+prometheus::apache_exporter::extra_groups: []
+prometheus::apache_exporter::group: 'apache-exporter'
+prometheus::apache_exporter::package_ensure: 'latest'
+prometheus::apache_exporter::package_name: 'apache_exporter'
+prometheus::apache_exporter::user: 'apache-exporter'
+prometheus::apache_exporter::version: '0.5.0'
