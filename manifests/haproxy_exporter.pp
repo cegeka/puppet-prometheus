@@ -81,7 +81,7 @@ class prometheus::haproxy_exporter(
   String $package_name,
   String $user,
   String $version,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base,
+  Stdlib::HTTPUrl $download_url_base,
   Boolean $purge_config_dir      = true,
   Boolean $restart_on_change     = true,
   Boolean $service_enable        = true,
@@ -104,7 +104,7 @@ class prometheus::haproxy_exporter(
     default => undef,
   }
 
-  $options = "-haproxy.scrape-uri=\"${cnf_scrape_uri}\" ${extra_options}"
+  $options = "--haproxy.scrape-uri=\"${cnf_scrape_uri}\" ${extra_options}"
 
   prometheus::daemon { 'haproxy_exporter':
     install_method     => $install_method,
