@@ -127,15 +127,17 @@ class prometheus::config {
     $cfg_verify_cmd = 'check-config'
   }
 
-  file { 'prometheus.yaml':
-    ensure       => present,
-    path         => "${prometheus::server::config_dir}/${prometheus::server::configname}",
-    owner        => $prometheus::server::user,
-    group        => $prometheus::server::group,
-    mode         => $prometheus::server::config_mode,
-    notify       => Class['prometheus::service_reload'],
-    content      => template($prometheus::server::config_template),
-    validate_cmd => "${prometheus::server::bin_dir}/promtool ${cfg_verify_cmd} %",
+  if $prometheus::server::manage_config {
+    file { 'prometheus.yaml':
+      ensure       => present,
+      path         => "${prometheus::server::config_dir}/${prometheus::server::configname}",
+      owner        => $prometheus::server::user,
+      group        => $prometheus::server::group,
+      mode         => $prometheus::server::config_mode,
+      notify       => Class['prometheus::service_reload'],
+      content      => template($prometheus::server::config_template),
+      validate_cmd => "${prometheus::server::bin_dir}/promtool ${cfg_verify_cmd} %",
+    }
   }
 
 }

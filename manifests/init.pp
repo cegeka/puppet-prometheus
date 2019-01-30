@@ -179,6 +179,7 @@ class prometheus (
   Boolean $purge_config_dir,
   Boolean $manage_user,
   Optional[String[1]] $extract_command,
+  Boolean $manage_config,
   Hash $extra_alerts    = {},
   Hash $config_hash     = {},
   Hash $config_defaults = {},

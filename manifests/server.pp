@@ -42,6 +42,7 @@ class prometheus::server (
   Boolean $manage_group                                                         = $prometheus::manage_group,
   Boolean $purge_config_dir                                                     = $prometheus::purge_config_dir,
   Boolean $manage_user                                                          = $prometheus::manage_user,
+  Boolean $manage_config                                                        = $prometheus::manage_config,
   Optional[Variant[Stdlib::HTTPurl, Stdlib::Unixpath, String[1]]] $external_url = $prometheus::external_url,
 ) inherits prometheus {
 

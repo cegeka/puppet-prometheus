@@ -286,6 +286,29 @@ describe 'prometheus' do
           end
         end
       end
+
+      context 'with manage_config => false' do
+        [
+          {
+            version: '1.5.3',
+            manage_config: false
+          },
+          {
+            version: '2.0.0-rc.1',
+            manage_config: false
+          }
+        ].each do |parameters|
+          context "with prometheus verions #{parameters[:version]}" do
+            let(:params) do
+              parameters
+            end
+
+            it {
+              is_expected.not_to contain_file('/etc/prometheus/prometheus.yaml')
+            }
+          end
+        end
+      end
     end
   end
 end
