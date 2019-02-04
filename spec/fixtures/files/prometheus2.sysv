@@ -51,7 +51,7 @@ start() {
         [ -f $PID_FILE ] && rm $PID_FILE
         daemon --user=prometheus \
             --pidfile="$PID_FILE" \
-            "$DAEMON" -log.format logger:stdout --config.file=/etc/prometheus/prometheus.yaml \
+            "$DAEMON" --config.file=/etc/prometheus/prometheus.yaml \
             --storage.tsdb.path=/var/lib/prometheus \
             --storage.tsdb.retention=360h \
             --web.console.templates=/usr/local/share/prometheus/consoles \

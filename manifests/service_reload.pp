@@ -10,6 +10,7 @@ class prometheus::service_reload() {
       'systemd' => "systemctl reload-or-restart ${init_selector}",
       'upstart' => "service ${init_selector} reload",
       'sysv'    => "/etc/init.d/${init_selector} reload",
+      'redhat'  => "/etc/init.d/${init_selector} reload",
       'sles'    => "/etc/init.d/${init_selector} reload",
       'debian'  => "/etc/init.d/${init_selector} reload",
       'launchd' => "launchctl stop ${init_selector} && launchctl start ${init_selector}",
