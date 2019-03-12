@@ -19,10 +19,10 @@
 #  NOTE: this is a prometheus setting and will be overridden during collection.
 #
 define prometheus::scrape_job (
-  String $job_name,
-  Array[String] $targets,
-  Hash[String, String] $labels = {},
-  String $collect_dir          = undef,
+  String[1] $job_name,
+  Array[String[1]] $targets,
+  Hash[String[1], String[1]] $labels = {},
+  Stdlib::Absolutepath $collect_dir  = undef,
 ) {
   $config = to_yaml([
     {
