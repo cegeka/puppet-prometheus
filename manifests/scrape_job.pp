@@ -24,17 +24,17 @@ define prometheus::scrape_job (
   Hash[String, String] $labels = {},
   String $collect_dir          = undef,
 ) {
-  $config = [
+  $config = to_yaml([
     {
       targets => $targets,
       labels  => $labels,
     },
-  ]
+  ])
   file { "${collect_dir}/${job_name}_${name}.yaml":
     ensure  => present,
     owner   => $prometheus::user,
     group   => $prometheus::group,
     mode    => $prometheus::config_mode,
-    content => template("${module_name}/file_sd_config.yaml.erb"),
+    content => "# this file is managed by puppet; changes will be overwritten\n${config}",
   }
 }
