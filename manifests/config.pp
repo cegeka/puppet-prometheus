@@ -125,7 +125,6 @@ class prometheus::config {
   # Ideally we'd check them the same way the other config files are checked.
   file { "${prometheus::config_dir}/file_sd_config.d":
     ensure  => directory,
-    owner   => $prometheus::user,
     group   => $prometheus::server::group,
     purge   => true,
     recurse => true,
