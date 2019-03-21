@@ -24,7 +24,10 @@ describe 'prometheus::daemon' do
           group:             'smurf_group',
           env_vars:          { SOMEVAR: 42 },
           bin_dir:           '/usr/local/bin',
-          install_method:    'url'
+          install_method:    'url',
+          export_scrape_job: true,
+          scrape_host:       'localhost',
+          scrape_port:       1234
         }
       ].each do |parameters|
         context "with parameters #{parameters}" do
@@ -229,6 +232,13 @@ describe 'prometheus::daemon' do
               'enable' => true
             )
           }
+          context 'exported resources' do
+            subject { exported_resources }
+
+            it {
+              is_expected.to contain_prometheus__scrape_job('localhost:1234')
+            }
+          end
         end
       end
     end
