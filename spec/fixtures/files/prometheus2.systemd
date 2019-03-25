@@ -1,3 +1,4 @@
+# THIS FILE IS MANAGED BY PUPPET
 [Unit]
 Description=Prometheus Monitoring framework
 Wants=basic.target
@@ -11,8 +12,7 @@ ExecStart=/usr/local/bin/prometheus \
   --storage.tsdb.path=/var/lib/prometheus \
   --storage.tsdb.retention=360h \
   --web.console.templates=/usr/local/share/prometheus/consoles \
-  --web.console.libraries=/usr/local/share/prometheus/console_libraries \
-  
+  --web.console.libraries=/usr/local/share/prometheus/console_libraries
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=always
