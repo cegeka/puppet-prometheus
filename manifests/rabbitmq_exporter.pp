@@ -128,6 +128,9 @@ class prometheus::rabbitmq_exporter (
   Boolean $service_enable             = true,
   String $service_ensure              = 'running',
   Hash[String,String] $extra_env_vars = {},
+  Boolean $export_scrape_job          = false,
+  Stdlib::Port $scrape_port           = 9090,
+  String[1] $scrape_job_name          = 'rabbitmq',
 ) inherits prometheus {
 
   $real_download_url    = pick($download_url, "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
@@ -171,5 +174,8 @@ class prometheus::rabbitmq_exporter (
     service_enable     => $service_enable,
     manage_service     => $manage_service,
     env_vars           => $real_env_vars,
+    export_scrape_job  => $export_scrape_job,
+    scrape_port        => $scrape_port,
+    scrape_job_name    => $scrape_job_name,
   }
 }

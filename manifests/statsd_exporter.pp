@@ -106,6 +106,9 @@ class prometheus::statsd_exporter (
   Boolean $manage_user                                               = true,
   String $extra_options                                              = '',
   Optional[Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl]] $download_url = undef,
+  Boolean $export_scrape_job                                         = false,
+  Stdlib::Port $scrape_port                                          = 9102,
+  String[1] $scrape_job_name                                         = 'statsd',
 ) inherits prometheus {
 
   # Prometheus added a 'v' on the realease name at 0.4.0 and changed the configuration format to yaml in 0.5.0
@@ -159,7 +162,8 @@ class prometheus::statsd_exporter (
     service_ensure     => $service_ensure,
     service_enable     => $service_enable,
     manage_service     => $manage_service,
-    export_scrape_job  => true,
-    scrape_port        => 9102,
+    export_scrape_job  => $export_scrape_job,
+    scrape_port        => $scrape_port,
+    scrape_job_name    => $scrape_job_name,
   }
 }
