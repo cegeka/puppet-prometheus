@@ -66,7 +66,7 @@ stop() {
         echo -n "Shutting down prometheus <%= @name %>: "
         mkpidfile
 
-        <%= @name %>_pid=$(cat $PID_FILE)
+        prometheus_pid=$(cat $PID_FILE)
         killproc $KILLPROC_OPT $DAEMON -INT
         retcode=$?
 
@@ -74,7 +74,7 @@ stop() {
         # early if we can.  If not, escalate to harsher signals.
         try=0
         while [ $try -lt $DELAY ]; do
-        if ! checkpid $<%= @name %>_pid ; then
+        if ! checkpid $prometheus_pid ; then
           rm -f /var/lock/subsys/<%= @name %>
           return $retcode
         fi
