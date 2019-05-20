@@ -14,7 +14,7 @@ class prometheus::config {
       if $prometheus::server::remote_write_configs != [] {
         fail('remote_write_configs requires prometheus 2.X')
       }
-      $daemon_flags = [
+      $_daemon_flags = [
         '-log.format logger:stdout',
         "-config.file=${prometheus::server::config_dir}/${prometheus::server::configname}",
         "-storage.local.path=${prometheus::server::localstorage}",
@@ -22,6 +22,11 @@ class prometheus::config {
         "-web.console.templates=${prometheus::shared_dir}/consoles",
         "-web.console.libraries=${prometheus::shared_dir}/console_libraries",
       ]
+      if $prometheus::server::extra_options {
+        $daemon_flags = $_daemon_flags + $prometheus::server::extra_options
+      } else {
+        $daemon_flags = $_daemon_flags
+      }
     } else {
       # helper variable indicating prometheus version, so we can use on this information in the template
       $prometheus_v2 = true
@@ -32,10 +37,16 @@ class prometheus::config {
         "--web.console.templates=${prometheus::server::shared_dir}/consoles",
         "--web.console.libraries=${prometheus::server::shared_dir}/console_libraries",
       ]
+
       if $prometheus::server::external_url {
-        $daemon_flags = $daemon_flags_basic + "--web.external-url=${prometheus::server::external_url}"
+        $_daemon_flags = $daemon_flags_basic + "--web.external-url=${prometheus::server::external_url}"
       } else {
-        $daemon_flags = $daemon_flags_basic
+        $_daemon_flags = $daemon_flags_basic
+      }
+      if $prometheus::server::extra_options {
+        $daemon_flags = $_daemon_flags + $prometheus::server::extra_options
+      } else {
+        $daemon_flags = $_daemon_flags
       }
     }
 

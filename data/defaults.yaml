@@ -5,7 +5,7 @@ prometheus::service_ensure: 'running'
 prometheus::manage_service: true
 prometheus::restart_on_change: true
 prometheus::init_style: '%{facts.service_provider}'
-prometheus::extra_options: ''
+prometheus::extra_options: ~
 prometheus::download_url: ~
 prometheus::arch: '%{facts.architecture}'
 prometheus::manage_group: true
