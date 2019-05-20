@@ -113,7 +113,7 @@ class prometheus::elasticsearch_exporter (
     default => undef,
   }
 
-  $options = "-es.uri=${cnf_uri} -es.timeout=${cnf_timeout} ${extra_options}"
+  $options = "--es.uri=${cnf_uri} --es.timeout=${cnf_timeout} ${extra_options}"
 
   prometheus::daemon { 'elasticsearch_exporter':
     install_method     => $install_method,
