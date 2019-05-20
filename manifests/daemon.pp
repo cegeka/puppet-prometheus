@@ -56,31 +56,35 @@
 #  [*manage_service*]
 #  Should puppet manage the service? (default true)
 #
+#  [*extract_command*]
+#  Custom command passed to the archive resource to extract the downloaded archive.
+#
 define prometheus::daemon (
   String $version,
   Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl] $real_download_url,
   $notify_service,
   String $user,
   String $group,
-  String $install_method          = $prometheus::install_method,
-  String $download_extension      = $prometheus::download_extension,
-  String $os                      = $prometheus::os,
-  String $arch                    = $prometheus::real_arch,
-  Stdlib::Absolutepath $bin_dir   = $prometheus::bin_dir,
-  String $bin_name                = $name,
-  Optional[String] $package_name  = undef,
-  String $package_ensure          = 'installed',
-  Boolean $manage_user            = true,
-  Array $extra_groups             = [],
-  Boolean $manage_group           = true,
-  Boolean $purge                  = true,
-  String $options                 = '',
-  String $init_style              = $prometheus::init_style,
-  String $service_ensure          = 'running',
-  Boolean $service_enable         = true,
-  Boolean $manage_service         = true,
-  Hash[String, Scalar] $env_vars  = {},
-  Optional[String] $env_file_path = $prometheus::env_file_path,
+  String $install_method               = $prometheus::install_method,
+  String $download_extension           = $prometheus::download_extension,
+  String $os                           = $prometheus::os,
+  String $arch                         = $prometheus::real_arch,
+  Stdlib::Absolutepath $bin_dir        = $prometheus::bin_dir,
+  String $bin_name                     = $name,
+  Optional[String] $package_name       = undef,
+  String $package_ensure               = 'installed',
+  Boolean $manage_user                 = true,
+  Array $extra_groups                  = [],
+  Boolean $manage_group                = true,
+  Boolean $purge                       = true,
+  String $options                      = '',
+  String $init_style                   = $prometheus::init_style,
+  String $service_ensure               = 'running',
+  Boolean $service_enable              = true,
+  Boolean $manage_service              = true,
+  Hash[String, Scalar] $env_vars       = {},
+  Optional[String] $env_file_path      = $prometheus::env_file_path,
+  Optional[String[1]] $extract_command = $prometheus::extract_command,
 ) {
 
   case $install_method {
@@ -108,6 +112,7 @@ define prometheus::daemon (
           creates         => "/opt/${name}-${version}.${os}-${arch}/${name}",
           cleanup         => true,
           before          => File["/opt/${name}-${version}.${os}-${arch}/${name}"],
+          extract_command => $extract_command,
         }
       }
       file { "/opt/${name}-${version}.${os}-${arch}/${name}":
