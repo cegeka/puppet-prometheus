@@ -183,14 +183,33 @@ class prometheus::alertmanager (
     recurse => $purge_config_dir,
   }
 
-  file { $config_file:
-    ensure  => present,
-    owner   => $user,
-    group   => $group,
-    mode    => $config_mode,
-    content => template('prometheus/alertmanager.yaml.erb'),
-    notify  => $notify_service,
-    require => File[$config_dir],
+  if ( versioncmp($version, '0.10.0') >= 0 ) {
+    # If version >= 0.10.0 then install amtool - Alertmanager validation tool
+    file {"${bin_dir}/amtool":
+      ensure => link,
+      target => "/opt/${package_name}-${version}.${os}-${arch}/amtool",
+    }
+
+    file { $config_file:
+      ensure       => present,
+      owner        => $user,
+      group        => $group,
+      mode         => $config_mode,
+      content      => template('prometheus/alertmanager.yaml.erb'),
+      notify       => $notify_service,
+      require      => File["${bin_dir}/amtool", $config_dir],
+      validate_cmd => "${bin_dir}/amtool check-config --alertmanager.url='' %",
+    }
+  } else {
+    file { $config_file:
+      ensure  => present,
+      owner   => $user,
+      group   => $group,
+      mode    => $config_mode,
+      content => template('prometheus/alertmanager.yaml.erb'),
+      notify  => $notify_service,
+      require => File[$config_dir],
+    }
   }
 
   if $facts['prometheus_alert_manager_running'] == 'running' {
