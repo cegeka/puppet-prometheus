@@ -63,7 +63,7 @@ class prometheus::server (
 
   file { "${config_dir}/rules":
     ensure => 'directory',
-    owner  => $user,
+    owner  => 'root',
     group  => $group,
     mode   => $config_mode,
   }

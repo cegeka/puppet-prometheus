@@ -135,7 +135,7 @@ class prometheus::snmp_exporter (
 
   file { $config_file:
     ensure  => present,
-    owner   => $user,
+    owner   => 'root',
     group   => $group,
     mode    => $config_mode,
     content => $_content,

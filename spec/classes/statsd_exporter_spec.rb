@@ -60,9 +60,9 @@ describe 'prometheus::statsd_exporter' do
           it {
             is_expected.to contain_file('/etc/statsd-exporter-mapping.yaml').with(
               'ensure'  => 'file',
-              'owner'   => 'statsd-exporter',
+              'owner'   => 'root',
               'group'   => 'statsd-exporter',
-              'mode'    => '0660',
+              'mode'    => '0640',
               'notify'  => 'Service[statsd_exporter]',
               'content' => <<-YAML.gsub(%r{^\s+\|}, '')
                 |---

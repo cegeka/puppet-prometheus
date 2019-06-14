@@ -178,7 +178,7 @@ class prometheus::alertmanager (
 
   file { $config_dir:
     ensure  => 'directory',
-    owner   => $user,
+    owner   => 'root',
     group   => $group,
     purge   => $purge_config_dir,
     recurse => $purge_config_dir,
@@ -194,7 +194,7 @@ class prometheus::alertmanager (
     if $manage_config {
       file { $config_file:
         ensure       => present,
-        owner        => $user,
+        owner        => 'root',
         group        => $group,
         mode         => $config_mode,
         content      => template('prometheus/alertmanager.yaml.erb'),
@@ -208,7 +208,7 @@ class prometheus::alertmanager (
     if $manage_config {
       file { $config_file:
         ensure  => present,
-        owner   => $user,
+        owner   => 'root',
         group   => $group,
         mode    => $config_mode,
         content => template('prometheus/alertmanager.yaml.erb'),

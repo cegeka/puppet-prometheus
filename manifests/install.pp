@@ -86,7 +86,7 @@ class prometheus::install {
   }
   file { $prometheus::server::config_dir:
     ensure  => 'directory',
-    owner   => $prometheus::server::user,
+    owner   => 'root',
     group   => $prometheus::server::group,
     purge   => $prometheus::server::purge_config_dir,
     recurse => $prometheus::server::purge_config_dir,

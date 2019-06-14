@@ -32,7 +32,7 @@ define prometheus::scrape_job (
   ])
   file { "${collect_dir}/${job_name}_${name}.yaml":
     ensure  => present,
-    owner   => $prometheus::user,
+    owner   => 'root',
     group   => $prometheus::group,
     mode    => $prometheus::config_mode,
     content => "# this file is managed by puppet; changes will be overwritten\n${config}",

@@ -174,7 +174,7 @@ describe 'prometheus' do
           it {
             is_expected.to contain_file('/etc/prometheus').with(
               'ensure'  => 'directory',
-              'owner'   => 'prometheus',
+              'owner'   => 'root',
               'group'   => 'prometheus',
               'purge'   => true,
               'recurse' => true
@@ -185,9 +185,9 @@ describe 'prometheus' do
             is_expected.to contain_file('prometheus.yaml').with(
               'ensure'  => 'present',
               'path'    => '/etc/prometheus/prometheus.yaml',
-              'owner'   => 'prometheus',
+              'owner'   => 'root',
               'group'   => 'prometheus',
-              'mode'    => '0660',
+              'mode'    => '0640',
               'content' => File.read(fixtures('files', "prometheus#{prom_major}.yaml"))
             ).that_notifies('Class[prometheus::service_reload]')
           }
@@ -265,7 +265,7 @@ describe 'prometheus' do
             it {
               is_expected.to contain_file('/etc/prometheus/alert.rules').with(
                 'ensure'  => 'file',
-                'owner'   => 'prometheus',
+                'owner'   => 'root',
                 'group'   => 'prometheus',
                 'content' => File.read(fixtures('files', "prometheus#{prom_major}.alert.rules"))
               ).that_notifies('Class[prometheus::service_reload]')
@@ -296,7 +296,7 @@ describe 'prometheus' do
               is_expected.to contain_file('prometheus.yaml').with(
                 'ensure'  => 'present',
                 'path'    => '/etc/prometheus/prometheus.yaml',
-                'owner'   => 'prometheus',
+                'owner'   => 'root',
                 'group'   => 'prometheus',
                 'content' => %r{http://domain.tld/path}
               )

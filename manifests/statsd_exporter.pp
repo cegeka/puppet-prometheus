@@ -126,7 +126,7 @@ class prometheus::statsd_exporter (
   file { $mapping_config_path:
     ensure  => 'file',
     mode    => $config_mode,
-    owner   => $user,
+    owner   => 'root',
     group   => $group,
     content => to_yaml({ mappings => $mappings }),
     notify  => $notify_service,

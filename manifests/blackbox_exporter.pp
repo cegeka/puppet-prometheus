@@ -139,7 +139,7 @@ class prometheus::blackbox_exporter (
 
   file { $config_file:
     ensure  => present,
-    owner   => $user,
+    owner   => 'root',
     group   => $group,
     mode    => $config_mode,
     content => template('prometheus/blackbox_exporter.yaml.erb'),

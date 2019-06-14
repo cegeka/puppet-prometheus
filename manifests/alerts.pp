@@ -19,7 +19,7 @@ define prometheus::alerts (
   if ( versioncmp($version, '2.0.0') < 0 ){
     file { "${location}/${name}.rules":
       ensure       => 'file',
-      owner        => $user,
+      owner        => 'root',
       group        => $group,
       notify       => Class['prometheus::service_reload'],
       content      => epp("${module_name}/alerts.epp", {'alerts' => $alerts}),
@@ -31,7 +31,7 @@ define prometheus::alerts (
   else {
     file { "${location}/${name}.rules":
       ensure       => 'file',
-      owner        => $user,
+      owner        => 'root',
       group        => $group,
       notify       => Class['prometheus::service_reload'],
       content      => $alerts.to_yaml,

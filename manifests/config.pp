@@ -165,7 +165,7 @@ class prometheus::config {
     file { 'prometheus.yaml':
       ensure       => present,
       path         => "${prometheus::server::config_dir}/${prometheus::server::configname}",
-      owner        => $prometheus::server::user,
+      owner        => 'root',
       group        => $prometheus::server::group,
       mode         => $prometheus::server::config_mode,
       notify       => Class['prometheus::service_reload'],

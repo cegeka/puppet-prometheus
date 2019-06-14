@@ -69,7 +69,7 @@ describe 'prometheus::alerts' do
           it {
             is_expected.to contain_file('/etc/prometheus/rules/extra_alerts.rules').with(
               'ensure'  => 'file',
-              'owner'   => 'prometheus',
+              'owner'   => 'root',
               'group'   => 'prometheus',
               'content' => File.read(fixtures('files', "prometheus#{prom_major}.alert.rules"))
             ) # .that_notifies('Class[prometheus::service_reload]')
