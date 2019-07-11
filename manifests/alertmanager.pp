@@ -184,7 +184,7 @@ class prometheus::alertmanager (
     recurse => $purge_config_dir,
   }
 
-  if ( versioncmp($version, '0.10.0') >= 0 ) {
+  if (( versioncmp($version, '0.10.0') >= 0 ) and ( $install_method == 'url' )) {
     # If version >= 0.10.0 then install amtool - Alertmanager validation tool
     file {"${bin_dir}/amtool":
       ensure => link,
