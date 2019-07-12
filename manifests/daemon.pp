@@ -162,71 +162,69 @@ define prometheus::daemon (
   }
 
 
-  if $init_style {
-    case $init_style {
-      'upstart' : {
-        file { "/etc/init/${name}.conf":
-          mode    => '0444',
-          owner   => 'root',
-          group   => 'root',
-          content => template('prometheus/daemon.upstart.erb'),
-          notify  => $notify_service,
-        }
-        file { "/etc/init.d/${name}":
-          ensure => link,
-          target => '/lib/init/upstart-job',
-          owner  => 'root',
-          group  => 'root',
-          mode   => '0755',
-        }
+  case $init_style {
+    'upstart' : {
+      file { "/etc/init/${name}.conf":
+        mode    => '0444',
+        owner   => 'root',
+        group   => 'root',
+        content => template('prometheus/daemon.upstart.erb'),
+        notify  => $notify_service,
       }
-      'systemd' : {
-        include 'systemd'
-        systemd::unit_file {"${name}.service":
-          content => template('prometheus/daemon.systemd.erb'),
-          notify  => $notify_service,
-        }
+      file { "/etc/init.d/${name}":
+        ensure => link,
+        target => '/lib/init/upstart-job',
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755',
       }
-      # service_provider returns redhat on CentOS using sysv, https://tickets.puppetlabs.com/browse/PUP-5296
-      'sysv','redhat' : {
-        file { "/etc/init.d/${name}":
-          mode    => '0555',
-          owner   => 'root',
-          group   => 'root',
-          content => template('prometheus/daemon.sysv.erb'),
-          notify  => $notify_service,
-        }
+    }
+    'systemd' : {
+      include 'systemd'
+      systemd::unit_file {"${name}.service":
+        content => template('prometheus/daemon.systemd.erb'),
+        notify  => $notify_service,
       }
-      'debian' : {
-        file { "/etc/init.d/${name}":
-          mode    => '0555',
-          owner   => 'root',
-          group   => 'root',
-          content => template('prometheus/daemon.debian.erb'),
-          notify  => $notify_service,
-        }
+    }
+    # service_provider returns redhat on CentOS using sysv, https://tickets.puppetlabs.com/browse/PUP-5296
+    'sysv','redhat' : {
+      file { "/etc/init.d/${name}":
+        mode    => '0555',
+        owner   => 'root',
+        group   => 'root',
+        content => template('prometheus/daemon.sysv.erb'),
+        notify  => $notify_service,
       }
-      'sles' : {
-        file { "/etc/init.d/${name}":
-          mode    => '0555',
-          owner   => 'root',
-          group   => 'root',
-          content => template('prometheus/daemon.sles.erb'),
-          notify  => $notify_service,
-        }
+    }
+    'debian' : {
+      file { "/etc/init.d/${name}":
+        mode    => '0555',
+        owner   => 'root',
+        group   => 'root',
+        content => template('prometheus/daemon.debian.erb'),
+        notify  => $notify_service,
       }
-      'launchd' : {
-        file { "/Library/LaunchDaemons/io.${name}.daemon.plist":
-          mode    => '0644',
-          owner   => 'root',
-          group   => 'wheel',
-          content => template('prometheus/daemon.launchd.erb'),
-          notify  => $notify_service,
-        }
+    }
+    'sles' : {
+      file { "/etc/init.d/${name}":
+        mode    => '0555',
+        owner   => 'root',
+        group   => 'root',
+        content => template('prometheus/daemon.sles.erb'),
+        notify  => $notify_service,
       }
-      default : {
-        fail("I don't know how to create an init script for style ${init_style}")
+    }
+    'launchd' : {
+      file { "/Library/LaunchDaemons/io.${name}.daemon.plist":
+        mode    => '0644',
+        owner   => 'root',
+        group   => 'wheel',
+        content => template('prometheus/daemon.launchd.erb'),
+        notify  => $notify_service,
       }
+    }
+    default : {
+      fail("I don't know how to create an init script for style ${init_style}")
     }
   }
 

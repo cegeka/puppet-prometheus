@@ -179,7 +179,7 @@ class prometheus (
   String $service_ensure,
   Boolean $manage_service,
   Boolean $restart_on_change,
-  String $init_style,
+  String[1] $init_style,
   Optional[String[1]] $extra_options,
   Optional[String] $download_url,
   String $arch,
