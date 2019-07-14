@@ -95,7 +95,7 @@ class prometheus::mesos_exporter (
   Boolean $manage_group          = true,
   Boolean $manage_service        = true,
   Boolean $manage_user           = true,
-  String $os                     = $prometheu::os,
+  String $os                     = $prometheus::os,
   String $extra_options          = '',
   Optional[String] $download_url = undef,
   String $arch                   = $prometheus::real_arch,
