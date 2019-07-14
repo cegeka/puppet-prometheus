@@ -20,6 +20,7 @@ describe 'prometheus::pushgateway' do
 
         describe 'install correct binary' do
           it { is_expected.to contain_file('/usr/local/bin/pushgateway').with('target' => '/opt/pushgateway-0.4.0.linux-amd64/pushgateway') }
+          it { is_expected.to compile.with_all_deps }
         end
       end
     end
