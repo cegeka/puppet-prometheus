@@ -138,7 +138,7 @@ prometheus::nginx_vts_exporter::group: 'nginx-vts-exporter'
 prometheus::nginx_vts_exporter::package_ensure: 'latest'
 prometheus::nginx_vts_exporter::package_name: 'nginx-vts-exporter'
 prometheus::nginx_vts_exporter::user: 'nginx-vts-exporter'
-prometheus::nginx_vts_exporter::version: '0.6'
+prometheus::nginx_vts_exporter::version: '0.10.3'
 prometheus::process_exporter::download_extension: 'tar.gz'
 prometheus::process_exporter::download_url_base: 'https://github.com/ncabatoff/process-exporter/releases'
 prometheus::process_exporter::extra_groups: []
