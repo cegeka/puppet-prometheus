@@ -2,10 +2,6 @@ require 'spec_helper_acceptance'
 
 describe 'prometheus server basics' do
   it 'prometheus server via main class works idempotently with no errors' do
-    if default[:platform] =~ %r{ubuntu-18.04-amd64}
-      pp = "package{'iproute2': ensure => present}"
-      apply_manifest(pp, catch_failures: true)
-    end
     pp = "class{'prometheus': manage_prometheus_server => true, version => '1.5.2' }"
 
     # Run it twice and test for idempotency
