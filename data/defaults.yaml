@@ -263,7 +263,7 @@ prometheus::blackbox_exporter::package_ensure: 'latest'
 prometheus::blackbox_exporter::package_name: 'blackbox_exporter'
 prometheus::blackbox_exporter::modules: {}
 prometheus::blackbox_exporter::config_file: '/etc/blackbox-exporter.yaml'
-prometheus::blackbox_exporter::version: '0.7.0'
+prometheus::blackbox_exporter::version: '0.14.0'
 prometheus::postgres_exporter::data_source_uri: 'host=/var/run/postgresql/ sslmode=disable'
 prometheus::postgres_exporter::download_extension: 'tar.gz'
 prometheus::postgres_exporter::download_url_base: 'https://github.com/wrouesnel/postgres_exporter/releases'
