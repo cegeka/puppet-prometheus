@@ -4,6 +4,91 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v7.0.0) (2019-07-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.4.0...v7.0.0)
+
+**Breaking changes:**
+
+- apache\_exporter: update 0.5.0-\>0.7.0 [\#358](https://github.com/voxpupuli/puppet-prometheus/pull/358) ([bastelfreak](https://github.com/bastelfreak))
+- varnish\_exporter: update 1.4-\>1.5 [\#356](https://github.com/voxpupuli/puppet-prometheus/pull/356) ([bastelfreak](https://github.com/bastelfreak))
+- postgres\_exporter: update 0.4.6-\>0.5.1 [\#354](https://github.com/voxpupuli/puppet-prometheus/pull/354) ([bastelfreak](https://github.com/bastelfreak))
+- blackbox\_exporter: update 0.7.0-\>0.14.0 & Add acceptance tests [\#353](https://github.com/voxpupuli/puppet-prometheus/pull/353) ([bastelfreak](https://github.com/bastelfreak))
+- statsd\_exporter: update 0.8.0-\>0.12.1 [\#352](https://github.com/voxpupuli/puppet-prometheus/pull/352) ([bastelfreak](https://github.com/bastelfreak))
+- snmp\_exporter: Update 0.7.0-\>0.15.0 & Add acceptance tests [\#351](https://github.com/voxpupuli/puppet-prometheus/pull/351) ([bastelfreak](https://github.com/bastelfreak))
+- consul\_exporter: Update 0.4.0-\>0.5.0 [\#349](https://github.com/voxpupuli/puppet-prometheus/pull/349) ([bastelfreak](https://github.com/bastelfreak))
+- mysqld\_exporter: update 0.9.0-\>0.12.0 [\#348](https://github.com/voxpupuli/puppet-prometheus/pull/348) ([bastelfreak](https://github.com/bastelfreak))
+- consul\_exporter: update 0.3.0-\>0.4.0 [\#344](https://github.com/voxpupuli/puppet-prometheus/pull/344) ([bastelfreak](https://github.com/bastelfreak))
+- nginx\_vts\_exporter: update 0.6-\>0.10.4 & Add acceptance tests [\#342](https://github.com/voxpupuli/puppet-prometheus/pull/342) ([bastelfreak](https://github.com/bastelfreak))
+- pushgateway: update 0.4.0-\>0.8.0 & enhance unit tests [\#341](https://github.com/voxpupuli/puppet-prometheus/pull/341) ([bastelfreak](https://github.com/bastelfreak))
+- process\_exporter: update 0.1.0-\>0.5.0 & add acceptance tests [\#340](https://github.com/voxpupuli/puppet-prometheus/pull/340) ([bastelfreak](https://github.com/bastelfreak))
+- haproxy\_exporter: update 0.9.0-\>0.10.0 [\#338](https://github.com/voxpupuli/puppet-prometheus/pull/338) ([bastelfreak](https://github.com/bastelfreak))
+- mesos\_exporter: update 1.0.0-\>1.1.2 & add acceptance tests [\#337](https://github.com/voxpupuli/puppet-prometheus/pull/337) ([bastelfreak](https://github.com/bastelfreak))
+- node\_exporter: update 0.16.0-\>0.18.1 [\#336](https://github.com/voxpupuli/puppet-prometheus/pull/336) ([bastelfreak](https://github.com/bastelfreak))
+- alertmanager: update 0.5.1-\>0.18.0 [\#335](https://github.com/voxpupuli/puppet-prometheus/pull/335) ([bastelfreak](https://github.com/bastelfreak))
+- prometheus: update 2.4.3-\>2.11.1 [\#334](https://github.com/voxpupuli/puppet-prometheus/pull/334) ([bastelfreak](https://github.com/bastelfreak))
+- Feature update to newest elasticsearch exporter version: 1.0.2rc1 -\> 1.1.0rc1 [\#313](https://github.com/voxpupuli/puppet-prometheus/pull/313) ([snarlistic](https://github.com/snarlistic))
+- modulesync 2.6.0 and drop Puppet 4 [\#305](https://github.com/voxpupuli/puppet-prometheus/pull/305) ([bastelfreak](https://github.com/bastelfreak))
+- remove version path splitting for process exporter [\#292](https://github.com/voxpupuli/puppet-prometheus/pull/292) ([moon-hawk](https://github.com/moon-hawk))
+- update haproxy exporter default to 0.9.0, fix options and allow unix … [\#280](https://github.com/voxpupuli/puppet-prometheus/pull/280) ([dynek](https://github.com/dynek))
+- bump prometheus version: 1.5.2-\>2.4.3 [\#276](https://github.com/voxpupuli/puppet-prometheus/pull/276) ([bastelfreak](https://github.com/bastelfreak))
+- bump node\_exporter version: 0.15.2-\>0.16.0 [\#274](https://github.com/voxpupuli/puppet-prometheus/pull/274) ([othalla](https://github.com/othalla))
+- Refactor statsd\_exporter class to support version \>= 0.5.0; bump from 0.3.0-\>0.8.0 [\#271](https://github.com/voxpupuli/puppet-prometheus/pull/271) ([wiebe](https://github.com/wiebe))
+
+**Implemented enhancements:**
+
+- Add flag for managing the config file [\#319](https://github.com/voxpupuli/puppet-prometheus/pull/319) ([bastelfreak](https://github.com/bastelfreak))
+- add ability to export/collect scrape\_jobs [\#304](https://github.com/voxpupuli/puppet-prometheus/pull/304) ([anarcat](https://github.com/anarcat))
+- Add support for the aarch64 architecture [\#300](https://github.com/voxpupuli/puppet-prometheus/pull/300) ([ralimi](https://github.com/ralimi))
+- Add `max\_open\_files` parameter for systemd systems [\#298](https://github.com/voxpupuli/puppet-prometheus/pull/298) ([alexjfisher](https://github.com/alexjfisher))
+- Add custom datasource possibilities for postgres\_exporter [\#289](https://github.com/voxpupuli/puppet-prometheus/pull/289) ([romdav00](https://github.com/romdav00))
+- Test with unix socket for scraping uri [\#286](https://github.com/voxpupuli/puppet-prometheus/pull/286) ([othalla](https://github.com/othalla))
+- Add apache exporter support [\#284](https://github.com/voxpupuli/puppet-prometheus/pull/284) ([wiebe](https://github.com/wiebe))
+- Add bin\_name override to daemon.pp [\#281](https://github.com/voxpupuli/puppet-prometheus/pull/281) ([dudemcbacon](https://github.com/dudemcbacon))
+- Add MacOS support [\#279](https://github.com/voxpupuli/puppet-prometheus/pull/279) ([hatvik](https://github.com/hatvik))
+- Add support for armv6 and amrv5 [\#278](https://github.com/voxpupuli/puppet-prometheus/pull/278) ([wiebe](https://github.com/wiebe))
+- Validate Alertmanager config [\#277](https://github.com/voxpupuli/puppet-prometheus/pull/277) ([allangood](https://github.com/allangood))
+- Allow override of extract command for archives [\#54](https://github.com/voxpupuli/puppet-prometheus/pull/54) ([atward](https://github.com/atward))
+
+**Fixed bugs:**
+
+- Pupppet sysv fails due to -log.format option [\#268](https://github.com/voxpupuli/puppet-prometheus/issues/268)
+- pushgateway: use correct CPU architecture & add acceptance tests [\#346](https://github.com/voxpupuli/puppet-prometheus/pull/346) ([bastelfreak](https://github.com/bastelfreak))
+- mesos\_exporter: add unit tests & Fix bug/typo in parameter assignment [\#339](https://github.com/voxpupuli/puppet-prometheus/pull/339) ([bastelfreak](https://github.com/bastelfreak))
+- Link the amtool only if it is installed via direct download. [\#328](https://github.com/voxpupuli/puppet-prometheus/pull/328) ([sezuan](https://github.com/sezuan))
+- issue \#306: Fix broken startup scripts [\#318](https://github.com/voxpupuli/puppet-prometheus/pull/318) ([bastelfreak](https://github.com/bastelfreak))
+- subbing out @name in stop function with an ambiguous name. [\#314](https://github.com/voxpupuli/puppet-prometheus/pull/314) ([strings48066](https://github.com/strings48066))
+- Debian daemon template: Split and escape args to avoid quotes passed as args [\#299](https://github.com/voxpupuli/puppet-prometheus/pull/299) ([ntesteca](https://github.com/ntesteca))
+- fix for CentOS6 with sysv [\#290](https://github.com/voxpupuli/puppet-prometheus/pull/290) ([spali](https://github.com/spali))
+- sysv, armv6/7 fixes [\#270](https://github.com/voxpupuli/puppet-prometheus/pull/270) ([defenestration](https://github.com/defenestration))
+
+**Closed issues:**
+
+- amtool is unconditionally linked from /opt/, even if it is installed differently. [\#327](https://github.com/voxpupuli/puppet-prometheus/issues/327)
+- Next Tag ? [\#316](https://github.com/voxpupuli/puppet-prometheus/issues/316)
+- Process-exporter sysv init stop process command not found [\#311](https://github.com/voxpupuli/puppet-prometheus/issues/311)
+- Bad formed prometheus.service  [\#306](https://github.com/voxpupuli/puppet-prometheus/issues/306)
+- apache\_exporter unable to contact apache on Debian 7 [\#296](https://github.com/voxpupuli/puppet-prometheus/issues/296)
+- Unable to force arch for installing exporter [\#265](https://github.com/voxpupuli/puppet-prometheus/issues/265)
+- Configuration of prometheus::server fails when looking up configname [\#254](https://github.com/voxpupuli/puppet-prometheus/issues/254)
+- support statsd\_exporter \>= 0.5.0 [\#248](https://github.com/voxpupuli/puppet-prometheus/issues/248)
+- Service fails to start under systemd [\#244](https://github.com/voxpupuli/puppet-prometheus/issues/244)
+- Add support for exporting/collecting \*\_exporter configs [\#126](https://github.com/voxpupuli/puppet-prometheus/issues/126)
+
+**Merged pull requests:**
+
+- Cleanup acceptance tests [\#347](https://github.com/voxpupuli/puppet-prometheus/pull/347) ([bastelfreak](https://github.com/bastelfreak))
+- Archlinux: update prometheus 2.2.0-\>2.10.0 [\#345](https://github.com/voxpupuli/puppet-prometheus/pull/345) ([bastelfreak](https://github.com/bastelfreak))
+- Add Pushprox client and proxy [\#333](https://github.com/voxpupuli/puppet-prometheus/pull/333) ([mcanevet](https://github.com/mcanevet))
+- alertmanager - Add flag for managing the config file [\#332](https://github.com/voxpupuli/puppet-prometheus/pull/332) ([daniellawrence](https://github.com/daniellawrence))
+- Make mongodb usable with newer version [\#331](https://github.com/voxpupuli/puppet-prometheus/pull/331) ([zonArt](https://github.com/zonArt))
+- prohibit empty service\_provider fact [\#330](https://github.com/voxpupuli/puppet-prometheus/pull/330) ([bastelfreak](https://github.com/bastelfreak))
+- Allow `puppetlabs/stdlib` 6.x and `puppet/archive` 4.x [\#321](https://github.com/voxpupuli/puppet-prometheus/pull/321) ([alexjfisher](https://github.com/alexjfisher))
+- Improve the code examples in the README [\#301](https://github.com/voxpupuli/puppet-prometheus/pull/301) ([natemccurdy](https://github.com/natemccurdy))
+- cleanup duplicated entries in case block [\#295](https://github.com/voxpupuli/puppet-prometheus/pull/295) ([bastelfreak](https://github.com/bastelfreak))
+- Add & refactor haproxy tests for scraping uri [\#288](https://github.com/voxpupuli/puppet-prometheus/pull/288) ([othalla](https://github.com/othalla))
+- Haproxy spec improvements [\#287](https://github.com/voxpupuli/puppet-prometheus/pull/287) ([othalla](https://github.com/othalla))
+
 ## [v6.4.0](https://github.com/voxpupuli/puppet-prometheus/tree/v6.4.0) (2018-10-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.3.0...v6.4.0)
@@ -241,7 +326,7 @@ These should not affect the functionality of the module.
 **Merged pull requests:**
 
 - release 4.1.0 [\#159](https://github.com/voxpupuli/puppet-prometheus/pull/159) ([bastelfreak](https://github.com/bastelfreak))
-- update blackbox\_exporter.pp inline documentation [\#155](https://github.com/voxpupuli/puppet-prometheus/pull/155) ([tobald](https://github.com/tobald))
+- update blackbox\_exporter.pp inline documentation [\#155](https://github.com/voxpupuli/puppet-prometheus/pull/155) ([ghost](https://github.com/ghost))
 - Ruby 1.8 compatibility \(Agent-side\) [\#146](https://github.com/voxpupuli/puppet-prometheus/pull/146) ([sathieu](https://github.com/sathieu))
 - Fail silently when service is not installed [\#145](https://github.com/voxpupuli/puppet-prometheus/pull/145) ([vladgh](https://github.com/vladgh))
 - Add support for snmp\_exporter [\#125](https://github.com/voxpupuli/puppet-prometheus/pull/125) ([sathieu](https://github.com/sathieu))
