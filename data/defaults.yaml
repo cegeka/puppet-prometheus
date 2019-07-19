@@ -252,7 +252,7 @@ prometheus::statsd_exporter::mappings: []
 prometheus::statsd_exporter::package_ensure: 'latest'
 prometheus::statsd_exporter::package_name: 'statsd_exporter'
 prometheus::statsd_exporter::user: 'statsd-exporter'
-prometheus::statsd_exporter::version: '0.8.0'
+prometheus::statsd_exporter::version: '0.12.1'
 prometheus::storage_retention: '360h' # 15d; "d" suffix is only supported with prom >= 2.*
 prometheus::blackbox_exporter::user: 'blackbox-exporter'
 prometheus::blackbox_exporter::group: 'blackbox-exporter'
