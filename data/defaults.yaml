@@ -242,7 +242,7 @@ prometheus::snmp_exporter::group: 'snmp-exporter'
 prometheus::snmp_exporter::package_ensure: 'latest'
 prometheus::snmp_exporter::package_name: 'snmp_exporter'
 prometheus::snmp_exporter::user: 'snmp-exporter'
-prometheus::snmp_exporter::version: '0.7.0'
+prometheus::snmp_exporter::version: '0.15.0'
 prometheus::statsd_exporter::download_extension: 'tar.gz'
 prometheus::statsd_exporter::download_url_base: 'https://github.com/prometheus/statsd_exporter/releases'
 prometheus::statsd_exporter::extra_groups: []
