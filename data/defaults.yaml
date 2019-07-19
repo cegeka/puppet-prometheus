@@ -273,7 +273,7 @@ prometheus::postgres_exporter::package_ensure: 'latest'
 prometheus::postgres_exporter::package_name: 'postgres_exporter'
 prometheus::postgres_exporter::postgres_auth_method: 'env'
 prometheus::postgres_exporter::user: 'postgres-exporter'
-prometheus::postgres_exporter::version: '0.4.6'
+prometheus::postgres_exporter::version: '0.5.1'
 prometheus::redis_exporter::addr:
   - 'redis://localhost:6379'
 prometheus::redis_exporter::download_extension: 'tar.gz'
