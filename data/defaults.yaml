@@ -108,7 +108,6 @@ prometheus::global_config:
   'external_labels':
     'monitor': 'master'
 prometheus::group: 'prometheus'
-prometheus::install_method: 'url'
 prometheus::localstorage: '/var/lib/prometheus'
 prometheus::manage_config: true
 prometheus::mesos_exporter::server_type: 'master'
