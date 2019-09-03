@@ -115,6 +115,7 @@ class prometheus::node_exporter (
   Boolean $export_scrape_job          = false,
   Stdlib::Port $scrape_port           = 9100,
   String[1] $scrape_job_name          = 'node',
+  Optional[String[1]] $bin_name       = undef,
 ) inherits prometheus {
 
   # Prometheus added a 'v' on the realease name at 0.13.0
@@ -172,5 +173,6 @@ class prometheus::node_exporter (
     export_scrape_job  => $export_scrape_job,
     scrape_port        => $scrape_port,
     scrape_job_name    => $scrape_job_name,
+    bin_name           => $bin_name,
   }
 }
