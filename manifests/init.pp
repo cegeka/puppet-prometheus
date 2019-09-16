@@ -161,7 +161,7 @@ class prometheus (
   Stdlib::Absolutepath $shared_dir,
   String $version,
   String $install_method,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base,
+  Prometheus::Uri $download_url_base,
   String $download_extension,
   String $package_name,
   String $package_ensure,

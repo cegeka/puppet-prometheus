@@ -132,7 +132,7 @@ class prometheus::alertmanager (
   Stdlib::Absolutepath $config_dir,
   Stdlib::Absolutepath $config_file,
   String $download_extension,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base,
+  Prometheus::Uri $download_url_base,
   Array $extra_groups,
   Hash $global,
   String $group,
