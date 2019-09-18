@@ -74,6 +74,9 @@
 #
 #  [*version*]
 #  The binary release version
+#
+#  [*env_vars*]
+#  The environment variable to pass to the daemon
 class prometheus::pushprox_client (
   String[1] $proxy_url,
   String $download_extension,
@@ -100,6 +103,7 @@ class prometheus::pushprox_client (
   String $config_mode            = $prometheus::config_mode,
   String $arch                   = $prometheus::real_arch,
   Stdlib::Absolutepath $bin_dir  = $prometheus::bin_dir,
+  Hash[String, Scalar] $env_vars = {},
 ) inherits prometheus {
 
   $real_download_url = pick($download_url,"${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
@@ -133,5 +137,6 @@ class prometheus::pushprox_client (
     service_ensure     => $service_ensure,
     service_enable     => $service_enable,
     manage_service     => $manage_service,
+    env_vars           => $env_vars,
   }
 }
