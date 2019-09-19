@@ -61,7 +61,7 @@
 #
 define prometheus::daemon (
   String $version,
-  Variant[Stdlib::HTTPSUrl, Stdlib::HTTPUrl] $real_download_url,
+  Prometheus::Uri $real_download_url,
   $notify_service,
   String $user,
   String $group,

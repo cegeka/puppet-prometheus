@@ -76,7 +76,7 @@
 #  The binary release version
 class prometheus::pushprox_proxy (
   String $download_extension,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base,
+  Prometheus::Uri $download_url_base,
   Array[String[1]] $extra_groups,
   String $group,
   String $package_ensure,

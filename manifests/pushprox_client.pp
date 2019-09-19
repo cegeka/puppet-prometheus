@@ -80,7 +80,7 @@
 class prometheus::pushprox_client (
   String[1] $proxy_url,
   String $download_extension,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base,
+  Prometheus::Uri $download_url_base,
   Array[String[1]] $extra_groups,
   String $group,
   String $package_ensure,

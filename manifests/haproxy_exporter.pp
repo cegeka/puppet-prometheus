@@ -81,7 +81,7 @@ class prometheus::haproxy_exporter(
   String $package_name,
   String $user,
   String $version,
-  Stdlib::HTTPUrl $download_url_base,
+  Prometheus::Uri $download_url_base,
   Boolean $purge_config_dir      = true,
   Boolean $restart_on_change     = true,
   Boolean $service_enable        = true,

@@ -9,7 +9,7 @@ class prometheus::server (
   Stdlib::Absolutepath $shared_dir                                              = $prometheus::shared_dir,
   String $version                                                               = $prometheus::version,
   String $install_method                                                        = $prometheus::install_method,
-  Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl] $download_url_base                 = $prometheus::download_url_base,
+  Prometheus::Uri $download_url_base                                            = $prometheus::download_url_base,
   String $download_extension                                                    = $prometheus::download_extension,
   String $package_name                                                          = $prometheus::package_name,
   String $package_ensure                                                        = $prometheus::package_ensure,
