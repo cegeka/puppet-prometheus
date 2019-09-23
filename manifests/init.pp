@@ -146,6 +146,10 @@
 #  Defaults to `undef`, but set to a large integer to override your default OS limit.
 #  Currently only implemented for systemd based service.
 #
+#  [*usershell*]
+#  if requested, we create a user for prometheus or the exporters. The default
+#  shell is nologin. It can be overwritten to any valid path.
+#
 # Actions:
 #
 # Requires: see Modulefile
@@ -193,6 +197,7 @@ class prometheus (
   Boolean $manage_user,
   Optional[String[1]] $extract_command,
   Boolean $manage_config,
+  Stdlib::Absolutepath $usershell,
   Hash $extra_alerts    = {},
   Hash $config_hash     = {},
   Hash $config_defaults = {},

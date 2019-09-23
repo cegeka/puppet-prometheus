@@ -89,6 +89,7 @@ define prometheus::daemon (
   Stdlib::Host $scrape_host            = $facts['fqdn'],
   Optional[Stdlib::Port] $scrape_port  = undef,
   String[1] $scrape_job_name           = $name,
+  Stdlib::Absolutepath $usershell      = $prometheus::usershell,
 ) {
 
   case $install_method {
@@ -148,6 +149,7 @@ define prometheus::daemon (
       ensure => 'present',
       system => true,
       groups => $extra_groups,
+      shell  => $usershell,
     })
 
     if $manage_group {
