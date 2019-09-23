@@ -72,6 +72,7 @@ class prometheus::install {
       ensure => 'present',
       system => true,
       groups => $prometheus::server::extra_groups,
+      shell  => $prometheus::server::usershell,
     })
 
     if $prometheus::server::manage_group {

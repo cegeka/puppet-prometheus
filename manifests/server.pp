@@ -45,6 +45,7 @@ class prometheus::server (
   Boolean $manage_config                                                        = $prometheus::manage_config,
   Optional[Variant[Stdlib::HTTPurl, Stdlib::Unixpath, String[1]]] $external_url = $prometheus::external_url,
   Optional[Array[Hash[String[1], Any]]] $collect_scrape_jobs                    = $prometheus::collect_scrape_jobs,
+  Stdlib::Absolutepath $usershell                                               = $prometheus::usershell,
 ) inherits prometheus {
 
   if( versioncmp($version, '1.0.0') == -1 ){
