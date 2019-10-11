@@ -134,6 +134,7 @@ define prometheus::daemon (
     'package': {
       package { $package_name:
         ensure => $package_ensure,
+        notify => $notify_service,
       }
       if $manage_user {
         User[$user] -> Package[$package_name]
