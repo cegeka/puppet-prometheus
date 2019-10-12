@@ -149,6 +149,148 @@
 #  [*usershell*]
 #  if requested, we create a user for prometheus or the exporters. The default
 #  shell is nologin. It can be overwritten to any valid path.
+#  
+#  CLI ==========================================================
+#  The following parameters represent system parameters invoked as command-line flags
+#  during prometheus startup. Defaults are handled by Prometheus.
+#  
+#  [*web_listen_address*]
+#  --web.listen-address="0.0.0.0:9090"
+#  Address to listen on for UI, API, and telemetry.
+#
+#  [*web_read_timeout*]
+#  --web.read-timeout=5m
+#  Maximum duration before timing out read of the request, and closing idle connections.
+#
+#  [*web_max_connections*]
+#  --web.max-connections=512
+#  Maximum number of simultaneous connections.
+#
+#  [*web_route_prefix*]
+#  --web.route-prefix=<path>
+#  Prefix for the internal routes of web endpoints. Defaults to path of --web.external-url.
+#
+#  [*web_user_assets*]
+#  --web.user-assets=<path>
+#  Path to static asset directory, available at /user.
+#
+#  [*web_enable_lifecycle*]
+#  --web.enable-lifecycle
+#  Enable shutdown and reload via HTTP request
+#
+#  [*web_enable_admin_api*]
+#  --web.enable-admin-api
+#  Enable API endpoints for admin control actions.
+#
+#  [*web_page_title*]
+#  --web.page-title="Prometheus Time Series Collection and Processing Server"
+#  Document title of Prometheus instance.
+#
+#  [*web_cors_origin*]
+#  --web.cors.origin=".*"
+#  Regex for CORS origin. It is fully anchored. Example: 'https?://(domain1|domain2)\.com'
+#
+#  [*storage_retention_size*]
+#  --storage.tsdb.retention.size=STORAGE.TSDB.RETENTION.SIZE
+#  [EXPERIMENTAL] Maximum number of bytes that can be stored for blocks. Units supported: KB,
+#  MB, GB, TB, PB. This flag is experimental and can be changed in future releases.
+#
+#  [*storage_no_lockfile*]
+#  --storage.tsdb.no-lockfile
+#  Do not create lockfile in data directory.
+#
+#  [*storage_allow_overlapping_blocks*]
+#  --storage.tsdb.allow-overlapping-blocks
+#  [EXPERIMENTAL] Allow overlapping blocks, which in turn enables vertical compaction and
+#  vertical query merge.
+#
+#  [*storage_wal_compression*]
+#  --storage.tsdb.wal-compression
+#  Compress the tsdb WAL.
+#
+#  [*storage_flush_deadline*]
+#  --storage.remote.flush-deadline=<duration>
+#  How long to wait flushing sample on shutdown or config reload.
+#
+#  [*storage_read_sample_limit*]
+#  --storage.remote.read-sample-limit=5e7
+#  Maximum overall number of samples to return via the remote read interface, in a single
+#  query. 0 means no limit. This limit is ignored for streamed response types.
+#
+#  [*storage_read_concurrent_limit*]
+#  --storage.remote.read-concurrent-limit=10
+#  Maximum number of concurrent remote read calls. 0 means no limit.
+#
+#  [*storage_read_max_bytes_in_frame*]
+#  --storage.remote.read-max-bytes-in-frame=1048576
+#  Maximum number of bytes in a single frame for streaming remote read response types before
+#  marshalling. Note that client might have limit on frame size as well. 1MB as recommended
+#  by protobuf by default.
+#
+#  [*alert_for_outage_tolerance*]
+#  --rules.alert.for-outage-tolerance=1h
+#  Max time to tolerate prometheus outage for restoring "for" state of alert.
+#
+#  [*alert_for_grace_period*]
+#  --rules.alert.for-grace-period=10m
+#  Minimum duration between alert and restored "for" state. This is maintained only for
+#  alerts with configured "for" time greater than grace period.
+#
+#  [*alert_resend_delay*]
+#  --rules.alert.resend-delay=1m
+#  Minimum amount of time to wait before resending an alert to Alertmanager.
+#
+#  [*alertmanager_notification_queue_capacity*]
+#  --alertmanager.notification-queue-capacity=10000
+#  The capacity of the queue for pending Alertmanager notifications.
+#
+#  [*alertmanager_timeout*]
+#  --alertmanager.timeout=10s
+#  Timeout for sending alerts to Alertmanager.
+#
+#  [*alertmanager_url*]
+#  [REMOVED, v1 ONLY] -alertmanager.url
+#  Comma-separated list of Alertmanager URLs to send notifications to.
+#  In Prometheus v2, Alertmanager must be discovered via service discovery
+#
+#  [*query_lookback_delta*]
+#  --query.lookback-delta=5m
+#  The maximum lookback duration for retrieving metrics during expression evaluations.
+#
+#  [*query_timeout*]
+#  --query.timeout=2m
+#  Maximum time a query may take before being aborted.
+#
+#  [*query_max_concurrency*]
+#  --query.max-concurrency=20
+#  Maximum number of queries executed concurrently.
+#
+#  [*query_max_samples*]
+#  --query.max-samples=50000000
+#  Maximum number of samples a single query can load into memory. Note that queries will fail
+#  if they try to load more samples than this into memory, so this also limits the number of
+#  samples a query can return.
+#
+#  [*query_staleness_delta*]
+#  [REMOVED, v1 ONLY] -query.staleness-delta=5m0s
+#  Staleness delta allowance during expression evaluations.
+#
+#  [*web_telemetry_path*]
+#  [REMOVED, v1 ONLY] -web.telemetry-path="/metrics"
+#  Path under which to expose metrics
+#
+#  [*web_enable_remote_shutdown*] 
+#  [REMOVED, v1 ONLY] -web.enable-remote-shutdown=false
+#  Enable remote service shutdown.
+#
+#  [*log_level*]
+#  --log.level=info
+#  Only log messages with the given severity or above. One of: [debug, info, warn, error]
+#  Value of 'fatal' is also allowed in prometheus v1
+#
+#  [*log_format*]
+#  --log.format=logfmt
+#  Output format of log messages. One of: [logfmt, json]
 #
 # Actions:
 #
@@ -198,13 +340,45 @@ class prometheus (
   Optional[String[1]] $extract_command,
   Boolean $manage_config,
   Stdlib::Absolutepath $usershell,
-  Hash $extra_alerts    = {},
-  Hash $config_hash     = {},
-  Hash $config_defaults = {},
-  String $os            = downcase($facts['kernel']),
+  Optional[String[1]] $web_listen_address                                       = undef,
+  Optional[String[1]] $web_read_timeout                                         = undef,
+  Optional[String[1]] $web_max_connections                                      = undef,
+  Optional[String[1]] $web_route_prefix                                         = undef,
+  Optional[String[1]] $web_user_assets                                          = undef,
+  Boolean $web_enable_lifecycle                                                 = false,
+  Boolean $web_enable_admin_api                                                 = false,
+  Optional[String[1]] $web_page_title                                           = undef,
+  Optional[String[1]] $web_cors_origin                                          = undef,
+  Optional[String[1]] $storage_retention_size                                   = undef,
+  Boolean $storage_no_lockfile                                                  = false,
+  Boolean $storage_allow_overlapping_blocks                                     = false,
+  Boolean $storage_wal_compression                                              = false,
+  Optional[String[1]] $storage_flush_deadline                                   = undef,
+  Optional[String[1]] $storage_read_sample_limit                                = undef,
+  Optional[String[1]] $storage_read_concurrent_limit                            = undef,
+  Optional[String[1]] $storage_read_max_bytes_in_frame                          = undef,
+  Optional[String[1]] $alert_for_outage_tolerance                               = undef,
+  Optional[String[1]] $alert_for_grace_period                                   = undef,
+  Optional[String[1]] $alert_resend_delay                                       = undef,
+  Optional[String[1]] $alertmanager_notification_queue_capacity                 = undef,
+  Optional[String[1]] $alertmanager_timeout                                     = undef,
+  Optional[String[1]] $alertmanager_url                                         = undef, #v1 only
+  Optional[String[1]] $query_lookback_delta                                     = undef,
+  Optional[String[1]] $query_timeout                                            = undef,
+  Optional[String[1]] $query_max_concurrency                                    = undef,
+  Optional[String[1]] $query_max_samples                                        = undef,
+  Optional[String[1]] $query_staleness_delta                                    = undef, #v1 only
+  Optional[String[1]] $web_telemetry_path                                       = undef, #v1 only
+  Boolean $web_enable_remote_shutdown                                           = false, #v1 only
+  Optional[Enum['debug', 'info', 'warn', 'error', 'fatal']] $log_level          = undef,
+  Optional[Enum['logfmt', 'json']] $log_format                                  = undef,
+  Hash $extra_alerts                                                            = {},
+  Hash $config_hash                                                             = {},
+  Hash $config_defaults                                                         = {},
+  String $os                                                                    = downcase($facts['kernel']),
   Optional[Variant[Stdlib::HTTPUrl, Stdlib::Unixpath, String[1]]] $external_url = undef,
-  Optional[Array[Hash[String[1], Any]]] $collect_scrape_jobs = [],
-  Optional[Integer] $max_open_files = undef,
+  Optional[Array[Hash[String[1], Any]]] $collect_scrape_jobs                    = [],
+  Optional[Integer] $max_open_files                                             = undef,
 ) {
 
   case $arch {

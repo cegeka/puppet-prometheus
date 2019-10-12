@@ -119,7 +119,9 @@ describe 'prometheus' do
           elsif ['centos-7-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'archlinux-5-x86_64'].include?(os)
             # init_style = 'systemd'
 
-            it { is_expected.to contain_class('systemd') }
+            it {
+              is_expected.to contain_class('systemd')
+            }
 
             it {
               is_expected.to contain_systemd__unit_file('prometheus.service').with(
@@ -323,6 +325,173 @@ describe 'prometheus' do
 
             it {
               is_expected.not_to contain_file('/etc/prometheus/prometheus.yaml')
+            }
+          end
+        end
+      end
+      context 'command-line flags' do
+        context 'prometheus v2' do
+          version = '2.13.0'
+          context 'with all valid params' do
+            let(:params) do
+              {
+                manage_prometheus_server: true,
+                version: version,
+                init_style: 'systemd',
+                bin_dir: '/usr/local/bin',
+                config_dir: '/etc/prometheus',
+                configname: 'prometheus_123.yaml',
+                shared_dir: '/opt/prometheus',
+                external_url: 'https://prometheus.reverse-proxy.company.systems',
+                web_listen_address: '127.0.0.1:9099',
+                web_read_timeout: '2m',
+                web_max_connections: '256',
+                web_route_prefix: 'internal',
+                web_user_assets: 'static',
+                web_enable_lifecycle: true,
+                web_enable_admin_api: true,
+                web_page_title: 'My Company Prometheus',
+                web_cors_origin: 'https?://(domain1|domain2)\.com',
+                localstorage: '/opt/prometheus/data/',
+                storage_retention: '14d',
+                storage_retention_size: '50GB',
+                storage_no_lockfile: true,
+                storage_allow_overlapping_blocks: true,
+                storage_wal_compression: true,
+                storage_flush_deadline: '5m',
+                storage_read_sample_limit: '5e8',
+                storage_read_concurrent_limit: '8',
+                storage_read_max_bytes_in_frame: '1000000',
+                alert_for_outage_tolerance: '25m',
+                alert_for_grace_period: '3m',
+                alert_resend_delay: '2m',
+                alertmanager_notification_queue_capacity: '10000',
+                alertmanager_timeout: '10s',
+                query_lookback_delta: '5m',
+                query_timeout: '2m',
+                query_max_concurrency: '30',
+                query_max_samples: '10000000',
+                log_level: 'info',
+                log_format: 'json'
+              }
+            end
+
+            it {
+              is_expected.to contain_file('/etc/systemd/system/prometheus.service').with(
+                'ensure'  => 'file',
+                'mode'    => '0444',
+                'owner'   => 'root',
+                'group'   => 'root',
+                'content' => File.read(fixtures('files/cli', 'prometheus2_all.systemd'))
+              )
+            }
+          end
+          context 'with extra args write-in' do
+            let(:params) do
+              {
+                manage_prometheus_server: true,
+                version: version,
+                init_style: 'systemd',
+                bin_dir: '/usr/local/bin',
+                extra_options: '--web.enable-admin-api'
+              }
+            end
+
+            it {
+              is_expected.to contain_file('/etc/systemd/system/prometheus.service').with(
+                'ensure'  => 'file',
+                'mode'    => '0444',
+                'owner'   => 'root',
+                'group'   => 'root',
+                'content' => File.read(fixtures('files/cli', 'prometheus2_extra.systemd'))
+              )
+            }
+          end
+        end
+        context 'prometheus v2.6' do
+          context 'with storage retention time' do
+            let(:params) do
+              {
+                manage_prometheus_server: true,
+                version: '2.6.0',
+                init_style: 'systemd',
+                bin_dir: '/usr/local/bin',
+                storage_retention: '14d'
+              }
+            end
+
+            it {
+              is_expected.to contain_file('/etc/systemd/system/prometheus.service').with(
+                'ensure'  => 'file',
+                'mode'    => '0444',
+                'owner'   => 'root',
+                'group'   => 'root',
+                'content' => File.read(fixtures('files/cli', 'prometheus2_6_retention.systemd'))
+              )
+            }
+          end
+        end
+        context 'prometheus v1' do
+          version = '1.7.0'
+          context 'with extra args write-in' do
+            let(:params) do
+              {
+                manage_prometheus_server: true,
+                version: version,
+                init_style: 'systemd',
+                bin_dir: '/usr/local/bin',
+                extra_options: '-web.telemetry-path=/metrics'
+              }
+            end
+
+            it {
+              is_expected.to contain_file('/etc/systemd/system/prometheus.service').with(
+                'ensure'  => 'file',
+                'mode'    => '0444',
+                'owner'   => 'root',
+                'group'   => 'root',
+                'content' => File.read(fixtures('files/cli', 'prometheus1_extra.systemd'))
+              )
+            }
+          end
+          context 'with all valid params' do
+            let(:params) do
+              {
+                manage_prometheus_server: true,
+                version: version,
+                init_style: 'systemd',
+                bin_dir: '/usr/local/bin',
+                config_dir: '/etc/prometheus',
+                configname: 'prometheus_123.yaml',
+                shared_dir: '/opt/prometheus',
+                external_url: 'https://prometheus.reverse-proxy.company.systems',
+                web_listen_address: '127.0.0.1:9099',
+                web_read_timeout: '2m',
+                web_max_connections: '256',
+                web_route_prefix: 'internal',
+                web_user_assets: 'static',
+                web_telemetry_path: '/telemetry',
+                web_enable_remote_shutdown: true,
+                localstorage: '/opt/prometheus/data/',
+                storage_retention: '14d',
+                alertmanager_notification_queue_capacity: '10000',
+                alertmanager_timeout: '10s',
+                alertmanager_url: 'https://alertmanager.company.systems',
+                query_timeout: '2m',
+                query_max_concurrency: '30',
+                query_staleness_delta: '5m',
+                log_level: 'fatal'
+              }
+            end
+
+            it {
+              is_expected.to contain_file('/etc/systemd/system/prometheus.service').with(
+                'ensure'  => 'file',
+                'mode'    => '0444',
+                'owner'   => 'root',
+                'group'   => 'root',
+                'content' => File.read(fixtures('files/cli', 'prometheus1_all.systemd'))
+              )
             }
           end
         end

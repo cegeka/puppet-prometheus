@@ -12,7 +12,8 @@ ExecStart=/usr/local/bin/prometheus \
   --web.console.templates=/usr/local/share/prometheus/consoles \
   --web.console.libraries=/usr/local/share/prometheus/console_libraries \
   --storage.tsdb.path=/var/lib/prometheus \
-  --storage.tsdb.retention=360h
+  --storage.tsdb.retention.time=360h \
+  --web.enable-admin-api
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=always
