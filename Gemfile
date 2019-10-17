@@ -52,7 +52,7 @@ group :system_tests do
     gem 'beaker-rspec',  :require => false
   end
   gem 'serverspec',                         :require => false
-  gem 'beaker-hostgenerator', '>= 1.1.42',  :require => false
+  gem 'beaker-hostgenerator',               :require => false, :git => 'https://github.com/puppetlabs/beaker-hostgenerator.git', :branch => 'master'
   gem 'beaker-docker',                      :require => false, :git => 'https://github.com/puppetlabs/beaker-docker.git', :branch => 'master'
   gem 'beaker-puppet',                      :require => false
   gem 'beaker-puppet_install_helper',       :require => false
