@@ -23,6 +23,8 @@ def os_specific_facts(facts)
       { service_provider: 'sysv' }
     when '7'
       { service_provider: 'systemd' }
+    when '8'
+      { service_provider: 'systemd' }
     end
   end
 end
