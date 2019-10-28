@@ -52,10 +52,10 @@ start() {
         daemon --user=prometheus \
             --pidfile="$PID_FILE" \
             "$DAEMON" -log.format logger:stdout -config.file=/etc/prometheus/prometheus.yaml \
-            -storage.local.path=/var/lib/prometheus \
-            -storage.local.retention=360h \
             -web.console.templates=/usr/local/share/prometheus/consoles \
             -web.console.libraries=/usr/local/share/prometheus/console_libraries \
+            -storage.local.path=/var/lib/prometheus \
+            -storage.local.retention=360h \
              >> "$LOG_FILE" &
         retcode=$?
         mkpidfile

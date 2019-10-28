@@ -23,10 +23,10 @@ script
 
     export GOMAXPROCS=${GOMAXPROCS:-2}
     exec start-stop-daemon --chuid $USER $GROUP --pidfile $PID_FILE --exec $PROMETHEUS --start -- -config.file=/etc/prometheus/prometheus.yaml \
-      -storage.local.path=/var/lib/prometheus \
-      -storage.local.retention=360h \
       -web.console.templates=/usr/local/share/prometheus/consoles \
       -web.console.libraries=/usr/local/share/prometheus/console_libraries \
+      -storage.local.path=/var/lib/prometheus \
+      -storage.local.retention=360h \
       
 end script
 
