@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v7.1.0) (2019-11-05)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v7.0.0...v7.1.0)
+
+**Implemented enhancements:**
+
+- Change Prometheus port [\#52](https://github.com/voxpupuli/puppet-prometheus/issues/52)
+- Addd RHEL8 support / disable timesync for docker images [\#378](https://github.com/voxpupuli/puppet-prometheus/pull/378) ([bastelfreak](https://github.com/bastelfreak))
+- Add prom command line args and validation [\#377](https://github.com/voxpupuli/puppet-prometheus/pull/377) ([hooten](https://github.com/hooten))
+- exporters: set /usr/bin/nologin as shell [\#372](https://github.com/voxpupuli/puppet-prometheus/pull/372) ([bastelfreak](https://github.com/bastelfreak))
+- Expose env\_vars to prometheus::pushprox\_client class [\#369](https://github.com/voxpupuli/puppet-prometheus/pull/369) ([mcanevet](https://github.com/mcanevet))
+- Allow s3 sources for download uris [\#368](https://github.com/voxpupuli/puppet-prometheus/pull/368) ([hooten](https://github.com/hooten))
+- Make elasticsearch usable with older version [\#364](https://github.com/voxpupuli/puppet-prometheus/pull/364) ([zonArt](https://github.com/zonArt))
+- Archlinux: support node\_exporter installation as package [\#362](https://github.com/voxpupuli/puppet-prometheus/pull/362) ([bastelfreak](https://github.com/bastelfreak))
+- make config files readonly to daemons [\#324](https://github.com/voxpupuli/puppet-prometheus/pull/324) ([anarcat](https://github.com/anarcat))
+
+**Fixed bugs:**
+
+- Archlinux: Do not manage node\_exporter group/user [\#373](https://github.com/voxpupuli/puppet-prometheus/pull/373) ([bastelfreak](https://github.com/bastelfreak))
+- user/group: prohibit empty strings [\#371](https://github.com/voxpupuli/puppet-prometheus/pull/371) ([bastelfreak](https://github.com/bastelfreak))
+- Archlinux: set correct binary name for node\_exporter [\#365](https://github.com/voxpupuli/puppet-prometheus/pull/365) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- `ensure =\> 'absent'` doesn't do what it should do [\#374](https://github.com/voxpupuli/puppet-prometheus/issues/374)
+- Add a "config\_template" for alertmanager [\#315](https://github.com/voxpupuli/puppet-prometheus/issues/315)
+
+**Merged pull requests:**
+
+- Clean up acceptance spec helper [\#379](https://github.com/voxpupuli/puppet-prometheus/pull/379) ([ekohl](https://github.com/ekohl))
+- fix duplicate key in data/defaults.yaml [\#360](https://github.com/voxpupuli/puppet-prometheus/pull/360) ([tkuther](https://github.com/tkuther))
+
 ## [v7.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v7.0.0) (2019-07-19)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v6.4.0...v7.0.0)
