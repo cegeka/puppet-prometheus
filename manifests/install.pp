@@ -57,6 +57,7 @@ class prometheus::install {
     'package': {
       package { $prometheus::server::package_name:
         ensure => $prometheus::server::package_ensure,
+        notify => $prometheus::server::notify_service,
       }
       if $prometheus::server::manage_user {
         User[$prometheus::server::user] -> Package[$prometheus::server::package_name]
