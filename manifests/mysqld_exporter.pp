@@ -92,10 +92,11 @@
 
 class prometheus::mysqld_exporter (
   Stdlib::Absolutepath $cnf_config_path,
-  String $cnf_host,
-  String $cnf_password,
+  Stdlib::Host $cnf_host,
   Stdlib::Port $cnf_port,
+  Variant[Sensitive[String],String] $cnf_password,
   String $cnf_user,
+  Optional[Stdlib::Absolutepath] $cnf_socket = undef,
   String $download_extension,
   Prometheus::Uri $download_url_base,
   Array $extra_groups,
@@ -117,7 +118,6 @@ class prometheus::mysqld_exporter (
   String $extra_options                      = '',
   Optional[Prometheus::Uri] $download_url    = undef,
   String $config_mode                        = $prometheus::config_mode,
-  Optional[Stdlib::Absolutepath] $cnf_socket = undef,
   String $arch                               = $prometheus::real_arch,
   Stdlib::Absolutepath $bin_dir              = $prometheus::bin_dir,
   Boolean $export_scrape_job                 = false,
@@ -126,18 +126,29 @@ class prometheus::mysqld_exporter (
 ) inherits prometheus {
 
   #Please provide the download_url for versions < 0.9.0
-  $real_download_url    = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
+  $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {
     true    => Service['mysqld_exporter'],
     default => undef,
   }
 
   file { $cnf_config_path:
-    ensure  => 'file',
+    ensure  => file,
     mode    => $config_mode,
     owner   => $user,
     group   => $group,
-    content => template('prometheus/my.cnf.erb'),
+    content => Sensitive(
+      epp(
+        'prometheus/my.cnf.epp',
+        {
+          'cnf_user'     => $cnf_user,
+          'cnf_password' => $cnf_password,
+          'cnf_port'     => $cnf_port,
+          'cnf_host'     => $cnf_host,
+          'cnf_socket'   => $cnf_socket,
+        },
+      )
+    ),
     notify  => $notify_service,
   }
 

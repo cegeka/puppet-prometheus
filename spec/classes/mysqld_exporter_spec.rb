@@ -24,6 +24,19 @@ describe 'prometheus::mysqld_exporter' do
           it { is_expected.to contain_prometheus__daemon('mysqld_exporter').with('options' => '-config.my-cnf=/etc/.my.cnf ') }
         end
       end
+
+      context 'with Sensitive password' do
+        let(:params) do
+          {
+            cnf_password: RSpec::Puppet::RawString.new("Sensitive('secret')")
+          }
+        end
+
+        it do
+          content = catalogue.resource('file', '/etc/.my.cnf').send(:parameters)[:content]
+          expect(content).to include('secret')
+        end
+      end
     end
   end
 end
