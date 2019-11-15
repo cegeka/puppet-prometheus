@@ -1,31 +1,26 @@
-# Class: prometheus::mysqld_exporter
+# @summary manages prometheus mysqld_exporter
 #
-# This module manages prometheus mysqld_exporter
+# @see https://github.com/prometheus/mysqld_exporter
 #
-# Parameters:
+# @param cnf_config_path
+#  The path to put the my.cnf file
+# @param cnf_host
+#  The mysql host.
+# @param cnf_password
+#  The mysql user password.
+# @param cnf_port
+#  The port for which the mysql host is running.
+# @param cnf_socket
+#  The socket which the mysql host is running. If defined, host and port are not used.
+# @param cnf_user
+#  The mysql user to use when connecting.
+#
+# Other parameters: (TODO: Convert to puppet strings)
 #  [*arch*]
 #  Architecture (amd64 or i386)
 #
 #  [*bin_dir*]
 #  Directory where binaries are located
-#
-#  [*cnf_config_path*]
-#  The path to put the my.cnf file
-#
-#  [*cnf_host*]
-#  The mysql host. Defaults to 'localhost'
-#
-#  [*cnf_password*]
-#  The mysql user password. Defaults to 'password'
-#
-#  [*cnf_port*]
-#  The port for which the mysql host is running. Defaults to 3306
-#
-#  [*cnf_socket*]
-#  The socket which the mysql host is running. If defined, host and port are not used.
-#
-#  [*cnf_user*]
-#  The mysql user to use when connecting. Defaults to 'login'
 #
 #  [*config_mode*]
 #  The permissions of the configuration files
@@ -91,12 +86,6 @@
 #  The binary release version
 
 class prometheus::mysqld_exporter (
-  Stdlib::Absolutepath $cnf_config_path,
-  Stdlib::Host $cnf_host,
-  Stdlib::Port $cnf_port,
-  Variant[Sensitive[String],String] $cnf_password,
-  String $cnf_user,
-  Optional[Stdlib::Absolutepath] $cnf_socket = undef,
   String $download_extension,
   Prometheus::Uri $download_url_base,
   Array $extra_groups,
@@ -105,6 +94,14 @@ class prometheus::mysqld_exporter (
   String $package_name,
   String $user,
   String $version,
+
+  Stdlib::Absolutepath              $cnf_config_path = '/etc/.my.cnf',
+  Stdlib::Host                      $cnf_host        = localhost,
+  Stdlib::Port                      $cnf_port        = 3306,
+  String[1]                         $cnf_user        = login,
+  Variant[Sensitive[String],String] $cnf_password    = 'password',
+  Optional[Stdlib::Absolutepath]    $cnf_socket      = undef,
+
   Boolean $purge_config_dir                  = true,
   Boolean $restart_on_change                 = true,
   Boolean $service_enable                    = true,
