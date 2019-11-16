@@ -236,9 +236,43 @@ describe 'prometheus::daemon' do
             subject { exported_resources }
 
             it {
-              is_expected.to contain_prometheus__scrape_job('localhost:1234')
+              is_expected.to contain_prometheus__scrape_job('localhost:1234').with(
+                'labels' => {
+                  'alias' => 'localhost'
+                }
+              )
             }
           end
+        end
+      end
+      context 'with scrape_job_labels specified' do
+        let(:params) do
+          {
+            version:           '1.2.3',
+            real_download_url: 'https://github.com/prometheus/smurf_exporter/releases/v1.2.3/smurf_exporter-1.2.3.any.tar.gz',
+            notify_service:    'Service[smurf_exporter]',
+            user:              'smurf_user',
+            group:             'smurf_group',
+            env_vars:          { SOMEVAR: 42 },
+            bin_dir:           '/usr/local/bin',
+            install_method:    'url',
+            export_scrape_job: true,
+            scrape_host:       'localhost',
+            scrape_port:       1234,
+            scrape_job_labels: { 'instance' => 'smurf1' }
+          }
+        end
+
+        context 'exported resources' do
+          subject { exported_resources }
+
+          it {
+            is_expected.to contain_prometheus__scrape_job('localhost:1234').with(
+              'labels' => {
+                'instance' => 'smurf1'
+              }
+            )
+          }
         end
       end
     end

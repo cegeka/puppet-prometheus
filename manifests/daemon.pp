@@ -89,6 +89,7 @@ define prometheus::daemon (
   Stdlib::Host $scrape_host            = $facts['fqdn'],
   Optional[Stdlib::Port] $scrape_port  = undef,
   String[1] $scrape_job_name           = $name,
+  Hash $scrape_job_labels              = { 'alias' => $scrape_host },
   Stdlib::Absolutepath $usershell      = $prometheus::usershell,
 ) {
 
@@ -121,14 +122,14 @@ define prometheus::daemon (
         }
       }
       file { "/opt/${name}-${version}.${os}-${arch}/${name}":
-          owner => 'root',
-          group => 0, # 0 instead of root because OS X uses "wheel".
-          mode  => '0555',
+        owner => 'root',
+        group => 0, # 0 instead of root because OS X uses "wheel".
+        mode  => '0555',
       }
       -> file { "${bin_dir}/${name}":
-          ensure => link,
-          notify => $notify_service,
-          target => "/opt/${name}-${version}.${os}-${arch}/${name}",
+        ensure => link,
+        notify => $notify_service,
+        target => "/opt/${name}-${version}.${os}-${arch}/${name}",
       }
     }
     'package': {
@@ -269,7 +270,7 @@ define prometheus::daemon (
     @@prometheus::scrape_job { "${scrape_host}:${scrape_port}":
       job_name => $scrape_job_name,
       targets  => ["${scrape_host}:${scrape_port}"],
-      labels   => { 'alias' => $scrape_host },
+      labels   => $scrape_job_labels,
     }
   }
 }
