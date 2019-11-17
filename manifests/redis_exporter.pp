@@ -124,40 +124,45 @@ class prometheus::redis_exporter (
   $options = "-redis.addr=${str_addresses} -namespace=${namespace} ${extra_options}"
 
   if $install_method == 'url' {
-    # Not a big fan of copypasting but prometheus::daemon takes for granted
-    # a specific path embedded in the prometheus *_exporter tarball, which
-    # redis_exporter lacks.
-    # TODO: patch prometheus::daemon to support custom extract directories
-    $exporter_install_method = 'none'
-    $install_dir = "/opt/${service_name}-${version}.${os}-${arch}"
-    file { $install_dir:
-      ensure => 'directory',
-      owner  => 'root',
-      group  => 0, # 0 instead of root because OS X uses "wheel".
-      mode   => '0555',
-    }
-    -> archive { "/tmp/${service_name}-${version}.${download_extension}":
-      ensure          => present,
-      extract         => true,
-      extract_path    => $install_dir,
-      source          => $real_download_url,
-      checksum_verify => false,
-      creates         => "${install_dir}/${service_name}",
-      cleanup         => true,
-    }
-    -> file { "${bin_dir}/${service_name}":
-      ensure => link,
-      notify => $notify_service,
-      target => "${install_dir}/${service_name}",
-      before => Prometheus::Daemon[$service_name],
+    if versioncmp($version, '1.0.0') >= 0 {
+      # From version 1.0.0 the tarball format changed to be consistent with most other exporters
+      $real_install_method = $install_method
+    } else {
+      # Not a big fan of copypasting but prometheus::daemon takes for granted
+      # a specific path embedded in the prometheus *_exporter tarball, which
+      # redis_exporter lacks before version 1.0.0
+      # TODO: patch prometheus::daemon to support custom extract directories
+      $real_install_method = 'none'
+      $install_dir = "/opt/${service_name}-${version}.${os}-${arch}"
+      file { $install_dir:
+        ensure => 'directory',
+        owner  => 'root',
+        group  => 0, # 0 instead of root because OS X uses "wheel".
+        mode   => '0555',
+      }
+      -> archive { "/tmp/${service_name}-${version}.${download_extension}":
+        ensure          => present,
+        extract         => true,
+        extract_path    => $install_dir,
+        source          => $real_download_url,
+        checksum_verify => false,
+        creates         => "${install_dir}/${service_name}",
+        cleanup         => true,
+      }
+      -> file { "${bin_dir}/${service_name}":
+        ensure => link,
+        notify => $notify_service,
+        target => "${install_dir}/${service_name}",
+        before => Prometheus::Daemon[$service_name],
+      }
     }
   } else {
-    $exporter_install_method = $install_method
+    $real_install_method = $install_method
   }
 
   prometheus::daemon { $service_name:
-    install_method     => $exporter_install_method,
-    version            => $version,
+    install_method     => $real_install_method,
+    version            => $release,
     download_extension => $download_extension,
     os                 => $os,
     arch               => $arch,
