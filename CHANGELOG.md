@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.0.0) (2019-11-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v7.1.0...v8.0.0)
+
+**Breaking changes:**
+
+- Update default Prometheus version from 2.11.1 to 2.14.0 [\#392](https://github.com/voxpupuli/puppet-prometheus/pull/392) ([bastelfreak](https://github.com/bastelfreak))
+- Update default redis\_exporter version to 1.3.4 [\#391](https://github.com/voxpupuli/puppet-prometheus/pull/391) ([alexjfisher](https://github.com/alexjfisher))
+- drop Ubuntu 14.04 support [\#384](https://github.com/voxpupuli/puppet-prometheus/pull/384) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add `scrape_job_labels` parameter to exporters [\#388](https://github.com/voxpupuli/puppet-prometheus/pull/388) ([alexjfisher](https://github.com/alexjfisher))
+- Support redis\_exporter version \>= 1.0.0 [\#387](https://github.com/voxpupuli/puppet-prometheus/pull/387) ([alexjfisher](https://github.com/alexjfisher))
+- Accept `Sensitive` mysqld\_exporter `cnf_password` [\#386](https://github.com/voxpupuli/puppet-prometheus/pull/386) ([alexjfisher](https://github.com/alexjfisher))
+
+**Fixed bugs:**
+
+- Prometheus daemon is not restarting when command-line arguments are changed [\#382](https://github.com/voxpupuli/puppet-prometheus/issues/382)
+- Fix prometheus not restarting after config changes on systemd based systems [\#390](https://github.com/voxpupuli/puppet-prometheus/pull/390) ([alexjfisher](https://github.com/alexjfisher))
+- Add service restart on package change [\#376](https://github.com/voxpupuli/puppet-prometheus/pull/376) ([rwaffen](https://github.com/rwaffen))
+
+**Closed issues:**
+
+- mtail support? [\#381](https://github.com/voxpupuli/puppet-prometheus/issues/381)
+- Puppetforge not being updated [\#320](https://github.com/voxpupuli/puppet-prometheus/issues/320)
+
 ## [v7.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v7.1.0) (2019-11-05)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v7.0.0...v7.1.0)
@@ -28,7 +55,7 @@ These should not affect the functionality of the module.
 
 **Closed issues:**
 
-- `ensure =\> 'absent'` doesn't do what it should do [\#374](https://github.com/voxpupuli/puppet-prometheus/issues/374)
+- `ensure => 'absent'` doesn't do what it should do [\#374](https://github.com/voxpupuli/puppet-prometheus/issues/374)
 - Add a "config\_template" for alertmanager [\#315](https://github.com/voxpupuli/puppet-prometheus/issues/315)
 
 **Merged pull requests:**
@@ -72,7 +99,7 @@ These should not affect the functionality of the module.
 - Add flag for managing the config file [\#319](https://github.com/voxpupuli/puppet-prometheus/pull/319) ([bastelfreak](https://github.com/bastelfreak))
 - add ability to export/collect scrape\_jobs [\#304](https://github.com/voxpupuli/puppet-prometheus/pull/304) ([anarcat](https://github.com/anarcat))
 - Add support for the aarch64 architecture [\#300](https://github.com/voxpupuli/puppet-prometheus/pull/300) ([ralimi](https://github.com/ralimi))
-- Add `max\_open\_files` parameter for systemd systems [\#298](https://github.com/voxpupuli/puppet-prometheus/pull/298) ([alexjfisher](https://github.com/alexjfisher))
+- Add `max_open_files` parameter for systemd systems [\#298](https://github.com/voxpupuli/puppet-prometheus/pull/298) ([alexjfisher](https://github.com/alexjfisher))
 - Add custom datasource possibilities for postgres\_exporter [\#289](https://github.com/voxpupuli/puppet-prometheus/pull/289) ([romdav00](https://github.com/romdav00))
 - Test with unix socket for scraping uri [\#286](https://github.com/voxpupuli/puppet-prometheus/pull/286) ([othalla](https://github.com/othalla))
 - Add apache exporter support [\#284](https://github.com/voxpupuli/puppet-prometheus/pull/284) ([wiebe](https://github.com/wiebe))
@@ -447,7 +474,7 @@ These should not affect the functionality of the module.
 **Fixed bugs:**
 
 - Blackbox\_exporter manifest erroneously uses -config.file instead of --config.file parameter [\#96](https://github.com/voxpupuli/puppet-prometheus/issues/96)
-- Service resource in `prometheus::daemon` does not depend on `init\_style` dependent service description [\#94](https://github.com/voxpupuli/puppet-prometheus/issues/94)
+- Service resource in `prometheus::daemon` does not depend on `init_style` dependent service description [\#94](https://github.com/voxpupuli/puppet-prometheus/issues/94)
 - Wrong service reload command on ubuntu 14.04 [\#89](https://github.com/voxpupuli/puppet-prometheus/issues/89)
 - blackbox exporters source\_labels must be unquoted [\#98](https://github.com/voxpupuli/puppet-prometheus/pull/98) ([tuxmea](https://github.com/tuxmea))
 - add service notification to systemd and sysv [\#95](https://github.com/voxpupuli/puppet-prometheus/pull/95) ([tuxmea](https://github.com/tuxmea))
