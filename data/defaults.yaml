@@ -13,7 +13,7 @@ prometheus::manage_group: true
 prometheus::purge_config_dir: true
 prometheus::manage_user: true
 prometheus::bin_dir: '/usr/local/bin'
-prometheus::version: '2.11.1'
+prometheus::version: '2.14.0'
 prometheus::install_method: 'url'
 prometheus::manage_prometheus_server: false
 prometheus::extract_command: ~
