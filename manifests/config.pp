@@ -185,10 +185,9 @@ class prometheus::config {
           content => template('prometheus/prometheus.systemd.erb'),
           notify  => $notify,
         }
-        if versioncmp($facts['puppetversion'],'6.1.0') < 0 or versioncmp($facts['puppetversion'],'6.11.0') == 0 {
+        if versioncmp($facts['puppetversion'],'6.1.0') < 0 {
           # Puppet 5 doesn't have https://tickets.puppetlabs.com/browse/PUP-3483
           # and camptocamp/systemd only creates this relationship when managing the service
-          # Puppet 6.11.0 suffers from https://tickets.puppetlabs.com/browse/PUP-10149
           Class['systemd::systemctl::daemon_reload'] -> Class['prometheus::run_service']
         }
       }
