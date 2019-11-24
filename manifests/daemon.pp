@@ -61,7 +61,7 @@
 #
 #  [*init_style*]
 #  Service startup scripts style (e.g. rc, upstart or systemd).
-#  Can also be set to `'none'` when you don't want the class to create a startup script/unit_file for you.
+#  Can also be set to `none` when you don't want the class to create a startup script/unit_file for you.
 #  Typically this can be used when a package is already providing the file.
 define prometheus::daemon (
   String $version,
