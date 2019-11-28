@@ -160,8 +160,8 @@ class prometheus::config {
     default => undef,
   }
 
-  case $prometheus::server::init_style {
-    'upstart' : {
+  case $prometheus::server::init_style { # lint:ignore:case_without_default
+    'upstart': {
       file { '/etc/init/prometheus.conf':
         ensure  => file,
         mode    => '0444',
@@ -179,7 +179,7 @@ class prometheus::config {
         notify => $notify,
       }
     }
-    'systemd' : {
+    'systemd': {
       systemd::unit_file {'prometheus.service':
         content => template('prometheus/prometheus.systemd.erb'),
         notify  => $notify,
@@ -190,7 +190,7 @@ class prometheus::config {
         Class['systemd::systemctl::daemon_reload'] -> Class['prometheus::run_service']
       }
     }
-    'sysv', 'redhat', 'debian', 'sles' : {
+    'sysv', 'redhat', 'debian', 'sles': {
       $content = $prometheus::server::init_style ? {
         'redhat' => template('prometheus/prometheus.sysv.erb'), # redhat and sysv share the same template file
         default  => template("prometheus/prometheus.${prometheus::server::init_style}.erb"),
@@ -204,7 +204,7 @@ class prometheus::config {
         notify  => $notify,
       }
     }
-    'launchd' : {
+    'launchd': {
       file { '/Library/LaunchDaemons/io.prometheus.daemon.plist':
         ensure  => file,
         mode    => '0644',
@@ -214,9 +214,7 @@ class prometheus::config {
         notify  => $notify,
       }
     }
-    default : {
-      fail("I don't know how to create an init script for style ${prometheus::server::init_style}")
-    }
+    'none': {}
   }
 
   # TODO: promtool currently does not support checking the syntax of file_sd_config "includes".

@@ -149,11 +149,11 @@
 #  [*usershell*]
 #  if requested, we create a user for prometheus or the exporters. The default
 #  shell is nologin. It can be overwritten to any valid path.
-#  
+#
 #  CLI ==========================================================
 #  The following parameters represent system parameters invoked as command-line flags
 #  during prometheus startup. Defaults are handled by Prometheus.
-#  
+#
 #  [*web_listen_address*]
 #  --web.listen-address="0.0.0.0:9090"
 #  Address to listen on for UI, API, and telemetry.
@@ -279,7 +279,7 @@
 #  [REMOVED, v1 ONLY] -web.telemetry-path="/metrics"
 #  Path under which to expose metrics
 #
-#  [*web_enable_remote_shutdown*] 
+#  [*web_enable_remote_shutdown*]
 #  [REMOVED, v1 ONLY] -web.enable-remote-shutdown=false
 #  Enable remote service shutdown.
 #
@@ -330,7 +330,7 @@ class prometheus (
   String $service_ensure,
   Boolean $manage_service,
   Boolean $restart_on_change,
-  String[1] $init_style,
+  Prometheus::Initstyle $init_style,
   Optional[String[1]] $extra_options,
   Optional[String] $download_url,
   String $arch,
