@@ -59,6 +59,10 @@
 #  [*extract_command*]
 #  Custom command passed to the archive resource to extract the downloaded archive.
 #
+#  [*init_style*]
+#  Service startup scripts style (e.g. rc, upstart or systemd).
+#  Can also be set to `'none'` when you don't want the class to create a startup script/unit_file for you.
+#  Typically this can be used when a package is already providing the file.
 define prometheus::daemon (
   String $version,
   Prometheus::Uri $real_download_url,
@@ -78,7 +82,7 @@ define prometheus::daemon (
   Boolean $manage_group                = true,
   Boolean $purge                       = true,
   String $options                      = '',
-  String $init_style                   = $prometheus::init_style,
+  Prometheus::Initstyle $init_style    = $prometheus::init_style,
   String $service_ensure               = 'running',
   Boolean $service_enable              = true,
   Boolean $manage_service              = true,
@@ -166,8 +170,8 @@ define prometheus::daemon (
   }
 
 
-  case $init_style {
-    'upstart' : {
+  case $init_style { # lint:ignore:case_without_default
+    'upstart': {
       file { "/etc/init/${name}.conf":
         mode    => '0444',
         owner   => 'root',
@@ -183,7 +187,7 @@ define prometheus::daemon (
         mode   => '0755',
       }
     }
-    'systemd' : {
+    'systemd': {
       include 'systemd'
       systemd::unit_file {"${name}.service":
         content => template('prometheus/daemon.systemd.erb'),
@@ -191,7 +195,7 @@ define prometheus::daemon (
       }
     }
     # service_provider returns redhat on CentOS using sysv, https://tickets.puppetlabs.com/browse/PUP-5296
-    'sysv','redhat' : {
+    'sysv','redhat': {
       file { "/etc/init.d/${name}":
         mode    => '0555',
         owner   => 'root',
@@ -200,7 +204,7 @@ define prometheus::daemon (
         notify  => $notify_service,
       }
     }
-    'debian' : {
+    'debian': {
       file { "/etc/init.d/${name}":
         mode    => '0555',
         owner   => 'root',
@@ -209,7 +213,7 @@ define prometheus::daemon (
         notify  => $notify_service,
       }
     }
-    'sles' : {
+    'sles': {
       file { "/etc/init.d/${name}":
         mode    => '0555',
         owner   => 'root',
@@ -218,7 +222,7 @@ define prometheus::daemon (
         notify  => $notify_service,
       }
     }
-    'launchd' : {
+    'launchd': {
       file { "/Library/LaunchDaemons/io.${name}.daemon.plist":
         mode    => '0644',
         owner   => 'root',
@@ -227,9 +231,7 @@ define prometheus::daemon (
         notify  => $notify_service,
       }
     }
-    default : {
-      fail("I don't know how to create an init script for style ${init_style}")
-    }
+    'none': {}
   }
 
   if $env_file_path != undef {
@@ -250,10 +252,11 @@ define prometheus::daemon (
   $real_provider = $init_style ? {
     'sles'  => 'redhat',  # mimics puppet's default behaviour
     'sysv'  => 'redhat',  # all currently used cases for 'sysv' are redhat-compatible
+    'none'  => undef,
     default => $init_style,
   }
 
-  if $manage_service == true {
+  if $manage_service {
     service { $name:
       ensure   => $service_ensure,
       name     => $init_selector,
