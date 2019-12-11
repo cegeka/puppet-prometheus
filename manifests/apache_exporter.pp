@@ -69,6 +69,9 @@
 #  [*service_ensure*]
 #  State ensured for the service (default 'running')
 #
+#  [*service_name*]
+#  Name of the node exporter service (default 'apache_exporter')
+#
 #  [*user*]
 #  User which runs the service
 #
@@ -89,6 +92,7 @@ class prometheus::apache_exporter (
   Boolean $restart_on_change              = true,
   Boolean $service_enable                 = true,
   String[1] $service_ensure               = 'running',
+  String $service_name                    = 'apache_exporter',
   String[1] $init_style                   = $prometheus::init_style,
   String[1] $install_method               = $prometheus::install_method,
   Boolean $manage_group                   = true,
@@ -109,13 +113,13 @@ class prometheus::apache_exporter (
   #Please provide the download_url for versions < 0.9.0
   $real_download_url    = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {
-    true    => Service['apache_exporter'],
+    true    => Service[$service_name],
     default => undef,
   }
 
   $options = "-scrape_uri \"${scrape_uri}\" ${extra_options}"
 
-  prometheus::daemon { 'apache_exporter':
+  prometheus::daemon { $service_name:
     install_method     => $install_method,
     version            => $version,
     download_extension => $download_extension,
