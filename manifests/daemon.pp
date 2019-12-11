@@ -1,68 +1,68 @@
-# Define: prometheus::daemon
 #
-# This define managed prometheus daemons that don't have their own class
+# @summary This define managed prometheus daemons that don't have their own class
 #
-#  [*version*]
+# @param version
 #  The binary release version
 #
-#  [*real_download_url*]
+# @param real_download_url
 #  Complete URL corresponding to the where the release binary archive can be downloaded
 #
-#  [*notify_service*]
+# @param notify_service
 #  The service to notify when something changes in this define
 #
-#  [*user*]
+# @param user
 #  User which runs the service
 #
-#  [*install_method*]
+# @param install_method
 #  Installation method: url or package
 #
-#  [*download_extension*]
+# @param download_extension
 #  Extension for the release binary archive
 #
-#  [*os*]
+# @param os
 #  Operating system (linux is the only one supported)
 #
-#  [*arch*]
+# @param arch
 #  Architecture (amd64 or i386)
 #
-#  [*bin_dir*]
+# @param bin_dir
 #  Directory where binaries are located
 #
-#  [*bin_name*]
+# @param bin_name
 #  The name of the binary to execute
 #
-#  [*package_name*]
+# @param package_name
 #  The binary package name
 #
-#  [*package_ensure*]
+# @param package_ensure
 #  If package, then use this for package ensure default 'installed'
 #
-#  [*manage_user*]
+# @param manage_user
 #  Whether to create user or rely on external code for that
 #
-#  [*extra_groups*]
+# @param extra_groups
 #  Extra groups of which the user should be a part
 #
-#  [*manage_group*]
+# @param manage_group
 #  Whether to create a group for or rely on external code for that
 #
-#  [*service_ensure*]
+# @param service_ensure
 #  State ensured for the service (default 'running')
 #
-#  [*service_enable*]
+# @param service_enable
 #  Whether to enable the service from puppet (default true)
 #
-#  [*manage_service*]
+# @param manage_service
 #  Should puppet manage the service? (default true)
 #
-#  [*extract_command*]
+# @param extract_command
 #  Custom command passed to the archive resource to extract the downloaded archive.
 #
-#  [*init_style*]
+# @param init_style
 #  Service startup scripts style (e.g. rc, upstart or systemd).
 #  Can also be set to `none` when you don't want the class to create a startup script/unit_file for you.
 #  Typically this can be used when a package is already providing the file.
+#
 define prometheus::daemon (
   String $version,
   Prometheus::Uri $real_download_url,
