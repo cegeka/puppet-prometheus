@@ -1,7 +1,5 @@
 # @summary manages prometheus mysqld_exporter
-#
 # @see https://github.com/prometheus/mysqld_exporter
-#
 # @param cnf_config_path
 #  The path to put the my.cnf file
 # @param cnf_host

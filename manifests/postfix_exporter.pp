@@ -1,10 +1,7 @@
 # @summary manages prometheus postfix_exporter
-#
 # @example Basic usage
 #   include prometheus::postfix_exporter
-#
 # @see https://github.com/kumina/postfix_exporter
-#
 # @param install_method
 #   Installation method: `url` or `package`. (Note `package` is not available on most OSes.)
 # @param download_url

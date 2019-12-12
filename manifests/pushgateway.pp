@@ -1,72 +1,48 @@
-#
 # @summary This module manages prometheus node pushgateway
-#
 # @param arch
 #  Architecture (amd64 or i386)
-#
 # @param bin_dir
 #  Directory where binaries are located
-#
 # @param download_extension
 #  Extension for the release binary archive
-#
 # @param download_url
 #  Complete URL corresponding to the where the release binary archive can be downloaded
-#
 # @param download_url_base
 #  Base URL for the binary archive
-#
 # @param extra_groups
 #  Extra groups to add the binary user to
-#
 # @param extra_options
 #  Extra options added to the startup command
-#
 # @param group
 #  Group under which the binary is running
-#
 # @param init_style
 #  Service startup scripts style (e.g. rc, upstart or systemd)
-#
 # @param install_method
 #  Installation method: url or package (only url is supported currently)
-#
 # @param manage_group
 #  Whether to create a group for or rely on external code for that
-#
 # @param manage_service
 #  Should puppet manage the service? (default true)
-#
 # @param manage_user
 #  Whether to create user or rely on external code for that
-#
 # @param os
 #  Operating system (linux is the only one supported)
-#
 # @param package_ensure
 #  If package, then use this for package ensure default 'latest'
-#
 # @param package_name
 #  The binary package name - not available yet
-#
 # @param restart_on_change
 #  Should puppet restart the service on configuration change? (default true)
-#
 # @param service_enable
 #  Whether to enable the service from puppet (default true)
-#
 # @param service_ensure
 #  State ensured for the service (default 'running')
-#
 # @param service_name
 #  Name of the node exporter service (default 'pushgateway')
-#
 # @param user
 #  User which runs the service
-#
 # @param version
 #  The binary release version
-#
 class prometheus::pushgateway (
   String $download_extension,
   String $download_url_base,

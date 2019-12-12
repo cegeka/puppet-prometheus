@@ -1,10 +1,7 @@
-#
 # @summary
 #   This class implements prometheus service reload without
 #   restarting the whole service when a config changes
-#
 # @api private
-#
 class prometheus::service_reload() {
 
   if $prometheus::server::manage_service == true {

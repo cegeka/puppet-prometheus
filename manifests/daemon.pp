@@ -1,68 +1,46 @@
-#
 # @summary This define managed prometheus daemons that don't have their own class
-#
 # @param version
 #  The binary release version
-#
 # @param real_download_url
 #  Complete URL corresponding to the where the release binary archive can be downloaded
-#
 # @param notify_service
 #  The service to notify when something changes in this define
-#
 # @param user
 #  User which runs the service
-#
 # @param install_method
 #  Installation method: url or package
-#
 # @param download_extension
 #  Extension for the release binary archive
-#
 # @param os
 #  Operating system (linux is the only one supported)
-#
 # @param arch
 #  Architecture (amd64 or i386)
-#
 # @param bin_dir
 #  Directory where binaries are located
-#
 # @param bin_name
 #  The name of the binary to execute
-#
 # @param package_name
 #  The binary package name
-#
 # @param package_ensure
 #  If package, then use this for package ensure default 'installed'
-#
 # @param manage_user
 #  Whether to create user or rely on external code for that
-#
 # @param extra_groups
 #  Extra groups of which the user should be a part
-#
 # @param manage_group
 #  Whether to create a group for or rely on external code for that
-#
 # @param service_ensure
 #  State ensured for the service (default 'running')
-#
 # @param service_enable
 #  Whether to enable the service from puppet (default true)
-#
 # @param manage_service
 #  Should puppet manage the service? (default true)
-#
 # @param extract_command
 #  Custom command passed to the archive resource to extract the downloaded archive.
-#
 # @param init_style
 #  Service startup scripts style (e.g. rc, upstart or systemd).
 #  Can also be set to `none` when you don't want the class to create a startup script/unit_file for you.
 #  Typically this can be used when a package is already providing the file.
-#
 define prometheus::daemon (
   String $version,
   Prometheus::Uri $real_download_url,

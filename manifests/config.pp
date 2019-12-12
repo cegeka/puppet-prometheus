@@ -1,6 +1,4 @@
-#
 # @summary Configuration class for prometheus monitoring system
-#
 class prometheus::config {
 
   assert_private()

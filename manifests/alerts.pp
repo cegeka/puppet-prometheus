@@ -1,12 +1,8 @@
-#
 # @summary This module manages prometheus alert files for prometheus
-#
 # @param alerts
 #  Array (< prometheus 2.0.0) or Hash (>= prometheus 2.0.0) of alerts (see README).
-#
 # @param location
 #  Where to create the alert file for prometheus
-#
 define prometheus::alerts (
   Variant[Array,Hash] $alerts,
   String $location = "${prometheus::config_dir}/rules",

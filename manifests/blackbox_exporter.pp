@@ -1,81 +1,54 @@
-#
 # @summary This module manages prometheus blackbox_exporter
-#
 # @param arch
 #  Architecture (amd64 or i386)
-#
 # @param bin_dir
 #  Directory where binaries are located
-#
 # @param config_file
 #  Absolute path to configuration file (blackbox module definitions)
-#
 # @param download_extension
 #  Extension for the release binary archive
-#
 # @param download_url
 #  Complete URL corresponding to the where the release binary archive can be downloaded
-#
 # @param download_url_base
 #  Base URL for the binary archive
-#
 # @param extra_groups
 #  Extra groups to add the binary user to
-#
 # @param extra_options
 #  Extra options added to the startup command
-#
 # @param group
 #  Group under which the binary is running
-#
 # @param init_style
 #  Service startup scripts style (e.g. rc, upstart or systemd)
-#
 # @param install_method
 #  Installation method: url or package (only url is supported currently)
-#
 # @param manage_group
 #  Whether to create a group for or rely on external code for that
-#
 # @param manage_service
 #  Should puppet manage the service? (default true)
-#
 # @param manage_user
 #  Whether to create user or rely on external code for that
-#
 # @param modules
 #  Structured, array of blackbox module definitions for different probe types
-#
 # @param os
 #  Operating system (linux is the only one supported)
-#
 # @param package_ensure
 #  If package, then use this for package ensure default 'latest'
-#
 # @param package_name
 #  The binary package name - not available yet
-#
 # @param restart_on_change
 #  Should puppet restart the service on configuration change? (default true)
-#
 # @param service_enable
 #  Whether to enable the service from puppet (default true)
-#
 # @param service_ensure
 #  State ensured for the service (default 'running')
-#
 # @param service_name
 #  Name of the node exporter service (default 'blackbox_exporter')
-#
 # @param user
 #  User which runs the service
-#
 # @param version
 #  The binary release version
-#
 # Example for configuring named blackbox modules via hiera
 # details of the format: https://github.com/prometheus/blackbox_exporter/blob/master/CONFIGURATION.md
-#
 # @example
 # prometheus::blackbox_exporter::modules:
 #   simple_ssl:
@@ -87,7 +60,6 @@
 #     prober: tcp
 #     tcp:
 #       preferred_ip_protocol: ip4
-#
 class prometheus::blackbox_exporter (
   String $config_file,
   String $download_extension,
