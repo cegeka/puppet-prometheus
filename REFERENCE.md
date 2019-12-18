@@ -73,9 +73,11 @@ The following parameters are available in the `prometheus` class.
 
 ##### `configname`
 
-Data type: `String`
+Data type: `String[1]`
 
 the name of the configfile, defaults to prometheus.yaml or prometheus.yml on most operating systems
+
+Default value: 'prometheus.yaml'
 
 ##### `manage_user`
 
@@ -227,17 +229,23 @@ Data type: `Boolean`
 
 Whether to enable or not prometheus service from puppet (default true)
 
+Default value: `true`
+
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured from prometheus service (default 'running')
+
+Default value: 'running'
 
 ##### `manage_service`
 
 Data type: `Boolean`
 
 Should puppet manage the prometheus service? (default true)
+
+Default value: `true`
 
 ##### `restart_on_change`
 
@@ -247,11 +255,15 @@ Should puppet restart prometheus on configuration change? (default true)
 Note: this applies only to command-line options changes. Configuration
 options are always *reloaded* without restarting.
 
+Default value: `true`
+
 ##### `init_style`
 
 Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
+
+Default value: $facts['service_provider']
 
 ##### `global_config`
 
@@ -791,11 +803,11 @@ prometheus::alertmanager::inhibit_rules:
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -902,7 +914,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -910,7 +922,7 @@ Default value: 'running'
 
 ##### `service_name`
 
-Data type: `String`
+Data type: `String[1]`
 
 Name of the alertmanager service (default 'alertmanager')
 
@@ -1028,11 +1040,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String[1]`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -1126,7 +1138,7 @@ Default value: 'running'
 
 ##### `service_name`
 
-Data type: `String`
+Data type: `String[1]`
 
 Name of the node exporter service (default 'apache_exporter')
 
@@ -1266,11 +1278,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -1350,7 +1362,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -1477,11 +1489,11 @@ Default value: 'bird-exporter'
 
 ##### `init_style`
 
-Data type: `Optional[String]`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -1565,7 +1577,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -1573,7 +1585,7 @@ Default value: 'running'
 
 ##### `service_name`
 
-Data type: `String`
+Data type: `String[1]`
 
 Name of the bird exporter service (default 'bird_exporter')
 
@@ -1718,11 +1730,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -1802,7 +1814,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -1810,7 +1822,7 @@ Default value: 'running'
 
 ##### `service_name`
 
-Data type: `String`
+Data type: `String[1]`
 
 Name of the node exporter service (default 'blackbox_exporter')
 
@@ -1926,11 +1938,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String[1]`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -1951,6 +1963,8 @@ Whether to create a group for or rely on external code for that
 Data type: `Boolean`
 
 Should puppet manage the service? (default true)
+
+Default value: `true`
 
 ##### `manage_user`
 
@@ -1990,17 +2004,23 @@ Data type: `Boolean`
 
 Should puppet restart the service on configuration change? (default true)
 
+Default value: `true`
+
 ##### `service_enable`
 
 Data type: `Boolean`
 
 Whether to enable the service from puppet (default true)
 
+Default value: `true`
+
 ##### `service_ensure`
 
 Data type: `String[1]`
 
 State ensured for the service (default 'running')
+
+Default value: 'running'
 
 ##### `user`
 
@@ -2128,11 +2148,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -2218,7 +2238,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -2358,11 +2378,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -2442,7 +2462,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -2558,11 +2578,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -2583,6 +2603,8 @@ Whether to create a group for or rely on external code for that
 Data type: `Boolean`
 
 Should puppet manage the service? (default true)
+
+Default value: `true`
 
 ##### `manage_user`
 
@@ -2622,17 +2644,23 @@ Data type: `Boolean`
 
 Should puppet restart the service on configuration change? (default true)
 
+Default value: `true`
+
 ##### `service_enable`
 
 Data type: `Boolean`
 
 Whether to enable the service from puppet (default true)
 
+Default value: `true`
+
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
+
+Default value: 'running'
 
 ##### `user`
 
@@ -2750,11 +2778,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -2969,11 +2997,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -3053,7 +3081,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -3175,11 +3203,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -3259,7 +3287,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -3442,11 +3470,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -3526,7 +3554,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -3652,7 +3680,7 @@ Data type: `String`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -3875,11 +3903,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `Optional[String]`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -3959,7 +3987,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -3967,7 +3995,7 @@ Default value: 'running'
 
 ##### `service_name`
 
-Data type: `String`
+Data type: `String[1]`
 
 Name of the node exporter service (default 'node_exporter')
 
@@ -4296,11 +4324,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `Optional[String]`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -4542,11 +4570,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -4626,7 +4654,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -4764,11 +4792,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -4840,7 +4868,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -4848,7 +4876,7 @@ Default value: 'running'
 
 ##### `service_name`
 
-Data type: `String`
+Data type: `String[1]`
 
 Name of the node exporter service (default 'pushgateway')
 
@@ -4940,11 +4968,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -5024,7 +5052,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -5032,7 +5060,7 @@ Default value: 'running'
 
 ##### `service_name`
 
-Data type: `String`
+Data type: `String[1]`
 
 Name of the pushprox_client service (default 'pushprox_client')
 
@@ -5138,7 +5166,7 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
@@ -5222,7 +5250,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -5230,7 +5258,7 @@ Default value: 'running'
 
 ##### `service_name`
 
-Data type: `String`
+Data type: `String[1]`
 
 Name of the pushprox_proxy service (default 'pushprox_proxy')
 
@@ -5314,11 +5342,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -5398,7 +5426,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -5575,11 +5603,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -5667,7 +5695,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -5675,7 +5703,7 @@ Default value: 'running'
 
 ##### `service_name`
 
-Data type: `String`
+Data type: `String[1]`
 
 Name of the node exporter service (default 'redis_exporter')
 
@@ -5963,7 +5991,7 @@ Default value: $prometheus::service_enable
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 
 
@@ -5991,7 +6019,7 @@ Data type: `Prometheus::Initstyle`
 
 
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `extra_options`
 
@@ -6183,11 +6211,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -6267,7 +6295,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -6391,11 +6419,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -6475,7 +6503,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 
@@ -6608,11 +6636,11 @@ Group under which the binary is running
 
 ##### `init_style`
 
-Data type: `String`
+Data type: `Prometheus::Initstyle`
 
 Service startup scripts style (e.g. rc, upstart or systemd)
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `install_method`
 
@@ -6920,7 +6948,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String`
+Data type: `String[1]`
 
 State ensured for the service (default 'running')
 

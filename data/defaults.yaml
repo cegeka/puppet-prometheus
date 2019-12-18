@@ -1,11 +1,5 @@
 ---
 prometheus::usershell: '/usr/bin/nologin'
-prometheus::configname: 'prometheus.yaml'
-prometheus::service_enable: true
-prometheus::service_ensure: 'running'
-prometheus::manage_service: true
-prometheus::restart_on_change: true
-prometheus::init_style: '%{facts.service_provider}'
 prometheus::extra_options: ~
 prometheus::download_url: ~
 prometheus::arch: '%{facts.architecture}'
@@ -297,11 +291,7 @@ prometheus::graphite_exporter::package_name: 'graphite_exporter'
 prometheus::graphite_exporter::user: 'graphite-exporter'
 prometheus::graphite_exporter::version: '0.2.0'
 prometheus::graphite_exporter::purge_config_dir: true
-prometheus::graphite_exporter::restart_on_change: true
-prometheus::graphite_exporter::service_enable: true
-prometheus::graphite_exporter::service_ensure: 'running'
 prometheus::graphite_exporter::manage_group: true
-prometheus::graphite_exporter::manage_service: true
 prometheus::graphite_exporter::manage_user: true
 prometheus::graphite_exporter::options: ''
 prometheus::collectd_exporter::download_extension: 'tar.gz'
@@ -312,11 +302,7 @@ prometheus::collectd_exporter::package_name: 'collectd_exporter'
 prometheus::collectd_exporter::user: 'collectd-exporter'
 prometheus::collectd_exporter::version: '0.4.0'
 prometheus::collectd_exporter::purge_config_dir: true
-prometheus::collectd_exporter::restart_on_change: true
-prometheus::collectd_exporter::service_enable: true
-prometheus::collectd_exporter::service_ensure: 'running'
 prometheus::collectd_exporter::manage_group: true
-prometheus::collectd_exporter::manage_service: true
 prometheus::collectd_exporter::manage_user: true
 prometheus::collectd_exporter::options: ''
 prometheus::apache_exporter::scrape_uri: 'http://localhost/server-status?auto'

@@ -208,7 +208,6 @@
 #  --log.format=logfmt
 #  Output format of log messages. One of: [logfmt, json]
 class prometheus (
-  String $configname,
   String $user,
   String $group,
   Array $extra_groups,
@@ -235,11 +234,6 @@ class prometheus (
   String $storage_retention,
   Stdlib::Absolutepath $env_file_path,
   Boolean $manage_prometheus_server,
-  Boolean $service_enable,
-  String $service_ensure,
-  Boolean $manage_service,
-  Boolean $restart_on_change,
-  Prometheus::Initstyle $init_style,
   Optional[String[1]] $extra_options,
   Optional[String] $download_url,
   String $arch,
@@ -288,6 +282,12 @@ class prometheus (
   Optional[Variant[Stdlib::HTTPUrl, Stdlib::Unixpath, String[1]]] $external_url = undef,
   Optional[Array[Hash[String[1], Any]]] $collect_scrape_jobs                    = [],
   Optional[Integer] $max_open_files                                             = undef,
+  String[1] $configname                                                         = 'prometheus.yaml',
+  Boolean $service_enable                                                       = true,
+  Boolean $manage_service                                                       = true,
+  String[1] $service_ensure                                                     = 'running',
+  Boolean $restart_on_change                                                    = true,
+  Prometheus::Initstyle $init_style                                             = $facts['service_provider'],
 ) {
 
   case $arch {

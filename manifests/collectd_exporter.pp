@@ -50,15 +50,11 @@ class prometheus::collectd_exporter (
   String[1] $user,
   String[1] $version,
   Boolean $purge_config_dir,
-  Boolean $restart_on_change,
-  Boolean $service_enable,
-  String[1] $service_ensure,
   Boolean $manage_group,
-  Boolean $manage_service,
   Boolean $manage_user,
   String $options,
   String[1] $os                     = $prometheus::os,
-  String[1] $init_style             = $prometheus::init_style,
+  Prometheus::Initstyle $init_style = $facts['service_provider'],
   String[1] $install_method         = $prometheus::install_method,
   Optional[String[1]] $download_url = undef,
   String[1] $arch                   = $prometheus::real_arch,
@@ -67,6 +63,10 @@ class prometheus::collectd_exporter (
   Stdlib::Port $scrape_port         = 9103,
   String[1] $scrape_job_name        = 'collectd',
   Optional[Hash] $scrape_job_labels = undef,
+  Boolean $service_enable           = true,
+  Boolean $manage_service           = true,
+  String[1] $service_ensure         = 'running',
+  Boolean $restart_on_change        = true,
 ) inherits prometheus {
 
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")

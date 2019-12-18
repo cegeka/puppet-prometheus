@@ -72,7 +72,7 @@ class prometheus::postgres_exporter (
   Boolean $service_enable                       = true,
   String[1] $service_ensure                     = 'running',
   String[1] $service_name                       = 'postgres_exporter',
-  Optional[String] $init_style                  = $prometheus::init_style,
+  Prometheus::Initstyle $init_style             = $facts['service_provider'],
   String[1] $install_method                     = $prometheus::install_method,
   Boolean $manage_group                         = true,
   Boolean $manage_service                       = true,
