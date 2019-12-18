@@ -93,19 +93,7 @@ describe 'prometheus' do
             )
           }
 
-          # prometheus::config
-          if ['debian-7-x86_64'].include?(os)
-            # init_style = 'debian'
-
-            it {
-              is_expected.to contain_file('/etc/init.d/prometheus').with(
-                'mode'   => '0555',
-                'owner'  => 'root',
-                'group'  => 'root',
-                'content' => File.read(fixtures('files', "prometheus#{prom_major}.debian"))
-              )
-            }
-          elsif ['centos-6-x86_64', 'redhat-6-x86_64'].include?(os)
+          if ['centos-6-x86_64', 'redhat-6-x86_64'].include?(os)
             # init_style = 'sysv'
 
             it {
@@ -146,27 +134,6 @@ describe 'prometheus' do
                 }
               end
             end
-          elsif ['ubuntu-14.04-x86_64'].include?(os)
-            # init_style = 'upstart'
-
-            it {
-              is_expected.to contain_file('/etc/init/prometheus.conf').with(
-                'mode'    => '0444',
-                'owner'   => 'root',
-                'group'   => 'root',
-                'content' => File.read(fixtures('files', "prometheus#{prom_major}.upstart"))
-              )
-            }
-
-            it {
-              is_expected.to contain_file('/etc/init.d/prometheus').with(
-                'ensure' => 'link',
-                'target' => '/lib/init/upstart-job',
-                'owner' => 'root',
-                'group' => 'root',
-                'mode'  => '0755'
-              )
-            }
           else
             it {
               is_expected.to raise_error(Puppet::Error, %r{I don't know how to create an init script for style})
@@ -332,7 +299,7 @@ describe 'prometheus' do
       context 'command-line flags' do
         context 'prometheus v2' do
           version = '2.13.0'
-          context 'with all valid params' do
+          context 'with all valid params', if: facts[:service_provider] == 'systemd' do
             let(:params) do
               {
                 manage_prometheus_server: true,
@@ -386,7 +353,7 @@ describe 'prometheus' do
               )
             }
           end
-          context 'with extra args write-in' do
+          context 'with extra args write-in', if: facts[:service_provider] == 'systemd' do
             let(:params) do
               {
                 manage_prometheus_server: true,
@@ -408,7 +375,7 @@ describe 'prometheus' do
             }
           end
         end
-        context 'prometheus v2.6' do
+        context 'prometheus v2.6', if: facts[:service_provider] == 'systemd' do
           context 'with storage retention time' do
             let(:params) do
               {
@@ -433,7 +400,7 @@ describe 'prometheus' do
         end
         context 'prometheus v1' do
           version = '1.7.0'
-          context 'with extra args write-in' do
+          context 'with extra args write-in', if: facts[:service_provider] == 'systemd' do
             let(:params) do
               {
                 manage_prometheus_server: true,
@@ -454,7 +421,7 @@ describe 'prometheus' do
               )
             }
           end
-          context 'with all valid params' do
+          context 'with all valid params', if: facts[:service_provider] == 'systemd' do
             let(:params) do
               {
                 manage_prometheus_server: true,
