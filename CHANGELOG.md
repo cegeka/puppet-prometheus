@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.1.0) (2019-12-18)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.0.0...v8.1.0)
+
+**Implemented enhancements:**
+
+- Add Bird exporter [\#404](https://github.com/voxpupuli/puppet-prometheus/pull/404) ([bastelfreak](https://github.com/bastelfreak))
+- Convert comments to puppet-strings [\#403](https://github.com/voxpupuli/puppet-prometheus/pull/403) ([bastelfreak](https://github.com/bastelfreak))
+- make apache exporter service name customizable [\#400](https://github.com/voxpupuli/puppet-prometheus/pull/400) ([anarcat](https://github.com/anarcat))
+- Add postfix exporter [\#396](https://github.com/voxpupuli/puppet-prometheus/pull/396) ([alexjfisher](https://github.com/alexjfisher))
+
+**Merged pull requests:**
+
+- Accept `none` as valid `init_style` [\#399](https://github.com/voxpupuli/puppet-prometheus/pull/399) ([alexjfisher](https://github.com/alexjfisher))
+
 ## [v8.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.0.0) (2019-11-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v7.1.0...v8.0.0)
