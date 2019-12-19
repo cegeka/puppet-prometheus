@@ -2,10 +2,6 @@
 prometheus::usershell: '/usr/bin/nologin'
 prometheus::extra_options: ~
 prometheus::download_url: ~
-prometheus::arch: '%{facts.architecture}'
-prometheus::manage_group: true
-prometheus::purge_config_dir: true
-prometheus::manage_user: true
 prometheus::bin_dir: '/usr/local/bin'
 prometheus::version: '2.14.0'
 prometheus::install_method: 'url'
@@ -290,9 +286,6 @@ prometheus::graphite_exporter::package_ensure: 'latest'
 prometheus::graphite_exporter::package_name: 'graphite_exporter'
 prometheus::graphite_exporter::user: 'graphite-exporter'
 prometheus::graphite_exporter::version: '0.2.0'
-prometheus::graphite_exporter::purge_config_dir: true
-prometheus::graphite_exporter::manage_group: true
-prometheus::graphite_exporter::manage_user: true
 prometheus::graphite_exporter::options: ''
 prometheus::collectd_exporter::download_extension: 'tar.gz'
 prometheus::collectd_exporter::download_url_base: 'https://github.com/prometheus/collectd_exporter/releases'
@@ -301,9 +294,6 @@ prometheus::collectd_exporter::package_ensure: 'latest'
 prometheus::collectd_exporter::package_name: 'collectd_exporter'
 prometheus::collectd_exporter::user: 'collectd-exporter'
 prometheus::collectd_exporter::version: '0.4.0'
-prometheus::collectd_exporter::purge_config_dir: true
-prometheus::collectd_exporter::manage_group: true
-prometheus::collectd_exporter::manage_user: true
 prometheus::collectd_exporter::options: ''
 prometheus::apache_exporter::scrape_uri: 'http://localhost/server-status?auto'
 prometheus::apache_exporter::download_extension: 'tar.gz'

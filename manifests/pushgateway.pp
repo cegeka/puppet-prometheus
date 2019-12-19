@@ -61,7 +61,7 @@ class prometheus::pushgateway (
   Boolean $manage_group                   = true,
   Boolean $manage_service                 = true,
   Boolean $manage_user                    = true,
-  String $os                              = $prometheus::os,
+  String[1] $os                           = $prometheus::os,
   String $extra_options                   = '',
   Optional[String] $download_url          = undef,
   String[1] $arch                         = $prometheus::real_arch,
