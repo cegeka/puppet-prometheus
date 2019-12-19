@@ -62,7 +62,7 @@ class prometheus::apache_exporter (
   Boolean $purge_config_dir               = true,
   Boolean $restart_on_change              = true,
   Boolean $service_enable                 = true,
-  String[1] $service_ensure               = 'running',
+  Stdlib::Ensure::Service $service_ensure = 'running',
   String[1] $service_name                 = 'apache_exporter',
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
   String[1] $install_method               = $prometheus::install_method,

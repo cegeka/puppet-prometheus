@@ -28,7 +28,7 @@ class prometheus::server (
   Stdlib::Absolutepath $env_file_path                                           = $prometheus::env_file_path,
   Hash $extra_alerts                                                            = $prometheus::extra_alerts,
   Boolean $service_enable                                                       = $prometheus::service_enable,
-  String[1] $service_ensure                                                     = $prometheus::service_ensure,
+  Stdlib::Ensure::Service $service_ensure                                       = $prometheus::service_ensure,
   Boolean $manage_service                                                       = $prometheus::manage_service,
   Boolean $restart_on_change                                                    = $prometheus::restart_on_change,
   Prometheus::Initstyle $init_style                                             = $facts['service_provider'],

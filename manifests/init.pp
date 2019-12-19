@@ -285,7 +285,7 @@ class prometheus (
   String[1] $configname                                                         = 'prometheus.yaml',
   Boolean $service_enable                                                       = true,
   Boolean $manage_service                                                       = true,
-  String[1] $service_ensure                                                     = 'running',
+  Stdlib::Ensure::Service $service_ensure                                       = 'running',
   Boolean $restart_on_change                                                    = true,
   Prometheus::Initstyle $init_style                                             = $facts['service_provider'],
 ) {

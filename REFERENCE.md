@@ -233,7 +233,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured from prometheus service (default 'running')
 
@@ -914,7 +914,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -1130,7 +1130,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -1362,7 +1362,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -1577,7 +1577,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -1814,7 +1814,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -2016,7 +2016,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -2238,7 +2238,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -2462,7 +2462,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -2656,7 +2656,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -2862,7 +2862,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `Any`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -3081,7 +3081,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -3287,7 +3287,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -3554,7 +3554,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -3987,7 +3987,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -4408,7 +4408,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -4654,7 +4654,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -4868,7 +4868,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -5052,7 +5052,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -5250,7 +5250,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -5426,7 +5426,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -5695,7 +5695,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -5991,7 +5991,7 @@ Default value: $prometheus::service_enable
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 
 
@@ -6295,7 +6295,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -6503,7 +6503,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -6720,7 +6720,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `Any`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -6948,7 +6948,7 @@ Default value: `true`
 
 ##### `service_ensure`
 
-Data type: `String[1]`
+Data type: `Stdlib::Ensure::Service`
 
 State ensured for the service (default 'running')
 
@@ -6986,7 +6986,7 @@ Service startup scripts style (e.g. rc, upstart or systemd).
 Can also be set to `none` when you don't want the class to create a startup script/unit_file for you.
 Typically this can be used when a package is already providing the file.
 
-Default value: $prometheus::init_style
+Default value: $facts['service_provider']
 
 ##### `group`
 
