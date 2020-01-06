@@ -7,6 +7,12 @@ describe 'prometheus' do
         facts.merge(os_specific_facts(facts))
       end
 
+      configpath = if facts[:os]['name'] == 'Archlinux'
+                     '/etc/prometheus/prometheus.yml'
+                   else
+                     '/etc/prometheus/prometheus.yaml'
+                   end
+
       [{ manage_prometheus_server: true, version: '2.0.0-rc.1', bin_dir: '/usr/local/bin', install_method: 'url', rule_files: ['/etc/prometheus/rules.d/*.rules'] }].each do |parameters|
         context "with parameters #{parameters}" do
           let(:params) do
@@ -104,7 +110,8 @@ describe 'prometheus' do
                 'content' => File.read(fixtures('files', "prometheus#{prom_major}.sysv"))
               )
             }
-          elsif ['centos-7-x86_64', 'centos-8-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'archlinux-5-x86_64'].include?(os)
+          elsif ['centos-7-x86_64', 'centos-8-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64'].include?(os)
+            # 'archlinux-5-x86_64' got removed from that list. It has systemd, but we use the repo packages and their shipped unit files.
             # init_style = 'systemd'
 
             it {
@@ -134,6 +141,9 @@ describe 'prometheus' do
                 }
               end
             end
+          elsif os == 'archlinux-5-x86_64'
+
+            it { is_expected.not_to contain_systemd__unit_file('prometheus.service') }
           else
             it {
               is_expected.to raise_error(Puppet::Error, %r{I don't know how to create an init script for style})
@@ -153,7 +163,7 @@ describe 'prometheus' do
           it {
             is_expected.to contain_file('prometheus.yaml').with(
               'ensure'  => 'file',
-              'path'    => '/etc/prometheus/prometheus.yaml',
+              'path'    => configpath,
               'owner'   => 'root',
               'group'   => 'prometheus',
               'mode'    => '0640',
@@ -184,6 +194,21 @@ describe 'prometheus' do
             )
           }
         end
+      end
+
+      context 'with unit files from Puppet and not the packaged ones', if: facts[:os]['name'] == 'Archlinux' do
+        let :params do
+          {
+            manage_prometheus_server: true,
+            version: '2.0.0-rc.1',
+            rule_files: ['/etc/prometheus/rules.d/*.rules'],
+            init_style: 'systemd'
+          }
+        end
+
+        it { is_expected.not_to contain_class('systemd') }
+
+        it { is_expected.not_to contain_systemd__unit_file('prometheus.service') }
       end
 
       context 'with alerts configured', alerts: true do
@@ -258,13 +283,11 @@ describe 'prometheus' do
               parameters
             end
 
-            it {
-              is_expected.to compile
-            }
+            it { is_expected.to compile.with_all_deps }
             it {
               is_expected.to contain_file('prometheus.yaml').with(
                 'ensure'  => 'file',
-                'path'    => '/etc/prometheus/prometheus.yaml',
+                'path'    => configpath,
                 'owner'   => 'root',
                 'group'   => 'prometheus',
                 'content' => %r{http://domain.tld/path}
@@ -291,7 +314,7 @@ describe 'prometheus' do
             end
 
             it {
-              is_expected.not_to contain_file('/etc/prometheus/prometheus.yaml')
+              is_expected.not_to contain_file(configpath)
             }
           end
         end
