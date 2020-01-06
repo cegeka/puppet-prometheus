@@ -64,7 +64,7 @@ class prometheus::nginx_vts_exporter(
   Boolean          $manage_group      = true,
   Boolean          $manage_service    = true,
   Boolean          $manage_user       = true,
-  String           $os                = $prometheus::os,
+  String           $os                = downcase($facts['kernel']),
   String           $extra_options     = '',
   Optional[String] $download_url      = undef,
   String           $arch              = $prometheus::real_arch,

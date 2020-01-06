@@ -50,7 +50,7 @@ class prometheus::collectd_exporter (
   String[1] $user,
   String[1] $version,
   String $options,
-  String[1] $os                           = $prometheus::os,
+  String[1] $os                           = downcase($facts['kernel']),
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
   String[1] $install_method               = $prometheus::install_method,
   Optional[String[1]] $download_url       = undef,

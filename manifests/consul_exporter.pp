@@ -74,7 +74,7 @@ class prometheus::consul_exporter (
   Boolean $manage_group                   = true,
   Boolean $manage_service                 = true,
   Boolean $manage_user                    = true,
-  String[1] $os                           = $prometheus::os,
+  String[1] $os                           = downcase($facts['kernel']),
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
   String $install_method                  = $prometheus::install_method,
   String $extra_options                   = '',

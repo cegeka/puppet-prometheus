@@ -82,7 +82,7 @@ class prometheus::mysqld_exporter (
   Boolean $manage_group                           = true,
   Boolean $manage_service                         = true,
   Boolean $manage_user                            = true,
-  String[1] $os                                   = $prometheus::os,
+  String[1] $os                                   = downcase($facts['kernel']),
   String $extra_options                           = '',
   Optional[Prometheus::Uri] $download_url         = undef,
   String $config_mode                             = $prometheus::config_mode,

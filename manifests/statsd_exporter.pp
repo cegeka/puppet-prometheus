@@ -70,7 +70,7 @@ class prometheus::statsd_exporter (
   Boolean $restart_on_change              = true,
   Boolean $service_enable                 = true,
   Stdlib::Ensure::Service $service_ensure = 'running',
-  String[1] $os                           = $prometheus::os,
+  String[1] $os                           = downcase($facts['kernel']),
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
   String $install_method                  = $prometheus::install_method,
   Boolean $manage_group                   = true,

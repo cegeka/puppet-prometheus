@@ -1092,7 +1092,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -1330,7 +1330,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -1541,7 +1541,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -1790,7 +1790,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -1990,7 +1990,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -2212,7 +2212,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -2436,7 +2436,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -2636,7 +2636,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -2842,7 +2842,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -3061,7 +3061,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -3267,7 +3267,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -3534,7 +3534,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -3740,7 +3740,7 @@ Data type: `String`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -3967,7 +3967,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -4388,7 +4388,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -4634,7 +4634,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -5406,7 +5406,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -5675,7 +5675,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -6275,7 +6275,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -6483,7 +6483,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 
@@ -6700,7 +6700,7 @@ Data type: `String[1]`
 
 Operating system (linux is the only one supported)
 
-Default value: $prometheus::os
+Default value: downcase($facts['kernel'])
 
 ##### `package_ensure`
 

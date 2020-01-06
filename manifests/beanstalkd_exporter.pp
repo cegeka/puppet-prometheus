@@ -73,7 +73,7 @@ class prometheus::beanstalkd_exporter (
   Boolean $manage_group                   = true,
   Boolean $manage_service                 = true,
   Boolean $manage_user                    = true,
-  String[1] $os                           = $prometheus::os,
+  String[1] $os                           = downcase($facts['kernel']),
   String $extra_options                   = '',
   Variant[Undef,String] $download_url     = undef,
   String[1] $arch                         = $prometheus::real_arch,
