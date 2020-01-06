@@ -236,10 +236,6 @@ class prometheus (
   Boolean $manage_prometheus_server,
   Optional[String[1]] $extra_options,
   Optional[String] $download_url,
-  String $arch,
-  Boolean $manage_group,
-  Boolean $purge_config_dir,
-  Boolean $manage_user,
   Optional[String[1]] $extract_command,
   Boolean $manage_config,
   Stdlib::Absolutepath $usershell,
@@ -278,7 +274,7 @@ class prometheus (
   Hash $extra_alerts                                                            = {},
   Hash $config_hash                                                             = {},
   Hash $config_defaults                                                         = {},
-  String $os                                                                    = downcase($facts['kernel']),
+  String[1] $os                                                                 = downcase($facts['kernel']),
   Optional[Variant[Stdlib::HTTPUrl, Stdlib::Unixpath, String[1]]] $external_url = undef,
   Optional[Array[Hash[String[1], Any]]] $collect_scrape_jobs                    = [],
   Optional[Integer] $max_open_files                                             = undef,
@@ -288,6 +284,10 @@ class prometheus (
   Stdlib::Ensure::Service $service_ensure                                       = 'running',
   Boolean $restart_on_change                                                    = true,
   Prometheus::Initstyle $init_style                                             = $facts['service_provider'],
+  String[1] $arch                                                               = $facts['os']['architecture'],
+  Boolean $manage_group                                                         = true,
+  Boolean $purge_config_dir                                                     = true,
+  Boolean $manage_user                                                          = true,
 ) {
 
   case $arch {
