@@ -180,7 +180,13 @@ class prometheus::config {
     }
     'systemd': {
       systemd::unit_file {'prometheus.service':
-        content => template('prometheus/prometheus.systemd.erb'),
+        content => epp("${module_name}/prometheus.systemd.epp", {
+          'user'           => $prometheus::server::user,
+          'group'          => $prometheus::server::group,
+          'daemon_flags'   => $daemon_flags,
+          'max_open_files' => $max_open_files,
+          'bin_dir'        => $prometheus::server::bin_dir,
+        }),
         notify  => $notify,
       }
       if versioncmp($facts['puppetversion'],'6.1.0') < 0 {
