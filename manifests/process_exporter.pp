@@ -43,6 +43,31 @@
 #  User which runs the service
 # @param version
 #  The binary release version
+# @param hash_watched_processes
+#  A hash of processes to monitor with the ability to pass different options
+#  Don't set if you want to use only the Array version of it (watched_processes)
+# @watched_processes
+#  A list of processes to monitor
+#  Has no effect if hash_watched_processes is set
+# @example Usage with hash_watched_processes
+#  class { 'prometheus::process_exporter':
+#    version                => '0.6.0',
+#    arch                   => 'amd64',
+#    os                     => 'linux',
+#    bin_dir                => '/usr/local/bin',
+#    install_method         => 'url',
+#    hash_watched_processes => {
+#     'process_names' => [
+#       {
+#         'name'    => "{{.Matches}}",
+#         'cmdline' => [".*process1.*"]
+#       },
+#       {
+#         'name'    => "{{.Matches}}",
+#         'cmdline' => [".*process2.*"]
+#       }
+#     ]
+#   }
 class prometheus::process_exporter(
   String $download_extension,
   Prometheus::Uri $download_url_base,
@@ -54,6 +79,7 @@ class prometheus::process_exporter(
   String $version,
   Stdlib::Absolutepath $config_path,
   Array $watched_processes                = [],
+  Hash $hash_watched_processes            = {},
   Boolean $purge_config_dir               = true,
   Boolean $restart_on_change              = true,
   Boolean $service_enable                 = true,
@@ -82,12 +108,18 @@ class prometheus::process_exporter(
     default => undef,
   }
 
+  if $hash_watched_processes.empty() {
+    $config_path_content = template('prometheus/process-exporter.yaml.erb')
+  } else {
+    $config_path_content = $hash_watched_processes.to_yaml
+  }
+
   file { $config_path:
     ensure  => 'file',
     mode    => $config_mode,
     owner   => $user,
     group   => $group,
-    content => template('prometheus/process-exporter.yaml.erb'),
+    content => $config_path_content,
     notify  => $notify_service,
   }
 
