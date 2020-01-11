@@ -4528,6 +4528,31 @@ Default value: `undef`
 
 This module manages prometheus process_exporter
 
+#### Examples
+
+##### Usage with hash_watched_processes
+
+```puppet
+class { 'prometheus::process_exporter':
+  version                => '0.6.0',
+  arch                   => 'amd64',
+  os                     => 'linux',
+  bin_dir                => '/usr/local/bin',
+  install_method         => 'url',
+  hash_watched_processes => {
+   'process_names' => [
+     {
+       'name'    => "{{.Matches}}",
+       'cmdline' => [".*process1.*"]
+     },
+     {
+       'name'    => "{{.Matches}}",
+       'cmdline' => [".*process2.*"]
+     }
+   ]
+ }
+```
+
 #### Parameters
 
 The following parameters are available in the `prometheus::process_exporter` class.
@@ -4691,6 +4716,15 @@ User which runs the service
 Data type: `String`
 
 The binary release version
+
+##### `hash_watched_processes`
+
+Data type: `Hash`
+
+A hash of processes to monitor with the ability to pass different options
+Don't set if you want to use only the Array version of it (watched_processes)
+
+Default value: {}
 
 ##### `config_path`
 

@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.2.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.2.0) (2020-01-11)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.1.0...v8.2.0)
+
+**Implemented enhancements:**
+
+- process-exporter: Add Option to provide config as hash [\#417](https://github.com/voxpupuli/puppet-prometheus/pull/417) ([bastelfreak](https://github.com/bastelfreak))
+- prometheus: harden systemd service [\#415](https://github.com/voxpupuli/puppet-prometheus/pull/415) ([bastelfreak](https://github.com/bastelfreak))
+- Add `managed by puppet` header to unit file [\#414](https://github.com/voxpupuli/puppet-prometheus/pull/414) ([bastelfreak](https://github.com/bastelfreak))
+- migrate prometheus service file erb-\>epp [\#413](https://github.com/voxpupuli/puppet-prometheus/pull/413) ([bastelfreak](https://github.com/bastelfreak))
+- Arch Linux: Use prometheus unit file from package [\#412](https://github.com/voxpupuli/puppet-prometheus/pull/412) ([bastelfreak](https://github.com/bastelfreak))
+- Prometheus: Acceptance test for 2.15.1 [\#411](https://github.com/voxpupuli/puppet-prometheus/pull/411) ([bastelfreak](https://github.com/bastelfreak))
+- move more static data from hiera to module [\#409](https://github.com/voxpupuli/puppet-prometheus/pull/409) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- Use Stdlib::Ensure::Service for $service\_ensure [\#408](https://github.com/voxpupuli/puppet-prometheus/pull/408) ([bastelfreak](https://github.com/bastelfreak))
+- Migrate static data from hiera to puppet code [\#407](https://github.com/voxpupuli/puppet-prometheus/pull/407) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v8.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.1.0) (2019-12-18)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.0.0...v8.1.0)
