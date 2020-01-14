@@ -149,6 +149,10 @@ describe 'prometheus::daemon' do
               )
             }
 
+            if Gem::Version.new(facts[:puppetversion]) < Gem::Version.new('6.1.0')
+              it { is_expected.to contain_class('systemd::systemctl::daemon_reload').that_comes_before('Service[smurf_exporter]') }
+            end
+
             context 'with overidden bin_name' do
               let(:params) do
                 parameters.merge(bin_name: 'notsmurf_exporter')
