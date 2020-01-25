@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.2.1](https://github.com/voxpupuli/puppet-prometheus/tree/v8.2.1) (2020-01-25)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.2.0...v8.2.1)
+
+**Fixed bugs:**
+
+- Execute systemctl daemon-reload before restarting daemons [\#419](https://github.com/voxpupuli/puppet-prometheus/pull/419) ([treydock](https://github.com/treydock))
+
 ## [v8.2.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.2.0) (2020-01-11)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.1.0...v8.2.0)
