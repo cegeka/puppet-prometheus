@@ -111,6 +111,7 @@ class prometheus::alertmanager (
   Stdlib::Ensure::Service $service_ensure = 'running',
   String[1] $service_name                 = 'alertmanager',
   Boolean $restart_on_change              = true,
+  Boolean $reload_on_change               = false,
   Boolean $purge_config_dir               = true,
   Boolean $manage_config                  = true,
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
@@ -138,6 +139,25 @@ class prometheus::alertmanager (
     default => undef,
   }
 
+  $alertmanager_reload = $prometheus::init_style ? {
+    'systemd'                     => "systemctl reload-or-restart ${service_name}",
+    /^(upstart|none)$/            => "service ${service_name} reload",
+    /^(sysv|redhat|sles|debian)$/ => "/etc/init.d/${service_name} reload",
+    'launchd'                     => "launchctl stop ${service_name} && launchctl start ${service_name}",
+  }
+
+  exec { 'alertmanager-reload':
+    command     => $alertmanager_reload,
+    path        => [ '/usr/bin', '/bin', '/usr/sbin', '/sbin' ],
+    refreshonly => true,
+  }
+
+  if $reload_on_change {
+    $_notify_service = Exec['alertmanager-reload']
+  } else {
+    $_notify_service = $notify_service
+  }
+
   file { $config_dir:
     ensure  => 'directory',
     owner   => 'root',
@@ -160,7 +180,7 @@ class prometheus::alertmanager (
         group        => $group,
         mode         => $config_mode,
         content      => template('prometheus/alertmanager.yaml.erb'),
-        notify       => $notify_service,
+        notify       => $_notify_service,
         require      => File["${bin_dir}/amtool", $config_dir],
         validate_cmd => "${bin_dir}/amtool check-config --alertmanager.url='' %",
       }
@@ -174,7 +194,7 @@ class prometheus::alertmanager (
         group   => $group,
         mode    => $config_mode,
         content => template('prometheus/alertmanager.yaml.erb'),
-        notify  => $notify_service,
+        notify  => $_notify_service,
         require => File[$config_dir],
       }
     }
