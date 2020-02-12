@@ -3,7 +3,7 @@ class prometheus::config {
 
   assert_private()
 
-  $max_open_files = $prometheus::max_open_files
+  $max_open_files = $prometheus::server::max_open_files
 
   $prometheus_v2 = versioncmp($prometheus::server::version, '2.0.0') >= 0
 
