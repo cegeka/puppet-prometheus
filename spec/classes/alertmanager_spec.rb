@@ -32,10 +32,27 @@ describe 'prometheus::alertmanager' do
         end
         describe 'config file contents' do
           it {
-            is_expected.to contain_file('/etc/alertmanager/alertmanager.yaml')
+            is_expected.to contain_file('/etc/alertmanager/alertmanager.yaml').with_notify('Service[alertmanager]')
             verify_contents(catalogue, '/etc/alertmanager/alertmanager.yaml', ['---', 'global:', '  smtp_smarthost: localhost:25', '  smtp_from: alertmanager@localhost'])
           }
         end
+        describe 'service reload' do
+          it {
+            is_expected.to contain_exec('alertmanager-reload').with(
+              # 'command'     => 'systemctl reload alertmanager',
+              'path'        => ['/usr/bin', '/bin', '/usr/sbin', '/sbin'],
+              'refreshonly' => true
+            )
+          }
+        end
+      end
+
+      context 'when reload_on_change => true' do
+        let(:params) { { reload_on_change: true } }
+
+        it {
+          is_expected.to contain_file('/etc/alertmanager/alertmanager.yaml').with_notify('Exec[alertmanager-reload]')
+        }
       end
 
       context 'with manage_config => false' do
