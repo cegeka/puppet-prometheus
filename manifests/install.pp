@@ -93,5 +93,6 @@ class prometheus::install {
     mode    => $prometheus::server::config_mode,
     purge   => $prometheus::server::purge_config_dir,
     recurse => $prometheus::server::purge_config_dir,
+    force   => $prometheus::server::purge_config_dir,
   }
 }

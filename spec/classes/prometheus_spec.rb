@@ -156,7 +156,8 @@ describe 'prometheus' do
               'owner'   => 'root',
               'group'   => 'prometheus',
               'purge'   => true,
-              'recurse' => true
+              'recurse' => true,
+              'force'   => true
             )
           }
 
