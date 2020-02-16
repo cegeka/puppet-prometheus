@@ -52,7 +52,7 @@ start() {
         daemon --user=<%= scope.lookupvar('prometheus::server::user') %> \
             --pidfile="$PID_FILE" \
             "$DAEMON" <%= @daemon_flags.join(" \\\n            ") %> \
-            <%= scope.lookupvar('prometheus::server::extra_options') %> >> "$LOG_FILE" &
+             >> "$LOG_FILE" &
         retcode=$?
         mkpidfile
         touch /var/lock/subsys/prometheus
