@@ -41,17 +41,20 @@
 #  Whether to enable the service from puppet (default true)
 # @param service_ensure
 #  State ensured for the service (default 'running')
+# @param service_name
+#  Name of the haproxy exporter service (default 'haproxy_exporter')
 # @param user
 #  User which runs the service
 # @param version
 #  The binary release version
-class prometheus::haproxy_exporter(
+class prometheus::haproxy_exporter (
   Variant[Stdlib::HTTPUrl, Pattern[/unix:(?:\/.+)+/]] $cnf_scrape_uri,
   String $download_extension,
   Array $extra_groups,
   String $group,
   String $package_ensure,
   String $package_name,
+  String[1] $service_name,
   String $user,
   String $version,
   Prometheus::Uri $download_url_base,
@@ -77,13 +80,13 @@ class prometheus::haproxy_exporter(
 
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {
-    true    => Service['haproxy_exporter'],
+    true    => Service[$service_name],
     default => undef,
   }
 
   $options = "--haproxy.scrape-uri=\"${cnf_scrape_uri}\" ${extra_options}"
 
-  prometheus::daemon { 'haproxy_exporter':
+  prometheus::daemon { $service_name:
     install_method     => $install_method,
     version            => $version,
     download_extension => $download_extension,

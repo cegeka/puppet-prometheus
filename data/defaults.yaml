@@ -119,6 +119,7 @@ prometheus::haproxy_exporter::extra_groups: []
 prometheus::haproxy_exporter::group: 'haproxy-exporter'
 prometheus::haproxy_exporter::package_ensure: 'latest'
 prometheus::haproxy_exporter::package_name: 'haproxy_exporter'
+prometheus::haproxy_exporter::service_name: 'haproxy_exporter'
 prometheus::haproxy_exporter::user: 'haproxy-user'
 prometheus::haproxy_exporter::version: '0.10.0'
 prometheus::nginx_vts_exporter::nginx_scrape_uri: 'http://localhost/status/format/json'
