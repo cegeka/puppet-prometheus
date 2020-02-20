@@ -51,6 +51,8 @@
 #  Whether to enable or not prometheus service from puppet (default true)
 # @param service_ensure
 #  State ensured from prometheus service (default 'running')
+# @param service_name
+#  Name of the prometheus service (default 'prometheus')
 # @param manage_service
 #  Should puppet manage the prometheus service? (default true)
 # @param restart_on_change
@@ -219,6 +221,7 @@ class prometheus (
   String $download_extension,
   String $package_name,
   String $package_ensure,
+  String $service_name,
   String $config_dir,
   Stdlib::Absolutepath $localstorage,
   String $config_template,

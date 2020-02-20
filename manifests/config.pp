@@ -200,7 +200,7 @@ class prometheus::config {
         'redhat' => template('prometheus/prometheus.sysv.erb'), # redhat and sysv share the same template file
         default  => template("prometheus/prometheus.${prometheus::server::init_style}.erb"),
       }
-      file { '/etc/init.d/prometheus':
+      file { "/etc/init.d/${prometheus::server::service_name}":
         ensure  => file,
         mode    => '0555',
         owner   => 'root',
@@ -252,7 +252,7 @@ class prometheus::config {
       file_sd_configs => [{
         files => [ "${prometheus::config_dir}/file_sd_config.d/${job_name}_*.yaml" ]
       }]
-      })
+    })
   }
 
   if versioncmp($prometheus::server::version, '2.0.0') >= 0 {
