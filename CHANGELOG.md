@@ -4,7 +4,26 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v8.2.1](https://github.com/voxpupuli/puppet-prometheus/tree/v8.2.1) (2020-01-25)
+## [v8.3.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.3.0) (2020-02-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.2.1...v8.3.0)
+
+**Implemented enhancements:**
+
+- Add service\_name parameter to haproxy-exporter [\#428](https://github.com/voxpupuli/puppet-prometheus/pull/428) ([unki](https://github.com/unki))
+- Add parameter max\_open\_files to server class [\#425](https://github.com/voxpupuli/puppet-prometheus/pull/425) ([kubicgruenfeld](https://github.com/kubicgruenfeld))
+- Support reloading alertmanager rather than restarting [\#424](https://github.com/voxpupuli/puppet-prometheus/pull/424) ([treydock](https://github.com/treydock))
+
+**Fixed bugs:**
+
+- Fix duplicate command line options in SysV script [\#427](https://github.com/voxpupuli/puppet-prometheus/pull/427) ([lukebigum](https://github.com/lukebigum))
+- Add config mode to config\_dir creation [\#397](https://github.com/voxpupuli/puppet-prometheus/pull/397) ([jpc2350](https://github.com/jpc2350))
+
+**Merged pull requests:**
+
+- if $purge\_config\_dir=true, force-manage config\_dir [\#426](https://github.com/voxpupuli/puppet-prometheus/pull/426) ([unki](https://github.com/unki))
+
+## [v8.2.1](https://github.com/voxpupuli/puppet-prometheus/tree/v8.2.1) (2020-01-26)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.2.0...v8.2.1)
 
@@ -548,7 +567,7 @@ These should not affect the functionality of the module.
 
 ## [v2.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v2.0.0) (2017-10-12)
 
-[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/1.0.0...v2.0.0)
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v1.0.0...v2.0.0)
 
 **Breaking changes:**
 
@@ -580,13 +599,13 @@ These should not affect the functionality of the module.
 - Add param service\_name to node\_exporter class [\#40](https://github.com/voxpupuli/puppet-prometheus/pull/40) ([bastelfreak](https://github.com/bastelfreak))
 - backport changes to upstream [\#39](https://github.com/voxpupuli/puppet-prometheus/pull/39) ([bastelfreak](https://github.com/bastelfreak))
 
-## [1.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/1.0.0) (2017-03-26)
-
-[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v1.0.0...1.0.0)
-
 ## [v1.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v1.0.0) (2017-03-26)
 
-[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v0.2.4...v1.0.0)
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/1.0.0...v1.0.0)
+
+## [1.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/1.0.0) (2017-03-26)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v0.2.4...1.0.0)
 
 ## [v0.2.4](https://github.com/voxpupuli/puppet-prometheus/tree/v0.2.4) (2017-03-13)
 

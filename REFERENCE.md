@@ -966,6 +966,14 @@ Data type: `Stdlib::Absolutepath`
 
 
 
+##### `reload_on_change`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
 ##### `manage_config`
 
 Data type: `Boolean`
@@ -2887,6 +2895,12 @@ Data type: `Stdlib::Ensure::Service`
 State ensured for the service (default 'running')
 
 Default value: 'running'
+
+##### `service_name`
+
+Data type: `String[1]`
+
+Name of the haproxy exporter service (default 'haproxy_exporter')
 
 ##### `user`
 
@@ -6170,6 +6184,14 @@ Data type: `Optional[Array[Hash[String[1], Any]]]`
 
 
 Default value: $prometheus::collect_scrape_jobs
+
+##### `max_open_files`
+
+Data type: `Optional[Integer]`
+
+
+
+Default value: $prometheus::max_open_files
 
 ##### `usershell`
 
