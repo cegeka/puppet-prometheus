@@ -41,6 +41,8 @@
 #  Whether to enable the service from puppet (default true)
 # @param service_ensure
 #  State ensured for the service (default 'running')
+# @param service_name
+#  Name of the statsd exporter service (default 'statsd_exporter')
 # @param mappings
 #  The hiera array for mappings:
 #    - map: 'test.dispatcher.*.*.*'
@@ -59,7 +61,8 @@ class prometheus::statsd_exporter (
   String $group,
   Stdlib::Absolutepath $mapping_config_path,
   String $package_ensure,
-  String $package_name,
+  String[1] $package_name,
+  String[1] $service_name,
   Array[Hash] $mappings,
   String $user,
   String $version,
@@ -92,7 +95,7 @@ class prometheus::statsd_exporter (
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {
-    true    => Service['statsd_exporter'],
+    true    => Service[$service_name],
     default => undef,
   }
 

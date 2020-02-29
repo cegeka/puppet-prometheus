@@ -45,6 +45,8 @@
 #  Whether to enable the service from puppet (default true)
 # @param service_ensure
 #  State ensured for the service (default 'running')
+# @param service_name
+#  Name of the consul exporter service (default 'consul_exporter')
 # @param user
 #  User which runs the service
 # @param version
@@ -62,7 +64,8 @@ class prometheus::consul_exporter (
   String $group,
   String $log_level,
   String $package_ensure,
-  String $package_name,
+  String[1] $package_name,
+  String[1] $service_name,
   String $user,
   String $version,
   String $web_listen_address,
@@ -105,7 +108,7 @@ class prometheus::consul_exporter (
   }
 
   $notify_service = $restart_on_change ? {
-    true    => Service['consul_exporter'],
+    true    => Service[$service_name],
     default => undef,
   }
 

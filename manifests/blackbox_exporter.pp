@@ -67,7 +67,7 @@ class prometheus::blackbox_exporter (
   Array[String] $extra_groups,
   String $group,
   String $package_ensure,
-  String $package_name,
+  String[1] $package_name,
   String $user,
   String $version,
   Boolean $restart_on_change              = true,
@@ -117,7 +117,7 @@ class prometheus::blackbox_exporter (
   }
 
 
-  prometheus::daemon { $service_name :
+  prometheus::daemon { $service_name:
     install_method     => $install_method,
     version            => $version,
     download_extension => $download_extension,

@@ -60,7 +60,7 @@ class prometheus::node_exporter (
   Array[String] $extra_groups,
   String $group,
   String $package_ensure,
-  String $package_name,
+  String[1] $package_name,
   String $user,
   String $version,
   Boolean $purge_config_dir               = true,
@@ -118,7 +118,7 @@ class prometheus::node_exporter (
       join($cmd_collectors_enable, ' '),
       join($cmd_collectors_disable, ' ') ], ' ')
 
-  prometheus::daemon { $service_name :
+  prometheus::daemon { $service_name:
     install_method     => $install_method,
     version            => $version,
     download_extension => $download_extension,
