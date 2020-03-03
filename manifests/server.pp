@@ -29,6 +29,7 @@ class prometheus::server (
   Hash $extra_alerts                                                            = $prometheus::extra_alerts,
   Boolean $service_enable                                                       = $prometheus::service_enable,
   Stdlib::Ensure::Service $service_ensure                                       = $prometheus::service_ensure,
+  String[1] $service_name                                                       = $prometheus::service_name,
   Boolean $manage_service                                                       = $prometheus::manage_service,
   Boolean $restart_on_change                                                    = $prometheus::restart_on_change,
   Prometheus::Initstyle $init_style                                             = $facts['service_provider'],
@@ -56,7 +57,7 @@ class prometheus::server (
       "${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   }
   $notify_service = $restart_on_change ? {
-    true    => Service['prometheus'],
+    true    => Service[$service_name],
     default => undef,
   }
 

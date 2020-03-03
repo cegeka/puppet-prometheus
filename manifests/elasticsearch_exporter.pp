@@ -59,7 +59,8 @@ class prometheus::elasticsearch_exporter (
   Array $extra_groups,
   String $group,
   String $package_ensure,
-  String $package_name,
+  String[1] $package_name,
+  String[1] $service_name,
   String $user,
   String $version,
   Boolean $use_kingpin,
@@ -87,7 +88,7 @@ class prometheus::elasticsearch_exporter (
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {
-    true    => Service['elasticsearch_exporter'],
+    true    => Service[$service_name],
     default => undef,
   }
 

@@ -58,7 +58,7 @@ class prometheus::redis_exporter (
   Array[String] $extra_groups,
   String $group,
   String $package_ensure,
-  String $package_name,
+  String[1] $package_name,
   String $user,
   String $version,
   Boolean $purge_config_dir               = true,

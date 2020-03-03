@@ -39,6 +39,8 @@
 #  Whether to enable the service from puppet (default true)
 # @param service_ensure
 #  State ensured for the service (default 'running')
+# @param service_name
+#  Name of the process exporter service (default 'process-exporter')
 # @param user
 #  User which runs the service
 # @param version
@@ -74,7 +76,8 @@ class prometheus::process_exporter(
   Array $extra_groups,
   String $group,
   String $package_ensure,
-  String $package_name,
+  String[1] $package_name,
+  String[1] $service_name,
   String $user,
   String $version,
   Stdlib::Absolutepath $config_path,
@@ -104,7 +107,7 @@ class prometheus::process_exporter(
   $filename = "${package_name}-${version}.${os}-${arch}.${download_extension}"
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${filename}")
   $notify_service = $restart_on_change ? {
-    true    => Service['process-exporter'],
+    true    => Service[$service_name],
     default => undef,
   }
 

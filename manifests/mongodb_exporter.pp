@@ -41,6 +41,8 @@
 #  Whether to enable the service from puppet (default true)
 # @param service_ensure
 #  State ensured for the service (default 'running')
+# @param service_name
+#  Name of the mongodb exporter service (default 'mongodb_exporter')
 # @param user
 #  User which runs the service
 # @param version
@@ -56,7 +58,8 @@ class prometheus::mongodb_exporter (
   Array  $extra_groups,
   String $group,
   String $package_ensure,
-  String $package_name,
+  String[1] $package_name,
+  String[1] $service_name,
   String $user,
   String $version,
   Boolean $use_kingpin,
@@ -84,7 +87,7 @@ class prometheus::mongodb_exporter (
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {
-    true    => Service['mongodb_exporter'],
+    true    => Service[$service_name],
     default => undef,
   }
 

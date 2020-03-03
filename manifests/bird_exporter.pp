@@ -58,7 +58,7 @@ class prometheus::bird_exporter (
   Array[String] $extra_groups             = ['bird'],
   String $group                           = 'bird-exporter',
   String $package_ensure                  = 'installed',
-  String $package_name                    = 'bird_exporter',
+  String[1] $package_name                 = 'bird_exporter',
   String $user                            = 'bird-exporter',
   String $version                         = '1.2.4',
   Boolean $purge_config_dir               = true,
@@ -90,7 +90,7 @@ class prometheus::bird_exporter (
     default => undef,
   }
 
-  prometheus::daemon { $service_name :
+  prometheus::daemon { $service_name:
     install_method     => $install_method,
     version            => $version,
     download_extension => $download_extension,
