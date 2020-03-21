@@ -37,6 +37,8 @@
 #  Should puppet manage the service? (default true)
 # @param extract_command
 #  Custom command passed to the archive resource to extract the downloaded archive.
+# @param archive_bin_path
+#  Path to the binary in the downloaded archive.
 # @param init_style
 #  Service startup scripts style (e.g. rc, upstart or systemd).
 #  Can also be set to `none` when you don't want the class to create a startup script/unit_file for you.
@@ -67,6 +69,7 @@ define prometheus::daemon (
   Hash[String, Scalar] $env_vars          = {},
   Optional[String] $env_file_path         = $prometheus::env_file_path,
   Optional[String[1]] $extract_command    = $prometheus::extract_command,
+  Stdlib::Absolutepath $archive_bin_path   = "/opt/${name}-${version}.${os}-${arch}/${name}",
   Boolean $export_scrape_job              = false,
   Stdlib::Host $scrape_host               = $facts['networking']['fqdn'],
   Optional[Stdlib::Port] $scrape_port     = undef,
@@ -97,13 +100,13 @@ define prometheus::daemon (
           extract_path    => '/opt',
           source          => $real_download_url,
           checksum_verify => false,
-          creates         => "/opt/${name}-${version}.${os}-${arch}/${name}",
+          creates         => $archive_bin_path,
           cleanup         => true,
-          before          => File["/opt/${name}-${version}.${os}-${arch}/${name}"],
+          before          => File[$archive_bin_path],
           extract_command => $extract_command,
         }
       }
-      file { "/opt/${name}-${version}.${os}-${arch}/${name}":
+      file { $archive_bin_path:
         owner => 'root',
         group => 0, # 0 instead of root because OS X uses "wheel".
         mode  => '0555',
@@ -111,7 +114,7 @@ define prometheus::daemon (
       -> file { "${bin_dir}/${name}":
         ensure => link,
         notify => $notify_service,
-        target => "/opt/${name}-${version}.${os}-${arch}/${name}",
+        target => $archive_bin_path,
       }
     }
     'package': {
