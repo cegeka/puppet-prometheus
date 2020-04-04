@@ -19,6 +19,13 @@ describe 'prometheus' do
             parameters
           end
 
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.to contain_class('prometheus::install') }
+          it { is_expected.to contain_class('prometheus::config') }
+          it { is_expected.to contain_class('prometheus::run_service') }
+          it { is_expected.to contain_class('prometheus::server') }
+          it { is_expected.to contain_class('prometheus::service_reload') }
+
           # prometheus::install
           it {
             is_expected.to contain_file('/var/lib/prometheus').with(
@@ -110,7 +117,7 @@ describe 'prometheus' do
                 'content' => File.read(fixtures('files', "prometheus#{prom_major}.sysv"))
               )
             }
-          elsif ['centos-7-x86_64', 'centos-8-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64'].include?(os)
+          elsif ['centos-7-x86_64', 'centos-8-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'virtuozzolinux-7-x86_64'].include?(os)
             # 'archlinux-5-x86_64' got removed from that list. It has systemd, but we use the repo packages and their shipped unit files.
             # init_style = 'systemd'
 
@@ -208,8 +215,10 @@ describe 'prometheus' do
         end
 
         it { is_expected.not_to contain_class('systemd') }
-
         it { is_expected.not_to contain_systemd__unit_file('prometheus.service') }
+        it { is_expected.to contain_package('prometheus') }
+        it { is_expected.to contain_file('/etc/prometheus/file_sd_config.d') }
+        it { is_expected.to contain_file('/etc/prometheus/rules') }
       end
 
       context 'with alerts configured', alerts: true do
@@ -217,6 +226,7 @@ describe 'prometheus' do
           {
             manage_prometheus_server: true,
             version: '1.5.3',
+            install_method: 'url',
             alerts: [{
               'name'         => 'alert_name',
               'condition'    => 'up == 0',
@@ -228,6 +238,7 @@ describe 'prometheus' do
           {
             manage_prometheus_server: true,
             version: '2.0.0-rc.1',
+            install_method: 'url',
             alerts: {
               'groups' => [{
                 'name' => 'alert.rules',
@@ -255,7 +266,7 @@ describe 'prometheus' do
             prom_major = prom_version[0]
 
             it {
-              is_expected.to compile
+              is_expected.to compile.with_all_deps
             }
             it {
               is_expected.to contain_file('/etc/prometheus/alert.rules').with(
@@ -265,6 +276,8 @@ describe 'prometheus' do
                 'content' => File.read(fixtures('files', "prometheus#{prom_major}.alert.rules"))
               ).that_notifies('Class[prometheus::service_reload]')
             }
+
+            it { is_expected.to contain_archive("/tmp/prometheus-#{prom_version}.tar.gz") }
           end
         end
       end
