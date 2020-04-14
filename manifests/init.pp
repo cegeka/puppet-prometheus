@@ -300,6 +300,7 @@ class prometheus (
     'armv7l':          { $real_arch = 'armv7' }
     'armv6l':          { $real_arch = 'armv6' }
     'armv5l':          { $real_arch = 'armv5' }
+    'ppc64le':         { $real_arch = 'ppc64le' }
     default:           {
       fail("Unsupported kernel architecture: ${arch}")
     }
