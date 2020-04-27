@@ -8,6 +8,8 @@ def os_specific_facts(facts)
       { service_provider: 'systemd' }
     when '9'
       { service_provider: 'systemd' }
+    when '10'
+      { service_provider: 'systemd' }
     when '16.04'
       { service_provider: 'systemd' }
     when '18.04'

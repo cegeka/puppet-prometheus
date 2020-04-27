@@ -24,19 +24,19 @@ matrix:
     env: PUPPET_VERSION="~> 5.0" CHECK=build DEPLOY_TO_FORGE=yes
   - rvm: 2.5.3
     bundler_args: --without development release
-    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_setfile=ubuntu1604-64 CHECK=beaker
+    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_setfile=centos7-64 CHECK=beaker
     services: docker
   - rvm: 2.5.3
     bundler_args: --without development release
-    env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_setfile=ubuntu1604-64 CHECK=beaker
+    env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_setfile=centos7-64 CHECK=beaker
     services: docker
   - rvm: 2.5.3
     bundler_args: --without development release
-    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_setfile=ubuntu1804-64 CHECK=beaker
+    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_setfile=centos8-64 CHECK=beaker
     services: docker
   - rvm: 2.5.3
     bundler_args: --without development release
-    env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_setfile=ubuntu1804-64 CHECK=beaker
+    env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_setfile=centos8-64 CHECK=beaker
     services: docker
   - rvm: 2.5.3
     bundler_args: --without development release
@@ -56,19 +56,27 @@ matrix:
     services: docker
   - rvm: 2.5.3
     bundler_args: --without development release
-    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_setfile=centos7-64 CHECK=beaker
+    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_setfile=debian10-64 CHECK=beaker
     services: docker
   - rvm: 2.5.3
     bundler_args: --without development release
-    env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_setfile=centos7-64 CHECK=beaker
+    env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_setfile=debian10-64 CHECK=beaker
     services: docker
   - rvm: 2.5.3
     bundler_args: --without development release
-    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_setfile=centos8-64 CHECK=beaker
+    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_setfile=ubuntu1604-64 CHECK=beaker
     services: docker
   - rvm: 2.5.3
     bundler_args: --without development release
-    env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_setfile=centos8-64 CHECK=beaker
+    env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_setfile=ubuntu1604-64 CHECK=beaker
+    services: docker
+  - rvm: 2.5.3
+    bundler_args: --without development release
+    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_setfile=ubuntu1804-64 CHECK=beaker
+    services: docker
+  - rvm: 2.5.3
+    bundler_args: --without development release
+    env: BEAKER_PUPPET_COLLECTION=puppet6 BEAKER_setfile=ubuntu1804-64 CHECK=beaker
     services: docker
 branches:
   only:
