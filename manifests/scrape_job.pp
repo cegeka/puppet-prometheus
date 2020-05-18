@@ -24,7 +24,7 @@ define prometheus::scrape_job (
       labels  => $labels,
     },
   ])
-  file { "${collect_dir}/${name}.yaml":
+  file { "${collect_dir}/${job_name}_${name}.yaml":
     ensure  => file,
     owner   => 'root',
     group   => $prometheus::group,
