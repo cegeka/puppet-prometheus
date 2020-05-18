@@ -83,6 +83,14 @@ describe 'prometheus::daemon' do
             )
           }
 
+          context 'with overidden extract_path' do
+            let(:params) do
+              parameters.merge(extract_path: '/opt/foo')
+            end
+
+            it { is_expected.to contain_archive("/tmp/smurf_exporter-#{parameters[:version]}.tar.gz").with_extract_path('/opt/foo') }
+          end
+
           # prometheus::config
           if ['debian-7-x86_64'].include?(os)
             # init_style = 'debian'
