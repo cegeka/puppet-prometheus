@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.5.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.5.0) (2020-05-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.4.0...v8.5.0)
+
+**Implemented enhancements:**
+
+- Allow hiding of prom config file [\#451](https://github.com/voxpupuli/puppet-prometheus/pull/451) ([hooten](https://github.com/hooten))
+- Allow extract\_path to be modified [\#449](https://github.com/voxpupuli/puppet-prometheus/pull/449) ([treydock](https://github.com/treydock))
+- Add support for Debian 10 [\#447](https://github.com/voxpupuli/puppet-prometheus/pull/447) ([dhoppe](https://github.com/dhoppe))
+
+**Merged pull requests:**
+
+- Fix scrape job file names to ensure job\_name is prefix [\#450](https://github.com/voxpupuli/puppet-prometheus/pull/450) ([treydock](https://github.com/treydock))
+
 ## [v8.4.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.4.0) (2020-04-17)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.3.0...v8.4.0)
