@@ -67,6 +67,7 @@ prometheus::alertmanager::version: '0.18.0'
 prometheus::alerts: {}
 prometheus::config_dir: '/etc/prometheus'
 prometheus::config_mode: '0640'
+prometheus::config_show_diff: true
 prometheus::config_template: 'prometheus/prometheus.yaml.erb'
 prometheus::consul_exporter::consul_health_summary: true
 prometheus::consul_exporter::consul_server: 'localhost:8500'

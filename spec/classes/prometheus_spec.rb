@@ -170,12 +170,13 @@ describe 'prometheus' do
 
           it {
             is_expected.to contain_file('prometheus.yaml').with(
-              'ensure'  => 'file',
-              'path'    => configpath,
-              'owner'   => 'root',
-              'group'   => 'prometheus',
-              'mode'    => '0640',
-              'content' => File.read(fixtures('files', "prometheus#{prom_major}.yaml"))
+              'ensure'    => 'file',
+              'path'      => configpath,
+              'owner'     => 'root',
+              'group'     => 'prometheus',
+              'mode'      => '0640',
+              'show_diff' => true,
+              'content'   => File.read(fixtures('files', "prometheus#{prom_major}.yaml"))
             ).that_notifies('Class[prometheus::service_reload]')
           }
 
@@ -300,11 +301,12 @@ describe 'prometheus' do
             it { is_expected.to compile.with_all_deps }
             it {
               is_expected.to contain_file('prometheus.yaml').with(
-                'ensure'  => 'file',
-                'path'    => configpath,
-                'owner'   => 'root',
-                'group'   => 'prometheus',
-                'content' => %r{http://domain.tld/path}
+                'ensure'    => 'file',
+                'path'      => configpath,
+                'owner'     => 'root',
+                'group'     => 'prometheus',
+                'show_diff' => true,
+                'content'   => %r{http://domain.tld/path}
               )
             }
           end
@@ -329,6 +331,36 @@ describe 'prometheus' do
 
             it {
               is_expected.not_to contain_file(configpath)
+            }
+          end
+        end
+      end
+
+      context 'with config_show_diff set' do
+        [
+          {
+            manage_prometheus_server: true,
+            config_show_diff: true
+          },
+          {
+            manage_prometheus_server: true,
+            config_show_diff: false
+          }
+        ].each do |parameters|
+          context "to #{parameters[:config_show_diff]}" do
+            let(:params) do
+              parameters
+            end
+
+            it { is_expected.to compile.with_all_deps }
+            it {
+              is_expected.to contain_file('prometheus.yaml').with(
+                'ensure'    => 'file',
+                'path'      => configpath,
+                'owner'     => 'root',
+                'group'     => 'prometheus',
+                'show_diff' => parameters[:config_show_diff]
+              )
             }
           end
         end

@@ -269,6 +269,7 @@ class prometheus::config {
       group        => $prometheus::server::group,
       mode         => $prometheus::server::config_mode,
       notify       => Class['prometheus::service_reload'],
+      show_diff    => $prometheus::config_show_diff,
       content      => template($prometheus::server::config_template),
       validate_cmd => "${prometheus::server::bin_dir}/promtool ${cfg_verify_cmd} %",
     }

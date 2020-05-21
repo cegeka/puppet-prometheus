@@ -209,6 +209,8 @@
 # @param log_format
 #  --log.format=logfmt
 #  Output format of log messages. One of: [logfmt, json]
+# @param config_show_diff
+#  Whether to show prometheus configuration file diff in the Puppet logs.
 class prometheus (
   String $user,
   String $group,
@@ -291,6 +293,7 @@ class prometheus (
   Boolean $manage_group                                                         = true,
   Boolean $purge_config_dir                                                     = true,
   Boolean $manage_user                                                          = true,
+  Boolean $config_show_diff                                                     = true,
 ) {
 
   case $arch {
