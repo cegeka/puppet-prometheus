@@ -18,10 +18,10 @@ describe 'prometheus redis exporter' do
       it { is_expected.to be_listening.with('tcp6') }
     end
 
-    it 'is version v1.3.4' do
+    it 'is version v1.6.1' do
       shell('curl -s http://127.0.0.1:9121/metrics') do |r|
         redis_exporter_build_info = r.stdout.split(%r{\n}).find { |line| line =~ %r{^redis_exporter_build_info} }
-        expect(redis_exporter_build_info).to match(%r{,version="v1\.3\.4"})
+        expect(redis_exporter_build_info).to match(%r{,version="v1\.6\.1"})
       end
     end
   end
