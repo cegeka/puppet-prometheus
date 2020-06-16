@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v9.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v9.0.0) (2020-06-16)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.5.0...v9.0.0)
+
+**Breaking changes:**
+
+- Redis Exporter: Update 1.3.4-\>1.6.1 [\#461](https://github.com/voxpupuli/puppet-prometheus/pull/461) ([bastelfreak](https://github.com/bastelfreak))
+- Upgrade varnish\_exporter version from 1.5 to 1.5.2 [\#457](https://github.com/voxpupuli/puppet-prometheus/pull/457) ([mcanevet](https://github.com/mcanevet))
+- Update PushProx to new namespace / update version 20190708 -\> 0.1.0 [\#456](https://github.com/voxpupuli/puppet-prometheus/pull/456) ([mcanevet](https://github.com/mcanevet))
+- Update rabbitmq\_exporter to version 0.29.0 [\#453](https://github.com/voxpupuli/puppet-prometheus/pull/453) ([dhoppe](https://github.com/dhoppe))
+- graphite\_exporter: update 0.2.0-\>0.7.1 [\#357](https://github.com/voxpupuli/puppet-prometheus/pull/357) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Implement puppetdb exporter [\#463](https://github.com/voxpupuli/puppet-prometheus/pull/463) ([bastelfreak](https://github.com/bastelfreak))
+- Add memcached exporter support [\#462](https://github.com/voxpupuli/puppet-prometheus/pull/462) ([bastelfreak](https://github.com/bastelfreak))
+- \(\#458\) add grok\_exporter [\#459](https://github.com/voxpupuli/puppet-prometheus/pull/459) ([kuldazbraslav](https://github.com/kuldazbraslav))
+
+**Closed issues:**
+
+- Feature request for grok\_exporter [\#458](https://github.com/voxpupuli/puppet-prometheus/issues/458)
+- Error 500 on SERVER: Server Error: Evaluation Error: Error while evaluating a Function Call, Could not find class ::systemd  [\#257](https://github.com/voxpupuli/puppet-prometheus/issues/257)
+
 ## [v8.5.0](https://github.com/voxpupuli/puppet-prometheus/tree/v8.5.0) (2020-05-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.4.0...v8.5.0)
