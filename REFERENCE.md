@@ -16,7 +16,7 @@ _Public Classes_
 * [`prometheus::collectd_exporter`](#prometheuscollectd_exporter): This module manages prometheus node collectd_exporter
 * [`prometheus::config`](#prometheusconfig): Configuration class for prometheus monitoring system
 * [`prometheus::consul_exporter`](#prometheusconsul_exporter): This module manages prometheus node consul_exporter
-* [`prometheus::dellhw_exporter`](#prometheusdellhw_exporter): This module manages prometheus node dellhw_exporter
+* [`prometheus::dellhw_exporter`](#prometheusdellhw_exporter): This module manages prometheus dellhw_exporter
 * [`prometheus::elasticsearch_exporter`](#prometheuselasticsearch_exporter): This module manages prometheus elasticsearch_exporter
 * [`prometheus::graphite_exporter`](#prometheusgraphite_exporter): This module manages prometheus node graphite_exporter
 * [`prometheus::haproxy_exporter`](#prometheushaproxy_exporter): This module manages prometheus haproxy_exporter
