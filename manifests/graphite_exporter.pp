@@ -52,7 +52,7 @@ class prometheus::graphite_exporter (
   String[1] $service_name,
   String[1] $user,
   String[1] $version,
-  String[1] $options,
+  String $options,
   String[1] $os                           = downcase($facts['kernel']),
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
   String[1] $install_method               = $prometheus::install_method,

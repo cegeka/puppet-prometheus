@@ -53,7 +53,7 @@
 #  The binary release version
 class prometheus::snmp_exporter (
   String[1] $config_file,
-  String[1] $config_template,
+  String $config_template,
   String[1] $download_extension,
   String[1] $download_url_base,
   Array $extra_groups,
