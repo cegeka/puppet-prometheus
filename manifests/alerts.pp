@@ -5,11 +5,11 @@
 #  Where to create the alert file for prometheus
 define prometheus::alerts (
   Variant[Array,Hash] $alerts,
-  String $location = "${prometheus::config_dir}/rules",
-  String $version  = $prometheus::version,
-  String $user     = $prometheus::user,
-  String $group    = $prometheus::group,
-  String $bin_dir  = $prometheus::bin_dir,
+  String[1] $location = "${prometheus::config_dir}/rules",
+  String[1] $version  = $prometheus::version,
+  String[1] $user     = $prometheus::user,
+  String[1] $group    = $prometheus::group,
+  String[1] $bin_dir  = $prometheus::bin_dir,
 ) {
   if ( versioncmp($version, '2.0.0') < 0 ){
     file { "${location}/${name}.rules":
