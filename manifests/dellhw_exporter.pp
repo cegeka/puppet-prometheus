@@ -48,21 +48,21 @@
 # @param omreport_path
 #  The file path to the omReport executable (default "/opt/dell/srvadmin/bin/omreport")
 class prometheus::dellhw_exporter (
-  String $download_extension              = 'tar.gz',
-  String $download_url_base               = 'https://github.com/galexrt/dellhw-exporter/releases',
+  String[1] $download_extension           = 'tar.gz',
+  String[1] $download_url_base            = 'https://github.com/galexrt/dellhw-exporter/releases',
   Array[String] $extra_groups             = [],
-  String $group                           = 'dellhw-exporter',
-  String $package_ensure                  = 'present',
+  String[1] $group                        = 'dellhw-exporter',
+  String[1] $package_ensure               = 'present',
   String[1] $package_name                 = 'dellhw_exporter',
-  String $user                            = 'dellhw-exporter',
-  String $version                         = '1.6.0',
+  String[1] $user                         = 'dellhw-exporter',
+  String[1] $version                      = '1.6.0',
   Boolean $purge_config_dir               = true,
   Boolean $restart_on_change              = true,
   Boolean $service_enable                 = true,
   Stdlib::Ensure::Service $service_ensure = 'running',
   String[1] $service_name                 = 'dellhw_exporter',
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
-  String $install_method                  = $prometheus::install_method,
+  String[1] $install_method               = $prometheus::install_method,
   Boolean $manage_group                   = true,
   Boolean $manage_service                 = true,
   Boolean $manage_user                    = true,
@@ -70,7 +70,7 @@ class prometheus::dellhw_exporter (
   String $extra_options                   = '',
   Optional[String] $download_url          = undef,
   String[1] $arch                         = $prometheus::real_arch,
-  String $bin_dir                         = $prometheus::bin_dir,
+  String[1] $bin_dir                      = $prometheus::bin_dir,
   Boolean $export_scrape_job              = false,
   Stdlib::Port $scrape_port               = 9137,
   String[1] $scrape_job_name              = 'dellhw',
@@ -79,7 +79,7 @@ class prometheus::dellhw_exporter (
   Stdlib::Unixpath $omreport_path         = '/opt/dell/srvadmin/bin/omreport',
 ) inherits prometheus {
 
-  $real_download_url = pick($download_url,"${download_url_base}/download/${version}/prometheus-dellhw-exporter-${version}.${os}-${arch}.${download_extension}")
+  $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/dellhw_exporter-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {
     true    => Service[$service_name],
