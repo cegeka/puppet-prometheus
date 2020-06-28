@@ -17,7 +17,7 @@ describe 'prometheus::dellhw_exporter' do
           else
             it { is_expected.to contain_archive('/tmp/dellhw_exporter-1.6.0.tar.gz') }
             it { is_expected.to contain_file('/usr/local/bin/dellhw_exporter').with('target' => '/opt/dellhw_exporter-1.6.0.linux-amd64/dellhw_exporter') }
-            it { is_expected.to contain_file('/opt/dellhw_exporter-1.6.0.linux-amd64/prometheus-dellhw-exporter') }
+            it { is_expected.to contain_file('/opt/dellhw_exporter-1.6.0.linux-amd64/dellhw_exporter') }
             it { is_expected.not_to contain_package('dellhw_exporter') }
           end
           it { is_expected.to contain_prometheus__daemon('dellhw_exporter') }
