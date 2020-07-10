@@ -135,11 +135,19 @@ define prometheus::daemon (
     }
   }
   if $manage_user {
+    # if we manage the service, we need to reload it if our user changes
+    # important for cases where another group gets added
+    if $manage_service {
+      $notify = $notify_service
+    } else {
+      $notify = undef
+    }
     ensure_resource('user', [ $user ], {
       ensure => 'present',
       system => true,
       groups => $extra_groups,
       shell  => $usershell,
+      notify => $notify,
     })
 
     if $manage_group {
