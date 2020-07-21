@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v9.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v9.1.0) (2020-07-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v9.0.0...v9.1.0)
+
+**Implemented enhancements:**
+
+- Issue 469: Add dellhw\_exporter support [\#470](https://github.com/voxpupuli/puppet-prometheus/pull/470) ([kkunkel](https://github.com/kkunkel))
+
+**Fixed bugs:**
+
+- Exporters: Reload service if user has changed attributes [\#474](https://github.com/voxpupuli/puppet-prometheus/pull/474) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- Add support for dellhw\_exporter [\#469](https://github.com/voxpupuli/puppet-prometheus/issues/469)
+- Thanos unable to write to tsdb directory [\#466](https://github.com/voxpupuli/puppet-prometheus/issues/466)
+
+**Merged pull requests:**
+
+- updating String to String\[1\] when '' is invalid [\#471](https://github.com/voxpupuli/puppet-prometheus/pull/471) ([kkunkel](https://github.com/kkunkel))
+
 ## [v9.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v9.0.0) (2020-06-16)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v8.5.0...v9.0.0)
