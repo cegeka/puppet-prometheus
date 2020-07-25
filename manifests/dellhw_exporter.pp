@@ -78,7 +78,6 @@ class prometheus::dellhw_exporter (
   Optional[String[1]] $bin_name           = undef,
   Stdlib::Unixpath $omreport_path         = '/opt/dell/srvadmin/bin/omreport',
 ) inherits prometheus {
-
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/dellhw_exporter-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {

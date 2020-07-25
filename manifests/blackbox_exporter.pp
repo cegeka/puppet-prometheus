@@ -91,7 +91,6 @@ class prometheus::blackbox_exporter (
   String[1] $scrape_job_name              = 'blackbox',
   Optional[Hash] $scrape_job_labels       = undef,
 ) inherits prometheus {
-
   # Prometheus added a 'v' on the release name at 0.1.0 of blackbox
   if versioncmp ($version, '0.1.0') >= 0 {
     $release = "v${version}"
@@ -108,14 +107,13 @@ class prometheus::blackbox_exporter (
   $options = "--config.file=${config_file} ${extra_options}"
 
   file { $config_file:
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => $group,
     mode    => $config_mode,
     content => template('prometheus/blackbox_exporter.yaml.erb'),
     notify  => $notify_service,
   }
-
 
   prometheus::daemon { $service_name:
     install_method     => $install_method,

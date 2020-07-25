@@ -86,7 +86,6 @@ class prometheus::statsd_exporter (
   String[1] $scrape_job_name              = 'statsd',
   Optional[Hash] $scrape_job_labels       = undef,
 ) inherits prometheus {
-
   # Prometheus added a 'v' on the realease name at 0.4.0 and changed the configuration format to yaml in 0.5.0
   if versioncmp ($version, '0.5.0') == -1 {
     fail("I only support statsd_exporter version '0.5.0' or higher")
@@ -104,7 +103,7 @@ class prometheus::statsd_exporter (
     mode    => $config_mode,
     owner   => 'root',
     group   => $group,
-    content => to_yaml({ mappings => $mappings }),
+    content => to_yaml( { mappings => $mappings }),
     notify  => $notify_service,
   }
 

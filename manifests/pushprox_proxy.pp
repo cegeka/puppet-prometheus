@@ -73,7 +73,6 @@ class prometheus::pushprox_proxy (
   String[1] $arch                         = $prometheus::real_arch,
   Stdlib::Absolutepath $bin_dir           = $prometheus::bin_dir,
 ) inherits prometheus {
-
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/PushProx-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {

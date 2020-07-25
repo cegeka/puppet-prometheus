@@ -78,7 +78,6 @@ class prometheus::puppetdb_exporter (
   Optional[String[1]] $bin_name           = undef,
   Stdlib::HTTPUrl $puppetdb_url           = 'http://127.0.0.1:8080/pdb/query',
 ) inherits prometheus {
-
   $real_download_url = pick($download_url,"${download_url_base}/download/${version}/prometheus-puppetdb-exporter-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {

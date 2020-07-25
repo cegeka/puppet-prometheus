@@ -11,13 +11,13 @@ define prometheus::alerts (
   String[1] $group    = $prometheus::group,
   String[1] $bin_dir  = $prometheus::bin_dir,
 ) {
-  if ( versioncmp($version, '2.0.0') < 0 ){
+  if ( versioncmp($version, '2.0.0') < 0 ) {
     file { "${location}/${name}.rules":
       ensure       => 'file',
       owner        => 'root',
       group        => $group,
       notify       => Class['prometheus::service_reload'],
-      content      => epp("${module_name}/alerts.epp", {'alerts' => $alerts}),
+      content      => epp("${module_name}/alerts.epp", { 'alerts' => $alerts }),
       validate_cmd => "${bin_dir}/promtool check-rules %",
       require      => Class['prometheus::install'],
       before       => Class['prometheus::config'],

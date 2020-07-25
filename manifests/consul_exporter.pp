@@ -89,7 +89,6 @@ class prometheus::consul_exporter (
   String[1] $scrape_job_name              = 'consul',
   Optional[Hash] $scrape_job_labels       = undef,
 ) inherits prometheus {
-
   # Prometheus added a 'v' on the realease name at 0.3.0
   if versioncmp ($version, '0.3.0') == -1 {
     fail("I only support consul_exporter version '0.3.0' or higher")

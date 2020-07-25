@@ -71,7 +71,6 @@ class prometheus::graphite_exporter (
   Boolean $manage_user                    = true,
   Boolean $manage_group                   = true,
 ) inherits prometheus {
-
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 
   $notify_service = $restart_on_change ? {

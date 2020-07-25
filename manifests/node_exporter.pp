@@ -87,7 +87,6 @@ class prometheus::node_exporter (
   Optional[Hash] $scrape_job_labels       = undef,
   Optional[String[1]] $bin_name           = undef,
 ) inherits prometheus {
-
   # Prometheus added a 'v' on the realease name at 0.13.0
   if versioncmp ($version, '0.13.0') >= 0 {
     $release = "v${version}"
@@ -113,10 +112,9 @@ class prometheus::node_exporter (
     "--no-collector.${collector}"
   }
 
-
-    $options = join([$extra_options,
+  $options = join([$extra_options,
       join($cmd_collectors_enable, ' '),
-      join($cmd_collectors_disable, ' ') ], ' ')
+  join($cmd_collectors_disable, ' ')], ' ')
 
   prometheus::daemon { $service_name:
     install_method     => $install_method,

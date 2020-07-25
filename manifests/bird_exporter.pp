@@ -82,7 +82,6 @@ class prometheus::bird_exporter (
   Optional[Hash] $scrape_job_labels       = undef,
   Optional[String[1]] $bin_name           = undef,
 ) inherits prometheus {
-
   $real_download_url = pick($download_url,"${download_url_base}/download/${version}/${package_name}-${version}_${os}_${arch}")
 
   $notify_service = $restart_on_change ? {

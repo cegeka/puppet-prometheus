@@ -45,7 +45,7 @@
 #  User which runs the service
 # @param version
 #  The binary release version
-class prometheus::varnish_exporter(
+class prometheus::varnish_exporter (
   String[1] $download_extension,
   Array $extra_groups,
   String[1] $group,
@@ -74,7 +74,6 @@ class prometheus::varnish_exporter(
   String[1] $scrape_job_name              = 'varnish',
   Optional[Hash] $scrape_job_labels       = undef,
 ) inherits prometheus {
-
   $real_download_url = pick($download_url,"${download_url_base}/download/${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {
     true    => Service[$service_name],

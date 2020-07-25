@@ -67,7 +67,6 @@ class prometheus::pushgateway (
   String[1] $arch                         = $prometheus::real_arch,
   String[1] $bin_dir                      = $prometheus::bin_dir,
 ) inherits prometheus {
-
   # Prometheus added a 'v' on the realease name at 0.3.0
   if versioncmp ($version, '0.3.0') >= 0 {
     $release = "v${version}"

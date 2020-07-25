@@ -77,7 +77,6 @@ class prometheus::haproxy_exporter (
   String[1] $scrape_job_name              = 'haproxy',
   Optional[Hash] $scrape_job_labels       = undef,
 ) inherits prometheus {
-
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {
     true    => Service[$service_name],
@@ -113,5 +112,4 @@ class prometheus::haproxy_exporter (
     scrape_job_name    => $scrape_job_name,
     scrape_job_labels  => $scrape_job_labels,
   }
-
 }

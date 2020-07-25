@@ -82,7 +82,6 @@ class prometheus::redis_exporter (
   String[1] $scrape_job_name              = 'redis',
   Optional[Hash] $scrape_job_labels       = undef,
 ) inherits prometheus {
-
   $release = "v${version}"
 
   $real_download_url = pick($download_url, "${download_url_base}/download/${release}/${package_name}-${release}.${os}-${arch}.${download_extension}")

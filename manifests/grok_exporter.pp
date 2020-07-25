@@ -84,7 +84,6 @@ class prometheus::grok_exporter (
   String[1] $scrape_job_name              = 'grok',
   Optional[Hash] $scrape_job_labels       = undef,
 ) inherits prometheus {
-
   #Please provide the download_url for versions < 0.9.0
   $real_download_url    = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
   $notify_service = $restart_on_change ? {
@@ -95,7 +94,7 @@ class prometheus::grok_exporter (
   $options = "-config ${config_file} ${extra_options}"
 
   file { $config_file:
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => $group,
     mode    => $config_mode,

@@ -83,7 +83,6 @@ class prometheus::elasticsearch_exporter (
   String[1] $scrape_job_name              = 'elasticsearch',
   Optional[Hash] $scrape_job_labels       = undef,
 ) inherits prometheus {
-
   #Please provide the download_url for versions < 0.9.0
   $real_download_url = pick($download_url,"${download_url_base}/download/v${version}/${package_name}-${version}.${os}-${arch}.${download_extension}")
 

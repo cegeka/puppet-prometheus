@@ -80,7 +80,6 @@ define prometheus::daemon (
   Hash $scrape_job_labels                 = { 'alias' => $scrape_host },
   Stdlib::Absolutepath $usershell         = $prometheus::usershell,
 ) {
-
   case $install_method {
     'url': {
       if $download_extension == '' {
@@ -140,11 +139,11 @@ define prometheus::daemon (
     if $manage_service {
       User[$user] ~> $notify_service
     }
-    ensure_resource('user', [ $user ], {
-      ensure => 'present',
-      system => true,
-      groups => $extra_groups,
-      shell  => $usershell,
+    ensure_resource('user', [$user], {
+        ensure => 'present',
+        system => true,
+        groups => $extra_groups,
+        shell  => $usershell,
     })
 
     if $manage_group {
@@ -152,12 +151,11 @@ define prometheus::daemon (
     }
   }
   if $manage_group {
-    ensure_resource('group', [ $group ], {
-      ensure => 'present',
-      system => true,
+    ensure_resource('group', [$group], {
+        ensure => 'present',
+        system => true,
     })
   }
-
 
   case $init_style { # lint:ignore:case_without_default
     'upstart': {
@@ -178,7 +176,7 @@ define prometheus::daemon (
     }
     'systemd': {
       include 'systemd'
-      systemd::unit_file {"${name}.service":
+      systemd::unit_file { "${name}.service":
         content => template('prometheus/daemon.systemd.erb'),
         notify  => $notify_service,
       }
