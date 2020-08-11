@@ -86,7 +86,7 @@ class prometheus::dellhw_exporter (
   }
 
   $real_omreport_path = "--collectors-omreport=${omreport_path}"
-  $real_scrape_port = "--web-listen-address=${scrape_port}"
+  $real_scrape_port = "--web-listen-address=:${scrape_port}"
   $options = join([$extra_options, $real_omreport_path, $real_scrape_port], ' ')
 
   prometheus::daemon { $service_name:
