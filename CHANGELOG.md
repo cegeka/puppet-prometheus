@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v10.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v10.0.0) (2020-08-15)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v9.1.0...v10.0.0)
+
+**Breaking changes:**
+
+- update version numbers to latest releases [\#479](https://github.com/voxpupuli/puppet-prometheus/pull/479) ([antondollmaier](https://github.com/antondollmaier))
+
+**Implemented enhancements:**
+
+- Fixes for prometheus::dellhw\_exporter not working as is [\#480](https://github.com/voxpupuli/puppet-prometheus/pull/480) ([lconsuegra](https://github.com/lconsuegra))
+
+**Merged pull requests:**
+
+- Prometheus: Update 2.20.0-\>2.20.1 [\#481](https://github.com/voxpupuli/puppet-prometheus/pull/481) ([bastelfreak](https://github.com/bastelfreak))
+- modulesync 3.0.0 & puppet-lint updates [\#478](https://github.com/voxpupuli/puppet-prometheus/pull/478) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v9.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v9.1.0) (2020-07-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v9.0.0...v9.1.0)
