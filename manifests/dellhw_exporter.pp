@@ -47,6 +47,8 @@
 #  The binary release version
 # @param omreport_path
 #  The file path to the omReport executable (default "/opt/dell/srvadmin/bin/omreport")
+# @param scrape_ipadress
+#  The ip address that the exporter will to listen to (default '')
 class prometheus::dellhw_exporter (
   String[1] $download_extension           = 'tar.gz',
   String[1] $download_url_base            = 'https://github.com/galexrt/dellhw_exporter/releases',
@@ -73,6 +75,7 @@ class prometheus::dellhw_exporter (
   String[1] $bin_dir                      = $prometheus::bin_dir,
   Boolean $export_scrape_job              = false,
   Stdlib::Port $scrape_port               = 9137,
+  String $scrape_ipadress                 = '',
   String[1] $scrape_job_name              = 'dellhw',
   Optional[Hash] $scrape_job_labels       = undef,
   Optional[String[1]] $bin_name           = undef,
@@ -86,7 +89,7 @@ class prometheus::dellhw_exporter (
   }
 
   $real_omreport_path = "--collectors-omreport=${omreport_path}"
-  $real_scrape_port = "--web-listen-address=:${scrape_port}"
+  $real_scrape_port = "--web-listen-address=${$scrape_ipadress}:${scrape_port}"
   $options = join([$extra_options, $real_omreport_path, $real_scrape_port], ' ')
 
   prometheus::daemon { $service_name:
