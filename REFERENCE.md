@@ -8278,3 +8278,8 @@ The Prometheus::Uri data type.
 
 Alias of `Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl, Prometheus::S3Uri]`
 
+### `Prometheus::GsUri`
+
+The Prometheus::GsUri data type.
+
+Alias of `Pattern[/^gs:\/\//]`
