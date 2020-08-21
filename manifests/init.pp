@@ -211,6 +211,7 @@
 #  Output format of log messages. One of: [logfmt, json]
 # @param config_show_diff
 #  Whether to show prometheus configuration file diff in the Puppet logs.
+# @param extra_groups Extra groups of which the user should be a part
 class prometheus (
   String $user,
   String $group,

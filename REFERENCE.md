@@ -62,6 +62,7 @@ This can be used to make prometheus find instances of your running service or ap
 
 ### Data types
 
+* [`Prometheus::GsUri`](#prometheusgsuri)
 * [`Prometheus::Initstyle`](#prometheusinitstyle)
 * [`Prometheus::S3Uri`](#prometheuss3uri)
 * [`Prometheus::Uri`](#prometheusuri)
@@ -704,7 +705,7 @@ Default value: ``true``
 
 Data type: `Array`
 
-
+Extra groups of which the user should be a part
 
 ##### `env_file_path`
 
@@ -2405,7 +2406,7 @@ Data type: `String[1]`
 
 Base URL for the binary archive
 
-Default value: `'https://github.com/galexrt/dellhw-exporter/releases'`
+Default value: `'https://github.com/galexrt/dellhw_exporter/releases'`
 
 ##### `extra_groups`
 
@@ -2558,6 +2559,14 @@ Data type: `Stdlib::Unixpath`
 The file path to the omReport executable (default "/opt/dell/srvadmin/bin/omreport")
 
 Default value: `'/opt/dell/srvadmin/bin/omreport'`
+
+##### `scrape_ipadress`
+
+Data type: `String`
+
+The ip address that the exporter will to listen to (default '')
+
+Default value: `''`
 
 ##### `export_scrape_job`
 
@@ -8260,6 +8269,12 @@ Default value: ``undef``
 
 ## Data types
 
+### `Prometheus::GsUri`
+
+The Prometheus::GsUri data type.
+
+Alias of `Pattern[/^gs:\/\//]`
+
 ### `Prometheus::Initstyle`
 
 The Prometheus::Initstyle data type.
@@ -8276,10 +8291,5 @@ Alias of `Pattern[/^s3:\/\//]`
 
 The Prometheus::Uri data type.
 
-Alias of `Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl, Prometheus::S3Uri]`
+Alias of `Variant[Stdlib::HTTPUrl, Stdlib::HTTPSUrl, Prometheus::S3Uri, Prometheus::GsUri]`
 
-### `Prometheus::GsUri`
-
-The Prometheus::GsUri data type.
-
-Alias of `Pattern[/^gs:\/\//]`

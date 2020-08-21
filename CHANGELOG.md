@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v10.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v10.1.0) (2020-08-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v10.0.0...v10.1.0)
+
+**Implemented enhancements:**
+
+- Add support for Google Cloud gs storage [\#485](https://github.com/voxpupuli/puppet-prometheus/pull/485) ([j0sh3rs](https://github.com/j0sh3rs))
+- prometheus::dellhw\_exporter: Add scrape\_ipadress parameter [\#484](https://github.com/voxpupuli/puppet-prometheus/pull/484) ([lconsuegra](https://github.com/lconsuegra))
+
 ## [v10.0.0](https://github.com/voxpupuli/puppet-prometheus/tree/v10.0.0) (2020-08-15)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v9.1.0...v10.0.0)
