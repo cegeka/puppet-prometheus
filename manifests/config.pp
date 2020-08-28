@@ -238,7 +238,12 @@ class prometheus::config {
 
     $job_name = $job_definition['job_name']
 
-    Prometheus::Scrape_job <<| job_name == $job_name |>> {
+    $node_tag = $prometheus::server::collect_tag ? {
+      Undef   => 'prometheus::scrape_job',
+      default => $prometheus::server::collect_tag,
+    }
+
+    Prometheus::Scrape_job <<| job_name == $job_name and tag == $node_tag |>> {
       collect_dir => "${prometheus::config_dir}/file_sd_config.d",
       notify      => Class['::prometheus::service_reload'],
     }

@@ -89,6 +89,8 @@
 #  If omitted, relevant URL components will be derived automatically.
 # @param extract_command
 #  Custom command passed to the archive resource to extract the downloaded archive.
+# @param collect_tag
+#  Only collect scrape jobs tagged with this label. Allowing to split jobs over multiple prometheuses.
 # @param collect_scrape_jobs
 #  Array of scrape_configs. Format, e.g.:
 #  - job_name: some_exporter
@@ -283,6 +285,7 @@ class prometheus (
   String[1] $os                                                                 = downcase($facts['kernel']),
   Optional[Variant[Stdlib::HTTPUrl, Stdlib::Unixpath, String[1]]] $external_url = undef,
   Optional[Array[Hash[String[1], Any]]] $collect_scrape_jobs                    = [],
+  Optional[String[1]] $collect_tag                                              = undef,
   Optional[Integer] $max_open_files                                             = undef,
   String[1] $configname                                                         = 'prometheus.yaml',
   Boolean $service_enable                                                       = true,
