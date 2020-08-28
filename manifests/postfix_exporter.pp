@@ -82,7 +82,7 @@ class prometheus::postfix_exporter (
 
   # scrape job configuration
   Boolean        $export_scrape_job = false,
-  Optional[Stdlib::Host] $scrape_host     = undef,
+  Optional[Stdlib::Host] $scrape_host  = undef,
   Stdlib::Port   $scrape_port       = 9154,
   String[1]      $scrape_job_name   = 'postfix',
   Optional[Hash] $scrape_job_labels = undef,
