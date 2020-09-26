@@ -68,8 +68,8 @@ define prometheus::daemon (
   Stdlib::Ensure::Service $service_ensure = 'running',
   Boolean $service_enable                 = true,
   Boolean $manage_service                 = true,
-  Hash[String, Scalar] $env_vars          = {},
-  Optional[String] $env_file_path         = $prometheus::env_file_path,
+  Hash[String[1], Scalar] $env_vars       = {},
+  Stdlib::Absolutepath $env_file_path     = $prometheus::env_file_path,
   Optional[String[1]] $extract_command    = $prometheus::extract_command,
   Stdlib::Absolutepath $extract_path      = '/opt',
   Stdlib::Absolutepath $archive_bin_path  = "/opt/${name}-${version}.${os}-${arch}/${name}",
@@ -215,7 +215,7 @@ define prometheus::daemon (
     'none': {}
   }
 
-  if $env_file_path != undef {
+  unless $env_vars.empty {
     file { "${env_file_path}/${name}":
       mode    => '0644',
       owner   => 'root',

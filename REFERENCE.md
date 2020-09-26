@@ -8398,7 +8398,7 @@ Default value: `{}`
 
 ##### `env_file_path`
 
-Data type: `Optional[String]`
+Data type: `Stdlib::Absolutepath`
 
 
 

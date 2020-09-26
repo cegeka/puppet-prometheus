@@ -26,9 +26,28 @@ describe 'prometheus::bird_exporter' do
         end
 
         if facts[:os]['family'] == 'RedHat'
+          it { is_expected.not_to contain_file('/etc/sysconfig/bird_exporter') }
+        else
+          it { is_expected.not_to contain_file('/etc/default/bird_exporter') }
+        end
+      end
+
+      context 'with env vars' do
+        let :params do
+          {
+            env_vars: {
+              blub: 'foobar'
+            }
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+        if facts[:os]['family'] == 'RedHat'
           it { is_expected.to contain_file('/etc/sysconfig/bird_exporter') }
+          it { is_expected.not_to contain_file('/etc/default/bird_exporter') }
         else
           it { is_expected.to contain_file('/etc/default/bird_exporter') }
+          it { is_expected.not_to contain_file('/etc/sysconfig/bird_exporter') }
         end
       end
     end

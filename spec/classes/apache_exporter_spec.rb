@@ -8,6 +8,24 @@ describe 'prometheus::apache_exporter' do
       end
 
       context 'with all defaults' do
+        it { is_expected.to compile.with_all_deps }
+        if facts[:os]['release']['major'].to_i == 6
+          it { is_expected.to contain_file('/etc/init.d/apache_exporter') }
+        else
+          it { is_expected.to contain_systemd__unit_file('apache_exporter.service') }
+        end
+
+        if facts[:os]['name'] == 'Archlinux'
+          it { is_expected.to contain_package('apache_exporter') }
+          it { is_expected.not_to contain_archive('/tmp/apache_exporter-0.8.0.tar.gz') }
+          it { is_expected.not_to contain_file('/opt/apache_exporter-0.8.0.linux-amd64/apache_exporter') }
+        else
+          it { is_expected.not_to contain_package('apache-exporter') }
+          it { is_expected.to contain_archive('/tmp/apache_exporter-0.8.0.tar.gz') }
+          it { is_expected.to contain_file('/opt/apache_exporter-0.8.0.linux-amd64/apache_exporter') }
+        end
+      end
+      context 'with some params' do
         let(:params) do
           {
             version: '0.5.0',
@@ -21,6 +39,7 @@ describe 'prometheus::apache_exporter' do
         describe 'with specific params' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_archive('/tmp/apache_exporter-0.5.0.tar.gz') }
+          it { is_expected.to contain_file('/opt/apache_exporter-0.5.0.linux-amd64/apache_exporter') }
           it { is_expected.to contain_class('prometheus') }
           it { is_expected.to contain_group('apache-exporter') }
           it { is_expected.to contain_user('apache-exporter') }
@@ -48,6 +67,7 @@ describe 'prometheus::apache_exporter' do
         describe 'with specific params' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_archive('/tmp/apache_exporter-0.4.0.tar.gz') }
+          it { is_expected.to contain_file('/opt/apache_exporter-0.4.0.linux-amd64/apache_exporter') }
           it { is_expected.to contain_class('prometheus') }
           it { is_expected.to contain_group('apache-exporter') }
           it { is_expected.to contain_user('apache-exporter') }
