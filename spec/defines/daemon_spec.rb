@@ -92,33 +92,7 @@ describe 'prometheus::daemon' do
           end
 
           # prometheus::config
-          if ['debian-7-x86_64'].include?(os)
-            # init_style = 'debian'
-
-            it {
-              is_expected.to contain_file('/etc/init.d/smurf_exporter').with(
-                'mode'    => '0555',
-                'owner'   => 'root',
-                'group'   => 'root'
-              ).with_content(
-                %r{DAEMON_ARGS=''\n}
-              ).with_content(
-                %r{USER=smurf_user\n}
-              )
-            }
-
-            context 'with overidden bin_name' do
-              let(:params) do
-                parameters.merge(bin_name: 'notsmurf_exporter')
-              end
-
-              it {
-                is_expected.to contain_file('/etc/init.d/smurf_exporter').with_content(
-                  %r{DAEMON=/usr/local/bin/notsmurf_exporter}
-                )
-              }
-            end
-          elsif ['centos-6-x86_64', 'redhat-6-x86_64'].include?(os)
+          if ['centos-6-x86_64', 'redhat-6-x86_64'].include?(os)
             # init_style = 'sysv'
 
             it {
@@ -142,7 +116,7 @@ describe 'prometheus::daemon' do
                 )
               }
             end
-          elsif ['centos-7-x86_64', 'centos-8-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'debian-10-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'archlinux-5-x86_64', 'virtuozzolinux-7-x86_64'].include?(os)
+          elsif ['centos-7-x86_64', 'centos-8-x86_64', 'debian-9-x86_64', 'debian-10-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'archlinux-5-x86_64', 'virtuozzolinux-7-x86_64'].include?(os)
             # init_style = 'systemd'
 
             it { is_expected.to contain_class('systemd') }
@@ -215,7 +189,7 @@ describe 'prometheus::daemon' do
             }
           end
 
-          if ['debian-7-x86_64', 'ubuntu-14.04-x86_64', 'debian-8-x86_64', 'ubuntu-16.04-x86_64'].include?(os)
+          if os == 'ubuntu-16.04-x86_64'
             it {
               is_expected.to contain_file('/etc/default/smurf_exporter').with(
                 'mode'    => '0644',

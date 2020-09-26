@@ -194,7 +194,7 @@ class prometheus::config {
         Class['systemd::systemctl::daemon_reload'] -> Class['prometheus::run_service']
       }
     }
-    'sysv', 'redhat', 'debian', 'sles': {
+    'sysv', 'redhat', 'sles': {
       $content = $prometheus::server::init_style ? {
         'redhat' => template('prometheus/prometheus.sysv.erb'), # redhat and sysv share the same template file
         default  => template("prometheus/prometheus.${prometheus::server::init_style}.erb"),

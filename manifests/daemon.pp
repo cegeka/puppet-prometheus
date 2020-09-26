@@ -194,15 +194,6 @@ define prometheus::daemon (
         notify  => $notify_service,
       }
     }
-    'debian': {
-      file { "/etc/init.d/${name}":
-        mode    => '0555',
-        owner   => 'root',
-        group   => 'root',
-        content => template('prometheus/daemon.debian.erb'),
-        notify  => $notify_service,
-      }
-    }
     'sles': {
       file { "/etc/init.d/${name}":
         mode    => '0555',

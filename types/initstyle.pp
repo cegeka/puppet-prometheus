@@ -3,7 +3,6 @@ type Prometheus::Initstyle = Enum[
   'redhat',
   'systemd',
   'sles',
-  'debian',
   'launchd',
   'upstart',
   'none',
