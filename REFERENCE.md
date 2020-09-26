@@ -64,6 +64,7 @@ This can be used to make prometheus find instances of your running service or ap
 
 * [`Prometheus::GsUri`](#prometheusgsuri)
 * [`Prometheus::Initstyle`](#prometheusinitstyle)
+* [`Prometheus::Install`](#prometheusinstall): type to enforce the different installation methods for our exporters.
 * [`Prometheus::S3Uri`](#prometheuss3uri)
 * [`Prometheus::Uri`](#prometheusuri)
 
@@ -364,6 +365,14 @@ Default value: ``undef``
 Data type: `Optional[String[1]]`
 
 Custom command passed to the archive resource to extract the downloaded archive.
+
+##### `collect_tag`
+
+Data type: `Optional[String[1]]`
+
+Only collect scrape jobs tagged with this label. Allowing to split jobs over multiple prometheuses.
+
+Default value: ``undef``
 
 ##### `collect_scrape_jobs`
 
@@ -1084,7 +1093,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -1199,6 +1208,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -1322,7 +1339,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -1429,6 +1446,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -1539,7 +1564,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -1656,6 +1681,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -1780,7 +1813,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -1886,7 +1919,7 @@ The binary release version
 
 Data type: `String[1]`
 
-
+The permissions of the configuration files
 
 Default value: `$prometheus::config_mode`
 
@@ -1897,6 +1930,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -1988,7 +2029,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -2095,6 +2136,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -2210,7 +2259,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -2336,6 +2385,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -2442,7 +2499,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -2576,6 +2633,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -2694,7 +2759,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -2810,6 +2875,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -2900,7 +2973,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -3007,6 +3080,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -3127,7 +3208,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -3237,6 +3318,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -3341,7 +3430,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -3448,6 +3537,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -3562,7 +3659,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -3679,6 +3776,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -3798,7 +3903,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -3906,6 +4011,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -4010,7 +4123,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -4125,6 +4238,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -4283,7 +4404,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -4390,6 +4511,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -4603,6 +4732,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -4728,7 +4865,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -4829,6 +4966,14 @@ User which runs the service
 Data type: `String[1]`
 
 The binary release version
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `export_scrape_job`
 
@@ -5075,6 +5220,14 @@ Labels to configure on the scrape job. If not set, the `prometheus::daemon` defa
 
 Default value: ``undef``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ### `prometheus::postgres_exporter`
 
 This module manages prometheus node postgres_exporter
@@ -5149,7 +5302,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -5297,6 +5450,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -5420,7 +5581,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -5559,6 +5720,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -5665,7 +5834,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -5790,6 +5959,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -6447,7 +6624,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -6608,6 +6785,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -6714,7 +6899,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -6831,6 +7016,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -7228,6 +7421,14 @@ Data type: `Optional[Array[Hash[String[1], Any]]]`
 
 Default value: `$prometheus::collect_scrape_jobs`
 
+##### `collect_tag`
+
+Data type: `Optional[String[1]]`
+
+
+
+Default value: `$prometheus::collect_tag`
+
 ##### `max_open_files`
 
 Data type: `Optional[Integer]`
@@ -7338,7 +7539,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -7446,6 +7647,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -7552,7 +7761,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -7677,6 +7886,14 @@ Data type: `Boolean`
 
 Default value: ``false``
 
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
+
 ##### `scrape_port`
 
 Data type: `Stdlib::Port`
@@ -7775,7 +7992,7 @@ Default value: `$facts['service_provider']`
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package (only url is supported currently)
 
@@ -7882,6 +8099,14 @@ Data type: `Boolean`
 
 
 Default value: ``false``
+
+##### `scrape_host`
+
+Data type: `Optional[Stdlib::Host]`
+
+
+
+Default value: ``undef``
 
 ##### `scrape_port`
 
@@ -7997,7 +8222,7 @@ User which runs the service
 
 ##### `install_method`
 
-Data type: `String[1]`
+Data type: `Prometheus::Install`
 
 Installation method: url or package
 
@@ -8280,6 +8505,12 @@ Alias of `Pattern[/^gs:\/\//]`
 The Prometheus::Initstyle data type.
 
 Alias of `Enum['sysv', 'redhat', 'systemd', 'sles', 'debian', 'launchd', 'upstart', 'none']`
+
+### `Prometheus::Install`
+
+type to enforce the different installation methods for our exporters.
+
+Alias of `Enum['url', 'package', 'none']`
 
 ### `Prometheus::S3Uri`
 

@@ -47,6 +47,8 @@
 #  User which runs the service
 # @param version
 #  The binary release version
+# @param config_mode
+#  The permissions of the configuration files
 # Example for configuring named blackbox modules via hiera
 # details of the format: https://github.com/prometheus/blackbox_exporter/blob/master/CONFIGURATION.md
 # @example
@@ -75,7 +77,7 @@ class prometheus::blackbox_exporter (
   Stdlib::Ensure::Service $service_ensure = 'running',
   String[1] $service_name                 = 'blackbox_exporter',
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
-  String[1] $install_method               = $prometheus::install_method,
+  Prometheus::Install $install_method     = $prometheus::install_method,
   Boolean $manage_group                   = true,
   Boolean $manage_service                 = true,
   Boolean $manage_user                    = true,

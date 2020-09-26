@@ -86,7 +86,7 @@ class prometheus::rabbitmq_exporter (
   Optional[String] $download_url          = undef,
   String $extra_options                   = '',
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
-  String[1] $install_method               = $prometheus::install_method,
+  Prometheus::Install $install_method     = $prometheus::install_method,
   Boolean $manage_group                   = true,
   Boolean $manage_service                 = true,
   Boolean $manage_user                    = true,

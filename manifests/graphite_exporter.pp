@@ -55,7 +55,7 @@ class prometheus::graphite_exporter (
   String $options,
   String[1] $os                           = downcase($facts['kernel']),
   Prometheus::Initstyle $init_style       = $facts['service_provider'],
-  String[1] $install_method               = $prometheus::install_method,
+  Prometheus::Install $install_method     = $prometheus::install_method,
   Optional[String] $download_url          = undef,
   String[1] $arch                         = $prometheus::real_arch,
   String[1] $bin_dir                      = $prometheus::bin_dir,

@@ -51,7 +51,7 @@ define prometheus::daemon (
   $notify_service,
   String[1] $user,
   String[1] $group,
-  String[1] $install_method               = $prometheus::install_method,
+  Prometheus::Install $install_method     = $prometheus::install_method,
   String $download_extension              = $prometheus::download_extension,
   String[1] $os                           = $prometheus::os,
   String[1] $arch                         = $prometheus::real_arch,
@@ -72,7 +72,7 @@ define prometheus::daemon (
   Optional[String] $env_file_path         = $prometheus::env_file_path,
   Optional[String[1]] $extract_command    = $prometheus::extract_command,
   Stdlib::Absolutepath $extract_path      = '/opt',
-  Stdlib::Absolutepath $archive_bin_path   = "/opt/${name}-${version}.${os}-${arch}/${name}",
+  Stdlib::Absolutepath $archive_bin_path  = "/opt/${name}-${version}.${os}-${arch}/${name}",
   Boolean $export_scrape_job              = false,
   Stdlib::Host $scrape_host               = $facts['networking']['fqdn'],
   Optional[Stdlib::Port] $scrape_port     = undef,
@@ -129,9 +129,7 @@ define prometheus::daemon (
       }
     }
     'none': {}
-    default: {
-      fail("The provided install method ${install_method} is invalid")
-    }
+    default: {}
   }
   if $manage_user {
     # if we manage the service, we need to reload it if our user changes
