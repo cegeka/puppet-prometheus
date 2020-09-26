@@ -4,7 +4,22 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v10.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v10.1.0) (2020-08-21)
+## [v10.2.0](https://github.com/voxpupuli/puppet-prometheus/tree/v10.2.0) (2020-09-26)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v10.1.0...v10.2.0)
+
+Debian 8 is EOL since a few months now. This release will be the last with official Debian 8 compatibility and support. The next release will be v11.0.0 without Debian 8 support!
+
+**Implemented enhancements:**
+
+- Allow filtering scrape jobs by nodes [\#488](https://github.com/voxpupuli/puppet-prometheus/pull/488) ([fbs](https://github.com/fbs))
+- Add option to override `scrape_host` for exporters [\#487](https://github.com/voxpupuli/puppet-prometheus/pull/487) ([fbs](https://github.com/fbs))
+
+**Merged pull requests:**
+
+- Extend puppet type check for install\_method [\#492](https://github.com/voxpupuli/puppet-prometheus/pull/492) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v10.1.0](https://github.com/voxpupuli/puppet-prometheus/tree/v10.1.0) (2020-08-23)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-prometheus/compare/v10.0.0...v10.1.0)
 
