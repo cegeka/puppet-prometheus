@@ -245,7 +245,7 @@ class prometheus::config {
 
     Prometheus::Scrape_job <<| job_name == $job_name and tag == $node_tag |>> {
       collect_dir => "${prometheus::config_dir}/file_sd_config.d",
-      notify      => Class['::prometheus::service_reload'],
+      notify      => Class['prometheus::service_reload'],
     }
   }
   # assemble the scrape jobs in a single list that gets appended to
