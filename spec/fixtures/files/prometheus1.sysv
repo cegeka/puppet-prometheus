@@ -51,12 +51,12 @@ start() {
         [ -f $PID_FILE ] && rm $PID_FILE
         daemon --user=prometheus \
             --pidfile="$PID_FILE" \
-            "$DAEMON" -log.format logger:stdout -config.file=/etc/prometheus/prometheus.yaml \
+            "'$DAEMON' -log.format logger:stdout -config.file=/etc/prometheus/prometheus.yaml \
             -web.console.templates=/usr/local/share/prometheus/consoles \
             -web.console.libraries=/usr/local/share/prometheus/console_libraries \
             -storage.local.path=/var/lib/prometheus \
             -storage.local.retention=360h \
-             >> "$LOG_FILE" &
+            >> '$LOG_FILE' 2>&1 &"
         retcode=$?
         mkpidfile
         touch /var/lock/subsys/prometheus
