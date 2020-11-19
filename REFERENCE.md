@@ -8,7 +8,7 @@
 
 #### Public Classes
 
-* [`prometheus`](#prometheus): #sammary This module manages prometheus
+* [`prometheus`](#prometheus): This module manages prometheus
 * [`prometheus::alertmanager`](#prometheusalertmanager): This module manages prometheus alertmanager
 * [`prometheus::apache_exporter`](#prometheusapache_exporter): This module manages prometheus apache_exporter
 * [`prometheus::beanstalkd_exporter`](#prometheusbeanstalkd_exporter): This module manages prometheus beanstalkd_exporter
@@ -72,7 +72,7 @@ This can be used to make prometheus find instances of your running service or ap
 
 ### `prometheus`
 
-#sammary This module manages prometheus
+This module manages prometheus.
 
 #### Parameters
 
