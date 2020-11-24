@@ -48,7 +48,7 @@
 # @param puppetdb_url
 #  The URI to PuppetDB with http/https protocol at the beginning and `/pdb/query` at the end
 class prometheus::puppetdb_exporter (
-  String[1] $download_extension           = 'tar.gz',
+  String $download_extension              = 'tar.gz',
   String[1] $download_url_base            = 'https://github.com/camptocamp/prometheus-puppetdb-exporter/releases',
   Array[String] $extra_groups             = [],
   String[1] $group                        = 'puppetdb-exporter',

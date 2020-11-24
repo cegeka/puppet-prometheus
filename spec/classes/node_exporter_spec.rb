@@ -86,6 +86,16 @@ describe 'prometheus::node_exporter' do
           it { is_expected.to contain_file('/usr/local/bin/node_exporter').with('target' => '/opt/node_exporter-0.13.0.linux-amd64/node_exporter') }
         end
       end
+
+      context 'with no download_extension' do
+        let(:params) do
+          {
+            download_extension: '',
+          }
+        end
+
+        it { is_expected.to contain_prometheus__daemon('node_exporter').with_download_extension('') }
+      end
     end
   end
 end
