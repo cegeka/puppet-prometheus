@@ -106,18 +106,7 @@ describe 'prometheus' do
             )
           }
 
-          if ['centos-6-x86_64', 'redhat-6-x86_64'].include?(os)
-            # init_style = 'sysv'
-
-            it {
-              is_expected.to contain_file('/etc/init.d/prometheus').with(
-                'mode'   => '0555',
-                'owner'  => 'root',
-                'group'  => 'root',
-                'content' => File.read(fixtures('files', "prometheus#{prom_major}.sysv"))
-              )
-            }
-          elsif ['centos-7-x86_64', 'centos-8-x86_64', 'debian-9-x86_64', 'debian-10-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'virtuozzolinux-7-x86_64'].include?(os)
+          if ['centos-7-x86_64', 'centos-8-x86_64', 'debian-9-x86_64', 'debian-10-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'virtuozzolinux-7-x86_64'].include?(os)
             # 'archlinux-5-x86_64' got removed from that list. It has systemd, but we use the repo packages and their shipped unit files.
             # init_style = 'systemd'
 
