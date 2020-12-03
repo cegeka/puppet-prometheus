@@ -106,10 +106,10 @@ describe 'prometheus' do
             )
           }
 
-          if ['centos-7-x86_64', 'centos-8-x86_64', 'debian-9-x86_64', 'debian-10-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'ubuntu-20.04-x86_64', 'virtuozzolinux-7-x86_64'].include?(os)
-            # 'archlinux-5-x86_64' got removed from that list. It has systemd, but we use the repo packages and their shipped unit files.
-            # init_style = 'systemd'
+          if facts[:os]['name'] == 'Archlinux'
 
+            it { is_expected.not_to contain_systemd__unit_file('prometheus.service') }
+          else
             it {
               is_expected.to contain_class('systemd')
             }
@@ -137,13 +137,6 @@ describe 'prometheus' do
                 }
               end
             end
-          elsif os == 'archlinux-5-x86_64'
-
-            it { is_expected.not_to contain_systemd__unit_file('prometheus.service') }
-          else
-            it {
-              is_expected.to raise_error(Puppet::Error, %r{I don't know how to create an init script for style})
-            }
           end
 
           it {
