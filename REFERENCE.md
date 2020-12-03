@@ -72,7 +72,7 @@ This can be used to make prometheus find instances of your running service or ap
 
 ### `prometheus`
 
-This module manages prometheus.
+This module manages prometheus
 
 #### Parameters
 
@@ -1673,6 +1673,14 @@ Data type: `String[1]`
 The binary release version
 
 Default value: `'1.2.4'`
+
+##### `env_vars`
+
+Data type: `Hash[String[1], Scalar]`
+
+hash with custom environment variables thats passed to the exporter via init script / unit file
+
+Default value: `{}`
 
 ##### `export_scrape_job`
 
@@ -5942,7 +5950,7 @@ Data type: `String[1]`
 
 The binary release version
 
-Default value: `'1.0.0'`
+Default value: `'1.1.0'`
 
 ##### `puppetdb_url`
 
@@ -8390,7 +8398,7 @@ Default value: `''`
 
 ##### `env_vars`
 
-Data type: `Hash[String, Scalar]`
+Data type: `Hash[String[1], Scalar]`
 
 
 
@@ -8504,7 +8512,7 @@ Alias of `Pattern[/^gs:\/\//]`
 
 The Prometheus::Initstyle data type.
 
-Alias of `Enum['sysv', 'redhat', 'systemd', 'sles', 'debian', 'launchd', 'upstart', 'none']`
+Alias of `Enum['sysv', 'systemd', 'sles', 'launchd', 'upstart', 'none']`
 
 ### `Prometheus::Install`
 
