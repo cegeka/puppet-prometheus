@@ -13,7 +13,7 @@ describe 'prometheus::server' do
             parameters
           end
 
-          if ['centos-7-x86_64', 'centos-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64'].include?(os)
+          if ['centos-7-x86_64', 'centos-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'ubuntu-20.04-x86_64'].include?(os)
             prom_version = parameters[:version] || '1.5.2'
             prom_major = prom_version[0]
             it {

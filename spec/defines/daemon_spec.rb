@@ -91,7 +91,7 @@ describe 'prometheus::daemon' do
             it { is_expected.to contain_archive("/tmp/smurf_exporter-#{parameters[:version]}.tar.gz").with_extract_path('/opt/foo') }
           end
 
-          if ['centos-7-x86_64', 'centos-8-x86_64', 'debian-9-x86_64', 'debian-10-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'archlinux-5-x86_64', 'virtuozzolinux-7-x86_64'].include?(os)
+          if ['centos-7-x86_64', 'centos-8-x86_64', 'debian-9-x86_64', 'debian-10-x86_64', 'redhat-7-x86_64', 'redhat-8-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64',  'ubuntu-20.04-x86_64', 'archlinux-5-x86_64', 'virtuozzolinux-7-x86_64'].include?(os)
             # init_style = 'systemd'
 
             it { is_expected.to contain_class('systemd') }
