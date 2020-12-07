@@ -5950,7 +5950,7 @@ Data type: `String[1]`
 
 The binary release version
 
-Default value: `'1.0.0'`
+Default value: `'1.1.0'`
 
 ##### `puppetdb_url`
 
