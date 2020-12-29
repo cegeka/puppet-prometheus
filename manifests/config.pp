@@ -222,7 +222,7 @@ class prometheus::config {
   file { "${prometheus::config_dir}/file_sd_config.d":
     ensure  => directory,
     group   => $prometheus::server::group,
-    purge   => true,
+    purge   => $prometheus::purge_config_dir,
     recurse => true,
     notify  => Class['prometheus::service_reload'], # After purging, a reload is needed
   }
